@@ -1,0 +1,37 @@
+#CONFIGURAÇÃO DO SERVIDOR
+server:
+  port: 8081
+  servlet:
+    context-path: /api/fatextil
+  error:
+    include-message: always
+    include-stacktrace: always
+application:
+  name: SOFTWARE PARA GESTÃO DOS PROCESSO DE MANUFATURA EM UMA FÁBRICA DE CONFECÇÃO DE FARDAMENTOS.
+
+#CONFIGURAÇÕES DE CONEXÃO COM O BANCO DE DADOS
+spring:
+  datasource:
+    url: jdbc:postgresql://${DB_HOST}/${DB_NAME}
+    driver-class-name: org.postgresql.Driver
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
+  #HIBERNATE DDL AUTO (create, create-drop, validate, update)
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+    #CONFIGURAÇÃO QUE DEFINE A FORMA COMO O MAPEAMENTO DO JPA IRÁ TRABALHAR
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+        #LOGANDO/PRINT DOS COMANDOS SQL GERADOS PELO SPRING DATA
+        show_sql: true
+        format_sql: true
+
+  #CONFIGURAÇÃO DO SWAGGER
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
