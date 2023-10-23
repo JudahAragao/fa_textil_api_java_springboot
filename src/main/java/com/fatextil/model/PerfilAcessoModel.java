@@ -10,7 +10,7 @@ public class PerfilAcessoModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer perfilAcessoId;
+    private Long perfilAcessoId;
 
     @Column(nullable = false, length = 20)
     private String nomePerfilAcesso;

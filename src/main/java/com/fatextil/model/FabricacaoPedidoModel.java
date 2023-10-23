@@ -11,7 +11,7 @@ public class FabricacaoPedidoModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer fabricacaoPedidoId;
+    private Long fabricacaoPedidoId;
 
     @ManyToOne
     @JoinColumn(name = "etapasFabricacaoId", referencedColumnName = "etapasFabricacaoId")

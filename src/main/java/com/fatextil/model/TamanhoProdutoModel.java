@@ -10,7 +10,7 @@ public class TamanhoProdutoModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer tamanhoProdutoId;
+    private Long tamanhoProdutoId;
 
     @OneToOne
     @JoinColumn(name = "codProduto", referencedColumnName = "codProduto")

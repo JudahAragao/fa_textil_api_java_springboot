@@ -10,7 +10,7 @@ public class ElementosArteModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer elementosArteId;
+    private Long elementosArteId;
 
     @ManyToOne
     @JoinColumn(name = "itensPedidoId", referencedColumnName = "itensPedidoId")

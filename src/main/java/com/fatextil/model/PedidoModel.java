@@ -13,7 +13,7 @@ public class PedidoModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer codPedido;
+    private Long codPedido;
 
     @ManyToOne
     @JoinColumn(name = "clienteId", referencedColumnName = "clienteId")

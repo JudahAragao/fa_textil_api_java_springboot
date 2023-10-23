@@ -11,7 +11,7 @@ public class ClientePJuridicaModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer clientePJuridicaId;
+    private Long clientePJuridicaId;
 
     @OneToOne
     @JoinColumn(name = "clienteId", referencedColumnName = "clienteId")
@@ -47,10 +47,10 @@ public class ClientePJuridicaModel {
     @Column(nullable = false, length = 9)
     private String cep;
 
-    @Column(nullable = false, length = 14)
-    private String inscricaoEstatual;
+    @Column(length = 14)
+    private String inscricaoEstadual;
 
-    @Column(nullable = false, length = 14)
+    @Column(length = 14)
     private String inscricaoMunicipal;
 
     @Column(nullable = false, length = 14)

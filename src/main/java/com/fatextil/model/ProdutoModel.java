@@ -11,7 +11,7 @@ public class ProdutoModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer codProduto;
+    private Long codProduto;
 
     @Column(nullable = false, length = 120)
     private String descricao;

@@ -11,7 +11,7 @@ public class ClientePFisicaModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer clientePFisicaId;
+    private Long clientePFisicaId;
 
     @OneToOne
     @JoinColumn(name = "clienteId", referencedColumnName = "clienteId")

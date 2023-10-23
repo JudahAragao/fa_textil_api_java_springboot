@@ -11,7 +11,7 @@ public class DemandaPProdutoModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer demandaPProdutoId;
+    private Long demandaPProdutoId;
 
     @OneToOne
     @JoinColumn(name = "tamanhoProdutoId", referencedColumnName = "tamanhoProdutoId")

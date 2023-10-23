@@ -11,7 +11,7 @@ public class FuncionarioModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer funcionarioId;
+    private Long funcionarioId;
 
     @Column(nullable = false, length = 100)
     private String nome;

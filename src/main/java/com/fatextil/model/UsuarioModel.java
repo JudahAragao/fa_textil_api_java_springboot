@@ -10,7 +10,7 @@ public class UsuarioModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer usuarioId;
+    private Long usuarioId;
 
     @ManyToOne
     @JoinColumn(name = "perfilAcessoId", referencedColumnName = "perfilAcessoId")

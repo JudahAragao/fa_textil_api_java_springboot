@@ -10,7 +10,7 @@ public class CategoriaElementoArteModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer categoriaElementoId;
+    private Long categoriaElementoId;
 
     @Column(nullable = false, length = 50)
     private String nomeCategoria;

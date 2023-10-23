@@ -10,7 +10,7 @@ public class EtapasFabricacaoModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer etapasFabricacaoId;
+    private Long etapasFabricacaoId;
 
     @Column(nullable = false, length = 100)
     private String nomeEtapa;

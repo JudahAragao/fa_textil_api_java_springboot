@@ -12,11 +12,15 @@ public class TerceirizacaoModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer terceirizacaoId;
+    private Long terceirizacaoId;
 
     @ManyToOne
     @JoinColumn(name = "terceirizadoId", referencedColumnName = "terceirizadoId")
     private TerceirizadoModel terceirizadoId;
+
+    @ManyToOne
+    @JoinColumn(name = "fabricacaoPedidoId", referencedColumnName = "fabricacaoPedidoId")
+    private FabricacaoPedidoModel fabricacaoPedidoId;
 
     @Column(nullable = false)
     private LocalDate dataEnvio;

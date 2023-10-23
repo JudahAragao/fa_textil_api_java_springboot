@@ -10,8 +10,9 @@ public class ClienteModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer clienteId;
+    private Long clienteId;
 
     @Column(nullable = false, length = 8)
-    private Integer tipoCliente;
+    private String tipoCliente;
+
 }

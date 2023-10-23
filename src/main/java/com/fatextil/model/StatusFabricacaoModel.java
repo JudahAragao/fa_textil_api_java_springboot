@@ -10,7 +10,7 @@ public class StatusFabricacaoModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer statusFabricacaoId;
+    private Long statusFabricacaoId;
 
     @Column(nullable = false, length = 10)
     private String nomeStatusFabricacao;

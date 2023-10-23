@@ -11,7 +11,7 @@ public class TerceirizadoModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer terceirizadoId;
+    private Long terceirizadoId;
 
     @Column(nullable = false, length = 100)
     private String nome;
