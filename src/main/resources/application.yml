@@ -1,18 +1,18 @@
-#CONFIGURAÇÃO DO SERVIDOR
+#CONFIGURAï¿½ï¿½O DO SERVIDOR
 server:
   port: 8081
   servlet:
-    context-path: /api/fatextil
+    context-path: /api/
   error:
     include-message: always
     include-stacktrace: always
 application:
-  name: SOFTWARE PARA GESTÃO DOS PROCESSO DE MANUFATURA EM UMA FÁBRICA DE CONFECÇÃO DE FARDAMENTOS.
+  name: SOFTWARE PARA GESTï¿½O DOS PROCESSO DE MANUFATURA EM UMA Fï¿½BRICA DE CONFECï¿½ï¿½O DE FARDAMENTOS.
 
-#CONFIGURAÇÕES DE CONEXÃO COM O BANCO DE DADOS
+#CONFIGURAï¿½ï¿½ES DE CONEXï¿½O COM O BANCO DE DADOS
 spring:
   datasource:
-    url: jdbc:postgresql://${DB_HOST}/${DB_NAME}
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}
     driver-class-name: org.postgresql.Driver
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
@@ -22,7 +22,7 @@ spring:
     hibernate:
       ddl-auto: update
 
-    #CONFIGURAÇÃO QUE DEFINE A FORMA COMO O MAPEAMENTO DO JPA IRÁ TRABALHAR
+    #CONFIGURAï¿½ï¿½O QUE DEFINE A FORMA COMO O MAPEAMENTO DO JPA IRï¿½ TRABALHAR
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
@@ -31,7 +31,7 @@ spring:
         show_sql: true
         format_sql: true
 
-  #CONFIGURAÇÃO DO SWAGGER
+  #CONFIGURAï¿½ï¿½O DO SWAGGER
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
