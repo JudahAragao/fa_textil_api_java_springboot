@@ -14,13 +14,9 @@ public class TerceirizacaoModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long terceirizacaoId;
 
-    @ManyToOne
-    @JoinColumn(name = "terceirizadoId", referencedColumnName = "terceirizadoId")
-    private TerceirizadoModel terceirizadoId;
+    private Long terceirizadoId;
 
-    @ManyToOne
-    @JoinColumn(name = "fabricacaoPedidoId", referencedColumnName = "fabricacaoPedidoId")
-    private FabricacaoPedidoModel fabricacaoPedidoId;
+    private Long fabricacaoPedidoId;
 
     @Column(name = "dataEnvio", nullable = false)
     private LocalDate dataEnvio;

@@ -56,9 +56,7 @@ public class TamanhoProdutoService {
                 TamanhoProdutoModel tamanhoProdutoAtualizado = tamanhoProdutoExistente.get();
 
                 // Defina o relacionamento para ProdutoModel
-                ProdutoModel produto = new ProdutoModel();
-                produto.setCodProduto(tamanhoProdutoForm.getCodProduto());
-                tamanhoProdutoAtualizado.setCodProduto(produto);
+                tamanhoProdutoAtualizado.setCodProduto(tamanhoProdutoForm.getCodProduto());
 
                 tamanhoProdutoAtualizado.setTamanho(tamanhoProdutoForm.getTamanho());
 
@@ -86,10 +84,7 @@ public class TamanhoProdutoService {
         TamanhoProdutoModel tamanhoProdutoModel = new TamanhoProdutoModel();
 
         // Definir o relacionamento para ProdutoModel
-        ProdutoModel produto = new ProdutoModel();
-        produto.setCodProduto(tamanhoProdutoForm.getCodProduto());
-        tamanhoProdutoModel.setCodProduto(produto);
-
+        tamanhoProdutoModel.setCodProduto(tamanhoProdutoForm.getCodProduto());
         tamanhoProdutoModel.setTamanho(tamanhoProdutoForm.getTamanho());
         return tamanhoProdutoModel;
     }
@@ -97,7 +92,7 @@ public class TamanhoProdutoService {
     private TamanhoProdutoDto convertModelToDto(TamanhoProdutoModel tamanhoProdutoModel) {
         TamanhoProdutoDto tamanhoProdutoDto = new TamanhoProdutoDto();
         tamanhoProdutoDto.setTamanhoProdutoId(tamanhoProdutoModel.getTamanhoProdutoId());
-        tamanhoProdutoDto.setCodProduto(tamanhoProdutoModel.getCodProduto().getCodProduto());
+        tamanhoProdutoDto.setCodProduto(tamanhoProdutoModel.getCodProduto());
         tamanhoProdutoDto.setTamanho(tamanhoProdutoModel.getTamanho());
         return tamanhoProdutoDto;
     }

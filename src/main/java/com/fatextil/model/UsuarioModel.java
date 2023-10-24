@@ -12,13 +12,9 @@ public class UsuarioModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long usuarioId;
 
-    @ManyToOne
-    @JoinColumn(name = "perfilAcessoId", referencedColumnName = "perfilAcessoId")
-    private PerfilAcessoModel perfilAcessoId;
+    private Long perfilAcessoId;
 
-    @OneToOne
-    @JoinColumn(name = "funcionarioId", referencedColumnName = "funcionarioId")
-    private FuncionarioModel funcionarioId;
+    private Long funcionarioId;
 
     @Column(name = "login", nullable = false, length = 20)
     private String login;

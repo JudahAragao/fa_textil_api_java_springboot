@@ -86,14 +86,9 @@ public class UsuarioService {
 
     private UsuarioModel convertFormToModel(UsuarioForm usuarioForm) {
         UsuarioModel usuarioModel = new UsuarioModel();
+        usuarioModel.setPerfilAcessoId(usuarioForm.getPerfilAcessoId());
+        usuarioModel.setFuncionarioId(usuarioForm.getFuncionarioId());
         usuarioModel.setLogin(usuarioForm.getLogin());
-        // Suponha que o perfilAcessoId e funcionarioId sejam buscados de alguma forma
-        PerfilAcessoModel perfilAcesso = new PerfilAcessoModel();
-        perfilAcesso.setPerfilAcessoId(usuarioForm.getPerfilAcessoId());
-        FuncionarioModel funcionario = new FuncionarioModel();
-        funcionario.setFuncionarioId(usuarioForm.getFuncionarioId());
-        usuarioModel.setPerfilAcessoId(perfilAcesso);
-        usuarioModel.setFuncionarioId(funcionario);
         usuarioModel.setSenha(usuarioForm.getSenha());
         usuarioModel.setAtivo(usuarioForm.getAtivo());
         return usuarioModel;
@@ -102,9 +97,8 @@ public class UsuarioService {
     private UsuarioDto convertModelToDto(UsuarioModel usuarioModel) {
         UsuarioDto usuarioDto = new UsuarioDto();
         usuarioDto.setUsuarioId(usuarioModel.getUsuarioId());
-        // Obter os IDs de perfilAcesso e funcionario conforme necessário
-        usuarioDto.setPerfilAcessoId(usuarioModel.getPerfilAcessoId().getPerfilAcessoId());
-        usuarioDto.setFuncionarioId(usuarioModel.getFuncionarioId().getFuncionarioId());
+        usuarioDto.setPerfilAcessoId(usuarioModel.getPerfilAcessoId());
+        usuarioDto.setFuncionarioId(usuarioModel.getFuncionarioId());
         usuarioDto.setLogin(usuarioModel.getLogin());
         usuarioDto.setSenha(usuarioModel.getSenha());
         usuarioDto.setAtivo(usuarioModel.getAtivo());

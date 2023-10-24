@@ -15,13 +15,9 @@ public class PedidoModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codPedido;
 
-    @ManyToOne
-    @JoinColumn(name = "clienteId", referencedColumnName = "clienteId")
-    private ClienteModel clienteId;
+    private Long clienteId;
 
-    @ManyToOne
-    @JoinColumn(name = "statusPedidoId", referencedColumnName = "statusPedidoId")
-    private StatusPedidoModel statusPedidoId;
+    private Long statusPedidoId;
 
     @Column(name = "descricao", nullable = false, columnDefinition = "VARCHAR(255)")
     private String descricao;

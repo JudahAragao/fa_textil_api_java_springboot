@@ -13,21 +13,13 @@ public class FabricacaoPedidoModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long fabricacaoPedidoId;
 
-    @ManyToOne
-    @JoinColumn(name = "etapasFabricacaoId", referencedColumnName = "etapasFabricacaoId")
-    private EtapasFabricacaoModel etapasFabricacaoId;
+    private Long etapasFabricacaoId;
 
-    @ManyToOne
-    @JoinColumn(name = "itensPedidoId", referencedColumnName = "itensPedidoId")
-    private ItensPedidoModel itensPedidoId;
+    private Long itensPedidoId;
 
-    @ManyToOne
-    @JoinColumn(name = "funcionarioId", referencedColumnName = "funcionarioId")
-    private FuncionarioModel funcionarioId;
+    private Long funcionarioId;
 
-    @ManyToOne
-    @JoinColumn(name = "statusFabricacaoId", referencedColumnName = "statusFabricacaoId")
-    private StatusFabricacaoModel statusFabricacaoId;
+    private Long statusFabricacaoId;
 
     @Column(name = "dataInicio", nullable = false)
     private LocalDate dataInicio;

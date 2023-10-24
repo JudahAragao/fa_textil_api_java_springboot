@@ -23,4 +23,11 @@ public class ElementosArteForm {
     @Size(max = 100)
     private String path;
 
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
 }

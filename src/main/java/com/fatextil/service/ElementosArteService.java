@@ -1,9 +1,6 @@
 package com.fatextil.service;
 
-import com.fatextil.model.CategoriaElementoArteModel;
-import com.fatextil.model.ClienteModel;
 import com.fatextil.model.ElementosArteModel;
-import com.fatextil.model.ItensPedidoModel;
 import com.fatextil.repository.ElementosArteRepository;
 import com.fatextil.rest.dto.ElementosArteDto;
 import com.fatextil.rest.form.ElementosArteForm;
@@ -63,7 +60,7 @@ public class ElementosArteService {
             throw new DataIntegrityException("Campo(s) obrigatório(s) não foi(foram) preenchido(s).");
         }
     }
-    public ElementosArteDto upload(MultipartFile elemento, String fileName, String filePath) {
+    public ElementosArteDto upload(String fileName, String filePath) {
         try {
             Optional<ElementosArteModel> optionalExistingFile = elementosArteRepository.findByFileName(fileName);
 
@@ -74,8 +71,6 @@ public class ElementosArteService {
                 String modifiedFileName = fileName + "_" + new Date().getTime();
                 existingFile.setFileName(modifiedFileName);
 
-                // Atualize os metadados, se necessário
-                // Salve novamente no repositório se desejado
                 elementosArteRepository.save(existingFile);
                 // Use a função de conversão para converter ElementosArteModel em ElementosArteDto e retorne imediatamente
                 return convertModelToDto(existingFile);
@@ -102,17 +97,11 @@ public class ElementosArteService {
         try {
             Optional<ElementosArteModel> elementosArteExistente = elementosArteRepository.findById(elementosArteId);
             if (elementosArteExistente.isPresent()) {
+
                 ElementosArteModel elementosArteAtualizado = elementosArteExistente.get();
 
-                // Para criar uma instância do ItensPedidoModel
-                ItensPedidoModel itensPedidoModel = new ItensPedidoModel();
-                itensPedidoModel.setItensPedidoId(elementosArteForm.getItensPedidoId());
-                elementosArteAtualizado.setItensPedidoId(itensPedidoModel);
-
-                // Para criar uma instância do CategoriaElementoArteModel
-                CategoriaElementoArteModel categoriaElementoArteModel = new CategoriaElementoArteModel();
-                categoriaElementoArteModel.setCategoriaElementoId(elementosArteForm.getCategoriaElementoId());
-                elementosArteAtualizado.setCategoriaElementoId(categoriaElementoArteModel);
+                elementosArteAtualizado.setItensPedidoId(elementosArteForm.getItensPedidoId());
+                elementosArteAtualizado.setCategoriaElementoId(elementosArteForm.getCategoriaElementoId());
 
                 elementosArteAtualizado.setFileName(elementosArteForm.getFilename());
                 elementosArteAtualizado.setPath(elementosArteForm.getPath());
@@ -144,15 +133,11 @@ public class ElementosArteService {
 
         // Verifique se os campos não são nulos antes de acessá-los
         if (elementosArteForm.getItensPedidoId() != null) {
-            ItensPedidoModel itensPedidoModel = new ItensPedidoModel();
-            itensPedidoModel.setItensPedidoId(elementosArteForm.getItensPedidoId());
-            elementosArteModel.setItensPedidoId(itensPedidoModel);
+            elementosArteModel.setItensPedidoId(elementosArteForm.getItensPedidoId());
         }
 
         if (elementosArteForm.getCategoriaElementoId() != null) {
-            CategoriaElementoArteModel categoriaElementoArteModel = new CategoriaElementoArteModel();
-            categoriaElementoArteModel.setCategoriaElementoId(elementosArteForm.getCategoriaElementoId());
-            elementosArteModel.setCategoriaElementoId(categoriaElementoArteModel);
+            elementosArteModel.setCategoriaElementoId(elementosArteForm.getCategoriaElementoId());
         }
 
         elementosArteModel.setFileName(elementosArteForm.getFilename());
@@ -166,8 +151,8 @@ public class ElementosArteService {
         ElementosArteDto elementosArteDto = new ElementosArteDto();
 
         elementosArteDto.setElementosArteId(elementosArteModel.getElementosArteId());
-        elementosArteDto.setItensPedidoId(elementosArteModel.getItensPedidoId().getItensPedidoId());
-        elementosArteDto.setCategoriaElementoId(elementosArteModel.getCategoriaElementoId().getCategoriaElementoId());
+        elementosArteDto.setItensPedidoId(elementosArteModel.getItensPedidoId());
+        elementosArteDto.setCategoriaElementoId(elementosArteModel.getCategoriaElementoId());
         elementosArteDto.setFilename(elementosArteModel.getFileName());
         elementosArteDto.setPath(elementosArteModel.getPath());
 

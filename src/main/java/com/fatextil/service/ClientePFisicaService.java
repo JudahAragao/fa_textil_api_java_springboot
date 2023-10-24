@@ -32,7 +32,7 @@ public class ClientePFisicaService {
     public ClientePFisicaDto findById(Long clientPFisicaId) {
         try {
             ClientePFisicaModel clientePFisicaModel = clientePFisicaRepository.findById(clientPFisicaId).get();
-            return convertClientePFisicaModelToClienteDto (clientePFisicaModel);
+            return convertModelToDto (clientePFisicaModel);
         } catch (NoSuchElementException e) {
             throw new ObjectNotFoundException("Objeto não encontrado! Id: " + clientPFisicaId + "Tipo: " + ClientePFisicaModel.class.getName());
         }
@@ -41,7 +41,7 @@ public class ClientePFisicaService {
     // Inserção no banco de dados
     public ClientePFisicaDto insert(ClientePFisicaForm clientePFisicaForm) {
         try {
-            ClientePFisicaModel clientePFisicaNovo = convertClienteFormToClientePFisica(clientePFisicaForm);
+            ClientePFisicaModel clientePFisicaNovo = convertFormToModel(clientePFisicaForm);
             Optional<ClientePFisicaModel> byNome = clientePFisicaRepository.findByNome(clientePFisicaNovo.getNome());
             Optional<ClientePFisicaModel> byTelefone = clientePFisicaRepository.findByTelefone(clientePFisicaNovo.getTelefone());
             Optional<ClientePFisicaModel> byEmail = clientePFisicaRepository.findByEmail(clientePFisicaNovo.getEmail());
@@ -59,7 +59,7 @@ public class ClientePFisicaService {
 
             clientePFisicaNovo = clientePFisicaRepository.save(clientePFisicaNovo);
 
-            return convertClientePFisicaModelToClienteDto(clientePFisicaNovo);
+            return convertModelToDto(clientePFisicaNovo);
         } catch (DataIntegrityViolationException e) {
             throw new DataIntegrityException("Campo(s) obrigatório(s) não foi(foram) preenchido(s).");
         }
@@ -83,7 +83,7 @@ public class ClientePFisicaService {
                 clientePFisicaAtualizado.setAtivo(clientePFisicaUpdateForm.getAtivo());
 
                 clientePFisicaRepository.save(clientePFisicaAtualizado);
-                return convertClientePFisicaModelToClienteDto(clientePFisicaAtualizado);
+                return convertModelToDto(clientePFisicaAtualizado);
             } else {
                 throw new DataIntegrityException("O id do cliente não existe na base de dados!");
             }
@@ -104,8 +104,9 @@ public class ClientePFisicaService {
     }
 
     // Conversores de FORM para MODEL
-    private ClientePFisicaModel convertClienteFormToClientePFisica(ClientePFisicaForm clientePFisicaForm){
+    private ClientePFisicaModel convertFormToModel(ClientePFisicaForm clientePFisicaForm){
         ClientePFisicaModel clientePFisicaModel = new ClientePFisicaModel();
+        clientePFisicaModel.setClienteId(clientePFisicaForm.getClienteId());
         clientePFisicaModel.setNome(clientePFisicaForm.getNome());
         clientePFisicaModel.setTelefone(clientePFisicaForm.getTelefone());
         clientePFisicaModel.setEmail(clientePFisicaForm.getEmail());
@@ -114,6 +115,7 @@ public class ClientePFisicaService {
         clientePFisicaModel.setBairro(clientePFisicaForm.getBairro());
         clientePFisicaModel.setComplemento(clientePFisicaForm.getComplemento());
         clientePFisicaModel.setCep(clientePFisicaForm.getCep());
+        clientePFisicaModel.setCpf(clientePFisicaForm.getCpf());
         clientePFisicaModel.setAtivo(clientePFisicaForm.getAtivo());
         clientePFisicaModel.setDataCadastro(clientePFisicaForm.getDataCadastro());
 
@@ -121,9 +123,10 @@ public class ClientePFisicaService {
     }
 
     // Conversores de MODEL para DTO
-    private ClientePFisicaDto convertClientePFisicaModelToClienteDto(ClientePFisicaModel clientePFisicaModel) {
+    private ClientePFisicaDto convertModelToDto(ClientePFisicaModel clientePFisicaModel) {
         ClientePFisicaDto clientePFisicaDto = new ClientePFisicaDto();
         clientePFisicaDto.setClientePFisicaId(clientePFisicaModel.getClientePFisicaId());
+        clientePFisicaDto.setClienteId(clientePFisicaModel.getClienteId());
         clientePFisicaDto.setNome(clientePFisicaModel.getNome());
         clientePFisicaDto.setTelefone(clientePFisicaModel.getTelefone());
         clientePFisicaDto.setEmail(clientePFisicaModel.getEmail());
@@ -142,7 +145,7 @@ public class ClientePFisicaService {
     private List<ClientePFisicaDto> convertListToDto(List<ClientePFisicaModel> list) {
         List<ClientePFisicaDto> clientePFisicaDtoList = new ArrayList<>();
         for(ClientePFisicaModel clientePFisicamodel : list) {
-            ClientePFisicaDto clienteDto = this.convertClientePFisicaModelToClienteDto(clientePFisicamodel);
+            ClientePFisicaDto clienteDto = this.convertModelToDto(clientePFisicamodel);
             clientePFisicaDtoList.add(clienteDto);
         }
         return clientePFisicaDtoList;

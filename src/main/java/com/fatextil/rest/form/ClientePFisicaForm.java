@@ -63,6 +63,6 @@ public class ClientePFisicaForm {
     private Boolean ativo;
 
     @NotNull(message = "Data de cadastro não pode ser nula.")
-    @JsonFormat(pattern = "dd-MM-yyyy")
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataCadastro;
 }

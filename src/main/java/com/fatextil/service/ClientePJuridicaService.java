@@ -115,6 +115,7 @@ public class ClientePJuridicaService {
     public ClientePJuridicaModel convertFormToModel(ClientePJuridicaForm clientePJuridicaForm) {
         ClientePJuridicaModel clientePJuridicaModel = new ClientePJuridicaModel();
 
+        clientePJuridicaModel.setClienteId(clientePJuridicaForm.getClienteId());
         clientePJuridicaModel.setRazaoSocial(clientePJuridicaForm.getRazaoSocial());
         clientePJuridicaModel.setRepresentante(clientePJuridicaForm.getRepresentante());
         clientePJuridicaModel.setTelefone(clientePJuridicaForm.getTelefone());

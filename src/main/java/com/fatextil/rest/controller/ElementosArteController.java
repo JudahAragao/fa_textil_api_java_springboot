@@ -1,5 +1,6 @@
 package com.fatextil.rest.controller;
 
+import com.fatextil.model.ElementosArteModel;
 import com.fatextil.rest.dto.ElementosArteDto;
 import com.fatextil.rest.form.ElementosArteForm;
 import com.fatextil.service.ElementosArteService;
@@ -42,7 +43,7 @@ public class ElementosArteController {
     }
 
     @PostMapping("/upload")
-    public ResponseEntity<ElementosArteDto> upload(@RequestParam("elemento") MultipartFile elemento) {
+    public ResponseEntity<ElementosArteDto> upload(MultipartFile elemento) {
         try {
             // Obtém o nome do arquivo original
             String originalFileName = elemento.getOriginalFilename();
@@ -50,6 +51,10 @@ public class ElementosArteController {
             if (originalFileName != null) {
                 String fileName = addTimestampToFileName(originalFileName); // Adicione a data e hora ao nome do arquivo
                 String filePath = diretorio;
+
+                ElementosArteForm elementosArteForm = new ElementosArteForm();
+                elementosArteForm.setFilename(fileName);
+                elementosArteForm.setPath(filePath);
 
                 // Verifique se o arquivo já existe no banco de dados
                 ElementosArteDto existingFile = elementoArteService.findByFileName(fileName);
@@ -62,7 +67,7 @@ public class ElementosArteController {
                 disco.salvarFoto(elemento);
 
                 // Chama o serviço para realizar o upload do arquivo e salvar no banco de dados
-                ElementosArteDto uploadedDto = elementoArteService.upload(elemento, fileName, filePath);
+                ElementosArteDto uploadedDto = elementoArteService.upload(fileName, filePath);
 
                 return ResponseEntity.ok(uploadedDto); // Retorna o DTO preenchido
             } else {

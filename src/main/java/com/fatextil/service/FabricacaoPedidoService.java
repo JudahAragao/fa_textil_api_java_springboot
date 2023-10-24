@@ -88,22 +88,10 @@ public class FabricacaoPedidoService {
     public FabricacaoPedidoModel convertFormToModel(FabricacaoPedidoForm fabricacaoPedidoForm) {
         FabricacaoPedidoModel fabricacaoPedidoModel = new FabricacaoPedidoModel();
 
-        EtapasFabricacaoModel etapasFabricacaoModel = new EtapasFabricacaoModel();
-        etapasFabricacaoModel.setEtapasFabricacaoId(fabricacaoPedidoForm.getEtapasFabricacaoId());
-
-        ItensPedidoModel itensPedidoModel = new ItensPedidoModel();
-        itensPedidoModel.setItensPedidoId(fabricacaoPedidoForm.getItensPedidoId());
-
-        FuncionarioModel funcionarioModel = new FuncionarioModel();
-        funcionarioModel.setFuncionarioId(fabricacaoPedidoForm.getFuncionarioId());
-
-        StatusFabricacaoModel statusFabricacaoModel = new StatusFabricacaoModel();
-        statusFabricacaoModel.setStatusFabricacaoId(fabricacaoPedidoForm.getStatusFabricacaoId());
-
-        fabricacaoPedidoModel.setEtapasFabricacaoId(etapasFabricacaoModel);
-        fabricacaoPedidoModel.setItensPedidoId(itensPedidoModel);
-        fabricacaoPedidoModel.setFuncionarioId(funcionarioModel);
-        fabricacaoPedidoModel.setStatusFabricacaoId(statusFabricacaoModel);
+        fabricacaoPedidoModel.setEtapasFabricacaoId(fabricacaoPedidoForm.getEtapasFabricacaoId());
+        fabricacaoPedidoModel.setItensPedidoId(fabricacaoPedidoForm.getItensPedidoId());
+        fabricacaoPedidoModel.setFuncionarioId(fabricacaoPedidoForm.getFuncionarioId());
+        fabricacaoPedidoModel.setStatusFabricacaoId(fabricacaoPedidoForm.getStatusFabricacaoId());
         fabricacaoPedidoModel.setDataInicio(fabricacaoPedidoForm.getDataInicio());
         fabricacaoPedidoModel.setDataPrevisao(fabricacaoPedidoForm.getDataPrevisao());
         fabricacaoPedidoModel.setDataFim(fabricacaoPedidoForm.getDataFim());
@@ -116,10 +104,10 @@ public class FabricacaoPedidoService {
         FabricacaoPedidoDto fabricacaoPedidoDto = new FabricacaoPedidoDto();
 
         fabricacaoPedidoDto.setFabricacaoPedidoId(fabricacaoPedidoModel.getFabricacaoPedidoId());
-        fabricacaoPedidoDto.setEtapasFabricacaoId(fabricacaoPedidoModel.getEtapasFabricacaoId().getEtapasFabricacaoId());
-        fabricacaoPedidoDto.setItensPedidoId(fabricacaoPedidoModel.getItensPedidoId().getItensPedidoId());
-        fabricacaoPedidoDto.setFuncionarioId(fabricacaoPedidoModel.getFuncionarioId().getFuncionarioId());
-        fabricacaoPedidoDto.setStatusFabricacaoId(fabricacaoPedidoModel.getStatusFabricacaoId().getStatusFabricacaoId());
+        fabricacaoPedidoDto.setEtapasFabricacaoId(fabricacaoPedidoModel.getEtapasFabricacaoId());
+        fabricacaoPedidoDto.setItensPedidoId(fabricacaoPedidoModel.getItensPedidoId());
+        fabricacaoPedidoDto.setFuncionarioId(fabricacaoPedidoModel.getFuncionarioId());
+        fabricacaoPedidoDto.setStatusFabricacaoId(fabricacaoPedidoModel.getStatusFabricacaoId());
         fabricacaoPedidoDto.setDataInicio(fabricacaoPedidoModel.getDataInicio());
         fabricacaoPedidoDto.setDataPrevisao(fabricacaoPedidoModel.getDataPrevisao());
         fabricacaoPedidoDto.setDataFim(fabricacaoPedidoModel.getDataFim());

@@ -88,14 +88,8 @@ public class PedidoService {
         // Mapeie os campos do formulário para os atributos do modelo
 
         // Defina os relacionamentos para ClienteModel e StatusPedidoModel
-        ClienteModel cliente = new ClienteModel();
-        cliente.setClienteId(pedidoForm.getClienteId());
-        pedidoModel.setClienteId(cliente);
-
-        StatusPedidoModel statusPedido = new StatusPedidoModel();
-        statusPedido.setStatusPedidoId(pedidoForm.getStatusPedidoId());
-        pedidoModel.setStatusPedidoId(statusPedido);
-
+        pedidoModel.setClienteId(pedidoForm.getClienteId());
+        pedidoModel.setStatusPedidoId(pedidoForm.getStatusPedidoId());
         pedidoModel.setDescricao(pedidoForm.getDescricao());
         pedidoModel.setDataPedido(pedidoForm.getDataPedido());
         pedidoModel.setHoraPedido(pedidoForm.getHoraPedido());
@@ -109,8 +103,8 @@ public class PedidoService {
         PedidoDto pedidoDto = new PedidoDto();
 
         pedidoDto.setPedidoId(pedidoModel.getCodPedido());
-        pedidoDto.setClienteId(pedidoModel.getClienteId().getClienteId()); // para não precisar instanciar um objeto ClienteModel
-        pedidoDto.setStatusPedidoId(pedidoModel.getStatusPedidoId().getStatusPedidoId()); // para não precisar instanciar um objeto StatusPedidoModel
+        pedidoDto.setClienteId(pedidoModel.getClienteId());
+        pedidoDto.setStatusPedidoId(pedidoModel.getStatusPedidoId());
         pedidoDto.setDescricao(pedidoModel.getDescricao());
         pedidoDto.setDataPedido(pedidoModel.getDataPedido());
         pedidoDto.setHoraPedido(pedidoModel.getHoraPedido());

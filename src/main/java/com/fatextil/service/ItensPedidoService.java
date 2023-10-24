@@ -86,16 +86,9 @@ public class ItensPedidoService {
     private ItensPedidoModel convertFormToModel(ItensPedidoForm itensPedidoForm) {
         ItensPedidoModel itensPedidoModel = new ItensPedidoModel();
 
-        // Mapeie os campos do formulário para os atributos do modelo
-
         // Defina os relacionamentos para CodPedido e CodProduto
-        PedidoModel pedido = new PedidoModel();
-        pedido.setCodPedido(itensPedidoForm.getCodPedido());
-        itensPedidoModel.setCodPedido(pedido);
-
-        ProdutoModel produto = new ProdutoModel();
-        produto.setCodProduto(itensPedidoForm.getCodProduto());
-        itensPedidoModel.setCodProduto(produto);
+        itensPedidoModel.setCodPedido(itensPedidoForm.getCodPedido());
+        itensPedidoModel.setCodProduto(itensPedidoForm.getCodProduto());
 
         itensPedidoModel.setDescricao(itensPedidoForm.getDescricao());
         itensPedidoModel.setQtde(itensPedidoForm.getQtde());
@@ -109,8 +102,8 @@ public class ItensPedidoService {
         ItensPedidoDto itensPedidoDto = new ItensPedidoDto();
 
         itensPedidoDto.setItensPedidoId(itensPedidoModel.getItensPedidoId());
-        itensPedidoDto.setCodPedido(itensPedidoModel.getCodPedido().getCodPedido()); // para nn precisar instanciar de PedidoModel
-        itensPedidoDto.setCodProduto(itensPedidoModel.getCodProduto().getCodProduto()); // para nn precisar instanciar de ProdutoModel
+        itensPedidoDto.setCodPedido(itensPedidoModel.getCodPedido());
+        itensPedidoDto.setCodProduto(itensPedidoModel.getCodProduto());
         itensPedidoDto.setDescricao(itensPedidoModel.getDescricao());
         itensPedidoDto.setQtde(itensPedidoModel.getQtde());
         itensPedidoDto.setObservacao(itensPedidoModel.getObservacao());

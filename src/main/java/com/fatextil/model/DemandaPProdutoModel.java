@@ -13,9 +13,7 @@ public class DemandaPProdutoModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long demandaPProdutoId;
 
-    @OneToOne
-    @JoinColumn(name = "tamanhoProdutoId", referencedColumnName = "tamanhoProdutoId")
-    private TamanhoProdutoModel tamanhoProdutoId;
+    private Long tamanhoProdutoId;
 
     @Column(name= "descricao", nullable = false, length = 60)
     private String descricao;
@@ -28,4 +26,5 @@ public class DemandaPProdutoModel {
 
     @Column(name= "custoUnitarioDemanda", nullable = false, precision = 10, scale = 2)
     private BigDecimal custoUnitarioDemanda;
+
 }

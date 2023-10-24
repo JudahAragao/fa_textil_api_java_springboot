@@ -13,9 +13,7 @@ public class ClientePFisicaModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long clientePFisicaId;
 
-    @OneToOne
-    @JoinColumn(name = "clienteId", referencedColumnName = "clienteId")
-    private ClienteModel clienteId;
+    private Long clienteId;
 
     @Column(name= "nome", nullable = false, length = 100)
     private String nome;

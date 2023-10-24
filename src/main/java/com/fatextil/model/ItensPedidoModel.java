@@ -12,13 +12,9 @@ public class ItensPedidoModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long itensPedidoId;
 
-    @ManyToOne
-    @JoinColumn(name = "codPedido", referencedColumnName = "codPedido")
-    private PedidoModel codPedido;
+    private Long codPedido;
 
-    @ManyToOne
-    @JoinColumn(name = "codProduto", referencedColumnName = "codProduto")
-    private ProdutoModel codProduto;
+    private Long codProduto;
 
     @Column(name = "descricao", nullable = false, columnDefinition = "VARCHAR(255)")
     private String descricao;

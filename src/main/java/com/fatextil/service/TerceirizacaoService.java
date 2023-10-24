@@ -56,16 +56,8 @@ public class TerceirizacaoService {
             if (terceirizacaoExistente.isPresent()) {
                 TerceirizacaoModel terceirizacaoAtualizado = terceirizacaoExistente.get();
 
-                // Defina o relacionamento para TerceirizadoModel
-                TerceirizadoModel terceirizado = new TerceirizadoModel();
-                terceirizado.setTerceirizadoId(terceirizacaoForm.getTerceirizadoId());
-                terceirizacaoAtualizado.setTerceirizadoId(terceirizado);
-
-                // Defina o relacionamento para FabricacaoPedidoModel
-                FabricacaoPedidoModel fabricacaoPedido = new FabricacaoPedidoModel();
-                fabricacaoPedido.setFabricacaoPedidoId(terceirizacaoForm.getFabricacaoPedidoId());
-                terceirizacaoAtualizado.setFabricacaoPedidoId(fabricacaoPedido);
-
+                terceirizacaoAtualizado.setTerceirizadoId(terceirizacaoForm.getTerceirizadoId());
+                terceirizacaoAtualizado.setFabricacaoPedidoId(terceirizacaoForm.getFabricacaoPedidoId());
                 terceirizacaoAtualizado.setDataEnvio(terceirizacaoForm.getDataEnvio());
                 terceirizacaoAtualizado.setHoraEnvio(terceirizacaoForm.getHoraEnvio());
                 terceirizacaoAtualizado.setDataFinalizacao(terceirizacaoForm.getDataFinalizacao());
@@ -94,16 +86,8 @@ public class TerceirizacaoService {
     private TerceirizacaoModel convertFormToModel(TerceirizacaoForm terceirizacaoForm) {
         TerceirizacaoModel terceirizacaoModel = new TerceirizacaoModel();
 
-        // Defina o relacionamento para TerceirizadoModel
-        TerceirizadoModel terceirizado = new TerceirizadoModel();
-        terceirizado.setTerceirizadoId(terceirizacaoForm.getTerceirizadoId());
-        terceirizacaoModel.setTerceirizadoId(terceirizado);
-
-        // Defina o relacionamento para FabricacaoPedidoModel
-        FabricacaoPedidoModel fabricacaoPedido = new FabricacaoPedidoModel();
-        fabricacaoPedido.setFabricacaoPedidoId(terceirizacaoForm.getFabricacaoPedidoId());
-        terceirizacaoModel.setFabricacaoPedidoId(fabricacaoPedido);
-
+        terceirizacaoModel.setTerceirizadoId(terceirizacaoForm.getTerceirizadoId());
+        terceirizacaoModel.setFabricacaoPedidoId(terceirizacaoForm.getFabricacaoPedidoId());
         terceirizacaoModel.setDataEnvio(terceirizacaoForm.getDataEnvio());
         terceirizacaoModel.setHoraEnvio(terceirizacaoForm.getHoraEnvio());
         terceirizacaoModel.setDataFinalizacao(terceirizacaoForm.getDataFinalizacao());
@@ -115,8 +99,8 @@ public class TerceirizacaoService {
     private TerceirizacaoDto convertModelToDto(TerceirizacaoModel terceirizacaoModel) {
         TerceirizacaoDto terceirizacaoDto = new TerceirizacaoDto();
         terceirizacaoDto.setTerceirizacaoId(terceirizacaoModel.getTerceirizacaoId());
-        terceirizacaoDto.setTerceirizadoId(terceirizacaoModel.getTerceirizadoId().getTerceirizadoId());
-        terceirizacaoDto.setFabricacaoPedidoId(terceirizacaoModel.getFabricacaoPedidoId().getFabricacaoPedidoId());
+        terceirizacaoDto.setTerceirizadoId(terceirizacaoModel.getTerceirizadoId());
+        terceirizacaoDto.setFabricacaoPedidoId(terceirizacaoModel.getFabricacaoPedidoId());
         terceirizacaoDto.setDataEnvio(terceirizacaoModel.getDataEnvio());
         terceirizacaoDto.setHoraEnvio(terceirizacaoModel.getHoraEnvio());
         terceirizacaoDto.setDataFinalizacao(terceirizacaoModel.getDataFinalizacao());

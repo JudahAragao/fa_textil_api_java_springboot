@@ -13,9 +13,7 @@ public class ClientePJuridicaModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long clientePJuridicaId;
 
-    @OneToOne
-    @JoinColumn(name = "clienteId", referencedColumnName = "clienteId")
-    private ClienteModel clienteId;
+    private Long clienteId;
 
     @Column(name= "razaoSocial", nullable = false, length = 100)
     private String razaoSocial;

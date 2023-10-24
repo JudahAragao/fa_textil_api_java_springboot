@@ -90,9 +90,7 @@ public class DemandaPProdutoService {
     public DemandaPProdutoModel convertFormToModel(DemandaPProdutoForm demandaPProdutoForm) {
         DemandaPProdutoModel demandaPProdutoModel = new DemandaPProdutoModel();
 
-        TamanhoProdutoModel tamanhoProdutoModel = new TamanhoProdutoModel();
-        tamanhoProdutoModel.setTamanhoProdutoId(demandaPProdutoForm.getTamanhoProdutoId());
-        demandaPProdutoModel.setTamanhoProdutoId(tamanhoProdutoModel);
+        demandaPProdutoModel.setTamanhoProdutoId(demandaPProdutoForm.getTamanhoProdutoId());
         demandaPProdutoModel.setDescricao(demandaPProdutoForm.getDescricao());
         demandaPProdutoModel.setUnidadeMedida(demandaPProdutoForm.getUnidadeMedida());
         demandaPProdutoModel.setQtdeDemandada(demandaPProdutoForm.getQtdeDemandada());
@@ -106,7 +104,7 @@ public class DemandaPProdutoService {
         DemandaPProdutoDto demandaPProdutoDto = new DemandaPProdutoDto();
 
         demandaPProdutoDto.setDemandaPProdutoId(demandaPProdutoModel.getDemandaPProdutoId());
-        demandaPProdutoDto.setTamanhoProdutoId(demandaPProdutoModel.getTamanhoProdutoId().getTamanhoProdutoId());
+        demandaPProdutoDto.setTamanhoProdutoId(demandaPProdutoModel.getTamanhoProdutoId());
         demandaPProdutoDto.setDescricao(demandaPProdutoModel.getDescricao());
         demandaPProdutoDto.setUnidadeMedida(demandaPProdutoModel.getUnidadeMedida());
         demandaPProdutoDto.setQtdeDemandada(demandaPProdutoModel.getQtdeDemandada());

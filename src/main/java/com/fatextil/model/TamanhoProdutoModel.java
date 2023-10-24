@@ -12,10 +12,9 @@ public class TamanhoProdutoModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long tamanhoProdutoId;
 
-    @OneToOne
-    @JoinColumn(name = "codProduto", referencedColumnName = "codProduto")
-    private ProdutoModel codProduto;
+    private Long codProduto;
 
     @Column(name = "tamanho", nullable = false, length = 4)
     private String tamanho;
+
 }

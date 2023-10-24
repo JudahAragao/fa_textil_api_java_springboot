@@ -12,13 +12,8 @@ public class ElementosArteModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long elementosArteId;
 
-    @ManyToOne
-    @JoinColumn(name = "itensPedidoId", referencedColumnName = "itensPedidoId")
-    private ItensPedidoModel itensPedidoId;
-
-    @ManyToOne
-    @JoinColumn(name = "categoriaElementoId", referencedColumnName = "categoriaElementoId")
-    private CategoriaElementoArteModel categoriaElementoId;
+    private Long itensPedidoId;
+    private Long categoriaElementoId;
 
     @Column(name= "fileName", nullable = false, length = 50)
     private String fileName;
