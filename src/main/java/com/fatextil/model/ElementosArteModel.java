@@ -20,9 +20,9 @@ public class ElementosArteModel {
     @JoinColumn(name = "categoriaElementoId", referencedColumnName = "categoriaElementoId")
     private CategoriaElementoArteModel categoriaElementoId;
 
-    @Column(nullable = false, length = 50)
-    private String filename;
+    @Column(name= "fileName", nullable = false, length = 50)
+    private String fileName;
 
-    @Column(nullable = false, length = 100)
+    @Column(name= "path", nullable = false, length = 100)
     private String path;
 }

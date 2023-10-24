@@ -1,0 +1,42 @@
+# CONFIGURAÇÃO DO SERVIDOR
+server:
+  port: 8081
+  servlet:
+    context-path: /api
+  application:
+    name: Sistema FATEXTIL
+  error:
+    include-message: always
+    include-stacktrace: always
+
+# CONFIGURAÇÕES DE CONEXÃO COM O BANCO DE DADOS
+spring:
+  datasource:
+    url: jdbc:h2:mem:fatextil
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  # CONFIGURAÇÕES ESPECÍFICAS PARA O BANCO DE DADOS H2
+  h2:
+    console:
+      enabled: true
+      path: /h2
+
+  # LOGANDO/PRINT DOS COMANDOS SQL GERADOS PELO SPRING DATA
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+    database-platform: org.hibernate.dialect.H2Dialect
+
+  # CONFIGURAÇÃO DO SWAGGER
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+fatextil:
+  disco:
+    raiz: "C:\\Users\\Judah\\Desktop\\"
+    diretorio-fotos: "\\testeStorage"

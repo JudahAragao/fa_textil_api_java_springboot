@@ -12,6 +12,6 @@ public class StatusPedidoModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long statusPedidoId;
 
-    @Column(nullable = false, length = 100)
+    @Column(name = "nomeStatusPedido", nullable = false, length = 100)
     private String nomeStatusPedido;
 }

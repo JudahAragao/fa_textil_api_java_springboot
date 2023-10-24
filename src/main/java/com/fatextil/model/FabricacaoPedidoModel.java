@@ -29,12 +29,12 @@ public class FabricacaoPedidoModel {
     @JoinColumn(name = "statusFabricacaoId", referencedColumnName = "statusFabricacaoId")
     private StatusFabricacaoModel statusFabricacaoId;
 
-    @Column(nullable = false)
+    @Column(name = "dataInicio", nullable = false)
     private LocalDate dataInicio;
 
-    @Column(nullable = false)
+    @Column(name = "dataPrevisao", nullable = false)
     private LocalDate dataPrevisao;
 
-    @Column
+    @Column(name = "dataFim")
     private LocalDate dataFim;
 }

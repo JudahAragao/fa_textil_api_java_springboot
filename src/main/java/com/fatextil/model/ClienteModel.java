@@ -12,7 +12,7 @@ public class ClienteModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long clienteId;
 
-    @Column(nullable = false, length = 8)
+    @Column(name= "tipoCliente", nullable = false, length = 8)
     private String tipoCliente;
 
 }

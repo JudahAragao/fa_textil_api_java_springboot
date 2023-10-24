@@ -45,8 +45,6 @@ public class ClientePFisicaForm {
     @Size(max = 20)
     private String bairro;
 
-    @NotEmpty
-    @NotBlank(message = "O complemento não pode estar em branco.")
     @Size(max = 50)
     private String complemento;
 
@@ -65,6 +63,6 @@ public class ClientePFisicaForm {
     private Boolean ativo;
 
     @NotNull(message = "Data de cadastro não pode ser nula.")
-    @JsonFormat(pattern = "dd/MM/yyyy")
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate dataCadastro;
 }

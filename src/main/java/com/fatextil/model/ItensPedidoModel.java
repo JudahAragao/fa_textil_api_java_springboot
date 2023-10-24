@@ -20,12 +20,12 @@ public class ItensPedidoModel {
     @JoinColumn(name = "codProduto", referencedColumnName = "codProduto")
     private ProdutoModel codProduto;
 
-    @Column(nullable = false, columnDefinition = "VARCHAR(255)")
+    @Column(name = "descricao", nullable = false, columnDefinition = "VARCHAR(255)")
     private String descricao;
 
-    @Column(nullable = false)
+    @Column(name = "qtde", nullable = false)
     private Integer qtde;
 
-    @Column(nullable = false, columnDefinition = "VARCHAR(255)")
+    @Column(name = "observacao", nullable = false, columnDefinition = "VARCHAR(255)")
     private String observacao;
 }

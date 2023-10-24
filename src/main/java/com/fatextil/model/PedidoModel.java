@@ -23,15 +23,15 @@ public class PedidoModel {
     @JoinColumn(name = "statusPedidoId", referencedColumnName = "statusPedidoId")
     private StatusPedidoModel statusPedidoId;
 
-    @Column(nullable = false, columnDefinition = "VARCHAR(255)")
+    @Column(name = "descricao", nullable = false, columnDefinition = "VARCHAR(255)")
     private String descricao;
 
-    @Column(nullable = false)
+    @Column(name = "dataPedido", nullable = false)
     private LocalDate dataPedido;
 
-    @Column(nullable = false)
+    @Column(name = "horaPedido", nullable = false)
     private LocalTime horaPedido;
 
-    @Column(nullable = false, precision = 20, scale = 2)
+    @Column(name = "valorPedido", nullable = false, precision = 20, scale = 2)
     private BigDecimal valorPedido;
 }

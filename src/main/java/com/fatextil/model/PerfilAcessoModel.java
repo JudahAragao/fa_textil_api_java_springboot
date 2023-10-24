@@ -12,6 +12,6 @@ public class PerfilAcessoModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long perfilAcessoId;
 
-    @Column(nullable = false, length = 20)
+    @Column(name = "nomePerfilAcesso", nullable = false, length = 20)
     private String nomePerfilAcesso;
 }

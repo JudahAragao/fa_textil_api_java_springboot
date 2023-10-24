@@ -1,11 +1,8 @@
 package com.fatextil.service;
 
-import com.fatextil.model.ClienteModel;
 import com.fatextil.model.ClientePFisicaModel;
 import com.fatextil.repository.ClientePFisicaRepository;
-import com.fatextil.rest.dto.ClienteDto;
 import com.fatextil.rest.dto.ClientePFisicaDto;
-import com.fatextil.rest.form.ClienteForm;
 import com.fatextil.rest.form.ClientePFisicaForm;
 import com.fatextil.rest.form.ClientePFisicaUpdateForm;
 import com.fatextil.service.exceptions.DataIntegrityException;

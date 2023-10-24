@@ -16,6 +16,6 @@ public class TamanhoProdutoModel {
     @JoinColumn(name = "codProduto", referencedColumnName = "codProduto")
     private ProdutoModel codProduto;
 
-    @Column(nullable = false, length = 4)
+    @Column(name = "tamanho", nullable = false, length = 4)
     private String tamanho;
 }

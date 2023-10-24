@@ -16,5 +16,7 @@ public interface ElementosArteRepository extends JpaRepository<ElementosArteMode
     // Exibir dados apartir do ID
     Optional<ElementosArteModel> findById(Long id);
 
-    Optional<ElementosArteModel> findByFilename(String filename);
+    Optional<ElementosArteModel> findByFileName(String fileName);
+
+    boolean existsByFileName(String fileName);
 }

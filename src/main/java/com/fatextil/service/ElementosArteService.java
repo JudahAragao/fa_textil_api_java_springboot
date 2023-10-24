@@ -9,20 +9,26 @@ import com.fatextil.rest.dto.ElementosArteDto;
 import com.fatextil.rest.form.ElementosArteForm;
 import com.fatextil.service.exceptions.DataIntegrityException;
 import com.fatextil.service.exceptions.ObjectNotFoundException;
+import com.fatextil.service.exceptions.UploadException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ElementosArteService {
 
     @Autowired
     private ElementosArteRepository elementosArteRepository;
+
+    public ElementosArteDto findByFileName(String fileName) {
+        Optional<ElementosArteModel> optionalElementosArteModel = elementosArteRepository.findByFileName(fileName);
+
+        return optionalElementosArteModel.map(this::convertModelToDto).orElse(null);
+    }
+
 
     // Busca completa no banco de dados
     public List<ElementosArteDto> findAll() {
@@ -46,7 +52,7 @@ public class ElementosArteService {
     public ElementosArteDto insert(ElementosArteForm elementosArteForm) {
         try {
             ElementosArteModel elementosArteNovo = convertFormToModel(elementosArteForm);
-            Optional<ElementosArteModel> byFileName = elementosArteRepository.findByFilename(elementosArteNovo.getFilename());
+            Optional<ElementosArteModel> byFileName = elementosArteRepository.findByFileName(elementosArteNovo.getFileName());
 
             if (byFileName.isPresent())
                 throw new IllegalStateException("Arquivo já existe, por favor mude o nome do arquivo que esta tentando enviar!");
@@ -57,6 +63,39 @@ public class ElementosArteService {
             throw new DataIntegrityException("Campo(s) obrigatório(s) não foi(foram) preenchido(s).");
         }
     }
+    public ElementosArteDto upload(MultipartFile elemento, String fileName, String filePath) {
+        try {
+            Optional<ElementosArteModel> optionalExistingFile = elementosArteRepository.findByFileName(fileName);
+
+            if (optionalExistingFile.isPresent()) {
+                ElementosArteModel existingFile = optionalExistingFile.get();
+
+                // Concatene a data de modificação ao nome do arquivo
+                String modifiedFileName = fileName + "_" + new Date().getTime();
+                existingFile.setFileName(modifiedFileName);
+
+                // Atualize os metadados, se necessário
+                // Salve novamente no repositório se desejado
+                elementosArteRepository.save(existingFile);
+                // Use a função de conversão para converter ElementosArteModel em ElementosArteDto e retorne imediatamente
+                return convertModelToDto(existingFile);
+            }
+
+            // Salva o arquivo no banco de dados
+            saveFileToDatabase(fileName, filePath);
+
+            // Crie um DTO para a resposta
+            ElementosArteDto responseDto = new ElementosArteDto();
+            responseDto.setFilename(fileName); // Preencha os valores necessários no DTO
+            responseDto.setPath(filePath);
+
+            return responseDto;
+        } catch (Exception e) {
+            // Lida com exceções, se necessário
+            throw new UploadException("Falha no upload do arquivo.", e);
+        }
+    }
+
 
     // Alteração no banco de dados
     public ElementosArteDto update(ElementosArteForm elementosArteForm, Long elementosArteId) {
@@ -75,7 +114,7 @@ public class ElementosArteService {
                 categoriaElementoArteModel.setCategoriaElementoId(elementosArteForm.getCategoriaElementoId());
                 elementosArteAtualizado.setCategoriaElementoId(categoriaElementoArteModel);
 
-                elementosArteAtualizado.setFilename(elementosArteForm.getFilename());
+                elementosArteAtualizado.setFileName(elementosArteForm.getFilename());
                 elementosArteAtualizado.setPath(elementosArteForm.getPath());
 
                 elementosArteRepository.save(elementosArteAtualizado);
@@ -116,7 +155,7 @@ public class ElementosArteService {
             elementosArteModel.setCategoriaElementoId(categoriaElementoArteModel);
         }
 
-        elementosArteModel.setFilename(elementosArteForm.getFilename());
+        elementosArteModel.setFileName(elementosArteForm.getFilename());
         elementosArteModel.setPath(elementosArteForm.getPath());
 
         return elementosArteModel;
@@ -129,7 +168,7 @@ public class ElementosArteService {
         elementosArteDto.setElementosArteId(elementosArteModel.getElementosArteId());
         elementosArteDto.setItensPedidoId(elementosArteModel.getItensPedidoId().getItensPedidoId());
         elementosArteDto.setCategoriaElementoId(elementosArteModel.getCategoriaElementoId().getCategoriaElementoId());
-        elementosArteDto.setFilename(elementosArteModel.getFilename());
+        elementosArteDto.setFilename(elementosArteModel.getFileName());
         elementosArteDto.setPath(elementosArteModel.getPath());
 
         return elementosArteDto;
@@ -143,6 +182,16 @@ public class ElementosArteService {
             elementosArteDtoList.add(elementosArteDto);
         }
         return elementosArteDtoList;
+    }
+
+    // Upload Arquivos
+    public void saveFileToDatabase(String fileName, String filePath) {
+        ElementosArteModel elementosArteModel = new ElementosArteModel();
+        elementosArteModel.setFileName(fileName);
+        elementosArteModel.setPath(filePath);
+
+        // Save the file information to the database
+        elementosArteRepository.save(elementosArteModel);
     }
 
 }

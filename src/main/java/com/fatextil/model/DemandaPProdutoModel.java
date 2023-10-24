@@ -17,15 +17,15 @@ public class DemandaPProdutoModel {
     @JoinColumn(name = "tamanhoProdutoId", referencedColumnName = "tamanhoProdutoId")
     private TamanhoProdutoModel tamanhoProdutoId;
 
-    @Column(nullable = false, length = 60)
+    @Column(name= "descricao", nullable = false, length = 60)
     private String descricao;
 
-    @Column(nullable = false, length = 2)
+    @Column(name= "unidadeMedida", nullable = false, length = 2)
     private String unidadeMedida;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(name= "qtdeDemandada", nullable = false, precision = 10, scale = 2)
     private BigDecimal qtdeDemandada;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(name= "custoUnitarioDemanda", nullable = false, precision = 10, scale = 2)
     private BigDecimal custoUnitarioDemanda;
 }

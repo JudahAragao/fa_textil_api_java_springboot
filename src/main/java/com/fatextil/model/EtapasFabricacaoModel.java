@@ -12,6 +12,6 @@ public class EtapasFabricacaoModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long etapasFabricacaoId;
 
-    @Column(nullable = false, length = 100)
+    @Column(name = "nomeEtapa", nullable = false, length = 100)
     private String nomeEtapa;
 }

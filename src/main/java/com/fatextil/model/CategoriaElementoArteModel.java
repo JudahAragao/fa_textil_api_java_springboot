@@ -12,6 +12,6 @@ public class CategoriaElementoArteModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long categoriaElementoId;
 
-    @Column(nullable = false, length = 50)
+    @Column(name= "nomeCategoria", nullable = false, length = 50)
     private String nomeCategoria;
 }

@@ -17,48 +17,48 @@ public class ClientePJuridicaModel {
     @JoinColumn(name = "clienteId", referencedColumnName = "clienteId")
     private ClienteModel clienteId;
 
-    @Column(nullable = false, length = 100)
+    @Column(name= "razaoSocial", nullable = false, length = 100)
     private String razaoSocial;
 
-    @Column(nullable = false, length = 80)
+    @Column(name= "representante", nullable = false, length = 80)
     private String representante;
 
-    @Column(nullable = false, length = 11)
+    @Column(name= "telefone", nullable = false, length = 11)
     private String telefone;
 
-    @Column(nullable = false, length = 60)
+    @Column(name= "email", nullable = false, length = 60)
     private String email;
 
-    @Column(nullable = true, length = 100)
+    @Column(name= "site", nullable = true, length = 100)
     private String site;
 
-    @Column(nullable = false, length = 60)
+    @Column(name= "logradouro", nullable = false, length = 60)
     private String logradouro;
 
-    @Column(nullable = false, length = 10)
+    @Column(name= "numeroImovel", nullable = false, length = 10)
     private String numeroImovel;
 
-    @Column(nullable = false, length = 20)
+    @Column(name= "bairro", nullable = false, length = 20)
     private String bairro;
 
-    @Column(length = 50)
+    @Column(name= "complemento", length = 50)
     private String complemento;
 
-    @Column(nullable = false, length = 9)
+    @Column(name= "cep", nullable = false, length = 9)
     private String cep;
 
-    @Column(length = 14)
+    @Column(name= "inscricaoEstadual", length = 14)
     private String inscricaoEstadual;
 
-    @Column(length = 14)
+    @Column(name= "inscricaoMunicipal", length = 14)
     private String inscricaoMunicipal;
 
-    @Column(nullable = false, length = 14)
+    @Column(name= "cnpj", nullable = false, length = 14)
     private String cnpj;
 
-    @Column(nullable = false, columnDefinition = "bit")
+    @Column(name= "ativo", nullable = false)
     private Boolean ativo;
 
-    @Column(nullable = false)
+    @Column(name= "dataCadastro", nullable = false)
     private LocalDate dataCadastro;
 }

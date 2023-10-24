@@ -26,7 +26,7 @@ public class ClientePFisicaDto {
     private String cep;
     private String cpf;
     private Boolean ativo;
-    @JsonFormat(pattern = "dd/MM/yyyy")
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate dataCadastro;
 
 }

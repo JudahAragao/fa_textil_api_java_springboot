@@ -12,7 +12,7 @@ public class StatusFabricacaoModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long statusFabricacaoId;
 
-    @Column(nullable = false, length = 10)
+    @Column(name = "nomeStatusFabricacao", nullable = false, length = 10)
     private String nomeStatusFabricacao;
 
 }

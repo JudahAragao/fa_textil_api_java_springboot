@@ -20,12 +20,12 @@ public class UsuarioModel {
     @JoinColumn(name = "funcionarioId", referencedColumnName = "funcionarioId")
     private FuncionarioModel funcionarioId;
 
-    @Column(nullable = false, length = 20)
+    @Column(name = "login", nullable = false, length = 20)
     private String login;
 
-    @Column(nullable = false, length = 100)
+    @Column(name = "senha", nullable = false, length = 100)
     private String senha;
 
-    @Column(nullable = false, columnDefinition = "bit")
+    @Column(name = "ativo", nullable = false)
     private Boolean ativo;
 }

@@ -22,15 +22,15 @@ public class TerceirizacaoModel {
     @JoinColumn(name = "fabricacaoPedidoId", referencedColumnName = "fabricacaoPedidoId")
     private FabricacaoPedidoModel fabricacaoPedidoId;
 
-    @Column(nullable = false)
+    @Column(name = "dataEnvio", nullable = false)
     private LocalDate dataEnvio;
 
-    @Column(nullable = false)
+    @Column(name = "horaEnvio", nullable = false)
     private LocalTime horaEnvio;
 
-    @Column
+    @Column(name = "dataFinalizacao")
     private LocalDate dataFinalizacao;
 
-    @Column
+    @Column(name = "horaFinalizacao")
     private LocalTime horaFinalizacao;
 }

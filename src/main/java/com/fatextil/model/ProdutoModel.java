@@ -13,9 +13,9 @@ public class ProdutoModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codProduto;
 
-    @Column(nullable = false, length = 120)
+    @Column(name = "descricao", nullable = false, length = 120)
     private String descricao;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(name = "valorProduto", nullable = false, precision = 10, scale = 2)
     private BigDecimal valorProduto;
 }
