@@ -12,7 +12,8 @@ public class ElementosArteDto {
     private Long elementosArteId;
     private Long itensPedidoId;
     private Long categoriaElementoId;
-    private String filename;
-    private String path;
+    private String contentType;
+    private String fileName;
+    private byte[] data;
 
 }
