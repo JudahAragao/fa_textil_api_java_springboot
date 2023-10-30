@@ -1,7 +1,5 @@
 package com.fatextil.service;
 
-import com.fatextil.model.FuncionarioModel;
-import com.fatextil.model.PerfilAcessoModel;
 import com.fatextil.model.UsuarioModel;
 import com.fatextil.repository.UsuarioRepository;
 import com.fatextil.rest.dto.UsuarioDto;
@@ -11,6 +9,7 @@ import com.fatextil.service.exceptions.DataIntegrityException;
 import com.fatextil.service.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -41,6 +40,11 @@ public class UsuarioService {
     public UsuarioDto insert(UsuarioForm usuarioForm) {
         try {
             UsuarioModel usuarioNovo = convertFormToModel(usuarioForm);
+
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            String senhaCodificada = passwordEncoder.encode(usuarioForm.getSenha());
+            usuarioNovo.setSenha(senhaCodificada);
+
             Optional<UsuarioModel> byLogin = usuarioRepository.findByLogin(usuarioNovo.getLogin());
 
             if (byLogin.isPresent())
