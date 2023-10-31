@@ -15,8 +15,8 @@ public class TokenService {
     public String gerarToken(UsuarioModel usuario) {
 
         return JWT.create()
-                .withIssuer("Produtos")
-                .withSubject(usuario.getUsername())
+                .withIssuer("FaTextil-Api")
+                .withSubject(usuario.getLogin())
                 .withClaim("id", usuario.getUsuarioId())
                 .withExpiresAt(LocalDateTime.now()
                         .plusSeconds(30)
@@ -28,7 +28,7 @@ public class TokenService {
     public String getSubject(String token) {
 
         return JWT.require(Algorithm.HMAC256("secreta"))
-                .withIssuer("Produtos")
+                .withIssuer("FaTextil-Api")
                 .build().verify(token).getSubject();
 
     }

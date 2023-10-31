@@ -14,4 +14,5 @@ public class PerfilAcessoModel {
 
     @Column(name = "nomePerfilAcesso", nullable = false, length = 20)
     private String nomePerfilAcesso;
+
 }

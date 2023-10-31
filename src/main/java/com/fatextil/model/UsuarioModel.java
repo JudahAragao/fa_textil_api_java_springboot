@@ -1,6 +1,8 @@
 package com.fatextil.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,6 +14,8 @@ import java.util.List;
 @Entity
 @Data
 @Table(name="Usuario")
+@NoArgsConstructor
+@AllArgsConstructor
 public class UsuarioModel implements UserDetails {
 
     @Id
@@ -31,9 +35,13 @@ public class UsuarioModel implements UserDetails {
     @Column(name = "ativo", nullable = false)
     private Boolean ativo;
 
+    @Transient
+    private String nomePerfilAcesso;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        System.out.println(List.of(new SimpleGrantedAuthority("ROLE_" + nomePerfilAcesso)));
+        return List.of(new SimpleGrantedAuthority("ROLE_" + nomePerfilAcesso));
     }
 
     @Override
@@ -64,5 +72,10 @@ public class UsuarioModel implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    // Adicione um método para definir o nomePerfilAcesso
+    public void setNomePerfilAcesso(String nomePerfilAcesso) {
+        this.nomePerfilAcesso = nomePerfilAcesso;
     }
 }

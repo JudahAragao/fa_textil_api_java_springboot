@@ -9,4 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface AuthenticationRepository extends JpaRepository<UsuarioModel, Long>{
 
     UserDetails findByLogin(String login);
+
+    UsuarioModel findByPerfilAcessoId(Long perfilAcessoId);
+
 }
