@@ -41,7 +41,7 @@ public class FuncionarioModel {
     private String cpf;
 
     @Column(name = "ativo", nullable = false, columnDefinition = "bit")
-    private Boolean ativo;
+    private Byte ativo;
 
     @Column(name = "dataCadastro", nullable = false)
     private LocalDate dataCadastro;

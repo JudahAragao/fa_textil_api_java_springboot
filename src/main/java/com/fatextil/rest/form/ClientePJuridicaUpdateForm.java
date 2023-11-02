@@ -1,11 +1,8 @@
 package com.fatextil.rest.form;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import org.hibernate.validator.constraints.br.CNPJ;
 
 import javax.validation.constraints.*;
-import java.time.LocalDate;
 
 
 @Data
@@ -58,6 +55,6 @@ public class ClientePJuridicaUpdateForm {
     private String cep;
 
     @NotNull(message = "valor de atividade não pode ser nula.")
-    private Boolean ativo;
+    private Byte ativo;
 
 }

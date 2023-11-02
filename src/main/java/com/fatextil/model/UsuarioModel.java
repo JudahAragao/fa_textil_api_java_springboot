@@ -6,6 +6,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -29,11 +30,18 @@ public class UsuarioModel implements UserDetails {
     private String senha;
 
     @Column(name = "ativo", nullable = false)
-    private Boolean ativo;
+    private Byte ativo;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        List<String> roles = new ArrayList<>();
+        roles.add("ADMIN");
+        roles.add("VENDEDOR");
+        roles.add("DESIGNER");
+
+        String roleDefined = "ROLE_"+ roles.get(perfilAcessoId.intValue() - 1);
+
+        return List.of(new SimpleGrantedAuthority(roleDefined));
     }
 
     @Override

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.hibernate.validator.constraints.br.CNPJ;
 
-import javax.persistence.Column;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
 
@@ -76,7 +75,7 @@ public class ClientePJuridicaForm {
     private String cnpj;
 
     @NotNull(message = "valor de atividade não pode ser nula.")
-    private Boolean ativo;
+    private Byte ativo;
 
     @NotNull(message = "Data de cadastro não pode ser nula.")
     @JsonFormat(pattern = "dd/MM/yyyy")

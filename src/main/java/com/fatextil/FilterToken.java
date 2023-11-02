@@ -25,7 +25,11 @@ public class FilterToken extends OncePerRequestFilter {
     private AuthenticationRepository authenticationRepository;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull FilterChain filterChain)  throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request,
+                                    @NotNull HttpServletResponse response,
+                                    @NotNull FilterChain filterChain)
+            throws ServletException, IOException {
+
         String token;
 
         var authorizationHeader = request.getHeader("Authorization");
@@ -36,7 +40,8 @@ public class FilterToken extends OncePerRequestFilter {
 
             var usuario = this.authenticationRepository.findByLogin(subject);
 
-            var authentication = new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
+            var authentication = new UsernamePasswordAuthenticationToken(usuario,
+                    null, usuario.getAuthorities());
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }

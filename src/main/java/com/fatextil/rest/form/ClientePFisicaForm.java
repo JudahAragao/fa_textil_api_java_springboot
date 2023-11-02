@@ -1,10 +1,10 @@
 package com.fatextil.rest.form;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.constraints.*;
-import org.hibernate.validator.constraints.br.CPF;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDate;
 
 
@@ -60,7 +60,7 @@ public class ClientePFisicaForm {
     private String cpf;
 
     @NotNull(message = "valor de atividade não pode ser nula.")
-    private Boolean ativo;
+    private Byte ativo;
 
     @NotNull(message = "Data de cadastro não pode ser nula.")
     @JsonFormat(pattern = "dd/MM/yyyy")

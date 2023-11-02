@@ -48,6 +48,6 @@ public class ClientePFisicaUpdateForm {
     private String cep;
 
     @NotNull(message = "valor de atividade não pode ser nula.")
-    private Boolean ativo;
+    private Byte ativo;
 
 }

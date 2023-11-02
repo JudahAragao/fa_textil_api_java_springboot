@@ -8,6 +8,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,6 +27,7 @@ public class ElementosArteController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_VENDEDOR') or hasRole('ROLE_DESIGNER')")
     public ResponseEntity<ElementosArteModel> uploadFile(@RequestParam("file") MultipartFile file, @ModelAttribute ElementosArteForm elementosArteForm) throws IOException {
         elementosArteForm.setData(file);
         ElementosArteModel uploadedFile = elementosArteService.uploadFile(elementosArteForm);
@@ -33,6 +35,7 @@ public class ElementosArteController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_VENDEDOR') or hasRole('ROLE_DESIGNER')")
     public ResponseEntity<byte[]> downloadFile(@PathVariable Long id) {
         ElementosArteModel file = elementosArteService.getFile(id);
         HttpHeaders headers = new HttpHeaders();
@@ -43,12 +46,14 @@ public class ElementosArteController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_VENDEDOR') or hasRole('ROLE_DESIGNER')")
     public ResponseEntity<List<ElementosArteModel>> getAllFiles() {
         List<ElementosArteModel> files = elementosArteService.getAllFiles();
         return ResponseEntity.ok(files);
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_VENDEDOR') or hasRole('ROLE_DESIGNER')")
     public ResponseEntity<ElementosArteModel> updateFile(@RequestParam("file") MultipartFile file, @PathVariable Long id, @ModelAttribute ElementosArteForm elementosArteForm) throws IOException {
         elementosArteForm.setData(file);
         ElementosArteModel updatedFile = elementosArteService.updateFile(id, elementosArteForm);
@@ -56,6 +61,7 @@ public class ElementosArteController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_VENDEDOR') or hasRole('ROLE_DESIGNER')")
     public ResponseEntity<Void> deleteFile(@PathVariable Long id) {
         elementosArteService.deleteFile(id);
         return ResponseEntity.noContent().build();

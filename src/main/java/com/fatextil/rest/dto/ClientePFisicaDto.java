@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.br.CPF;
 
-import javax.validation.constraints.*;
 import java.time.LocalDate;
 
 @Data
@@ -25,7 +23,7 @@ public class ClientePFisicaDto {
     private String complemento;
     private String cep;
     private String cpf;
-    private Boolean ativo;
+    private Byte ativo;
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataCadastro;
 

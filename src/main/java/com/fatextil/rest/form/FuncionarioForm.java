@@ -59,7 +59,7 @@ public class FuncionarioForm {
     private String cpf;
 
     @NotNull(message = "valor de atividade não pode ser nula.")
-    private Boolean ativo;
+    private Byte ativo;
 
     @NotNull(message = "Data de cadastro não pode ser nula.")
     @JsonFormat(pattern = "dd/MM/yyyy")

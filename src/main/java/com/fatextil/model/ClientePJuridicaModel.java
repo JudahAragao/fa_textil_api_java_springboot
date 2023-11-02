@@ -55,7 +55,7 @@ public class ClientePJuridicaModel {
     private String cnpj;
 
     @Column(name= "ativo", nullable = false)
-    private Boolean ativo;
+    private Byte ativo;
 
     @Column(name= "dataCadastro", nullable = false)
     private LocalDate dataCadastro;
