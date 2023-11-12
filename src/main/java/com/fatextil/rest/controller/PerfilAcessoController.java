@@ -21,7 +21,6 @@ public class PerfilAcessoController {
     private PerfilAcessoService perfilAcessoService;
 
     @GetMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<PerfilAcessoDto>> findAll() {
         List<PerfilAcessoDto> perfilAcessoDtoList = perfilAcessoService.findAll();
         return ResponseEntity.ok().body(perfilAcessoDtoList);
