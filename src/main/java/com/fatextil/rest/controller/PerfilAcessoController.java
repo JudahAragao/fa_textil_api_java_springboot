@@ -21,13 +21,13 @@ public class PerfilAcessoController {
     private PerfilAcessoService perfilAcessoService;
 
     @GetMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<PerfilAcessoDto>> findAll() {
         List<PerfilAcessoDto> perfilAcessoDtoList = perfilAcessoService.findAll();
         return ResponseEntity.ok().body(perfilAcessoDtoList);
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<PerfilAcessoDto> find(@PathVariable("id") long perfilAcessoId) {
         PerfilAcessoDto perfilAcessoDto = perfilAcessoService.findById(perfilAcessoId);
         return ResponseEntity.ok().body(perfilAcessoDto);
