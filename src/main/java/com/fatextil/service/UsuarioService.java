@@ -1,6 +1,10 @@
 package com.fatextil.service;
 
+import com.fatextil.model.FuncionarioModel;
+import com.fatextil.model.PerfilAcessoModel;
 import com.fatextil.model.UsuarioModel;
+import com.fatextil.repository.FuncionarioRepository;
+import com.fatextil.repository.PerfilAcessoRepository;
 import com.fatextil.repository.UsuarioRepository;
 import com.fatextil.rest.dto.UsuarioDto;
 import com.fatextil.rest.form.UsuarioForm;
@@ -22,6 +26,12 @@ public class UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private PerfilAcessoRepository perfilAcessoRepository;
+
+    @Autowired
+    private FuncionarioRepository funcionarioRepository;
 
     public List<UsuarioDto> findAll() {
         List<UsuarioModel> usuarioList = usuarioRepository.findAll();
@@ -90,8 +100,17 @@ public class UsuarioService {
 
     private UsuarioModel convertFormToModel(UsuarioForm usuarioForm) {
         UsuarioModel usuarioModel = new UsuarioModel();
-        usuarioModel.setPerfilAcessoId(usuarioForm.getPerfilAcessoId());
-        usuarioModel.setFuncionarioId(usuarioForm.getFuncionarioId());
+
+        // Obtém a instância de PerfilAcessoModel do repositório
+        PerfilAcessoModel perfilAcesso = perfilAcessoRepository.findById(usuarioForm.getPerfilAcessoId())
+                .orElseThrow(() -> new RuntimeException("Perfil de acesso não encontrado"));
+        usuarioModel.setPerfilAcessoId(perfilAcesso);
+
+        // Obtém a instância de FuncionarioModel do repositório
+        FuncionarioModel funcionario = funcionarioRepository.findById(usuarioForm.getFuncionarioId())
+                .orElseThrow(() -> new RuntimeException("Funcionário não encontrado"));
+        usuarioModel.setFuncionarioId(funcionario);
+
         usuarioModel.setLogin(usuarioForm.getLogin());
         usuarioModel.setSenha(usuarioForm.getSenha());
         usuarioModel.setAtivo(usuarioForm.getAtivo());
@@ -101,8 +120,8 @@ public class UsuarioService {
     private UsuarioDto convertModelToDto(UsuarioModel usuarioModel) {
         UsuarioDto usuarioDto = new UsuarioDto();
         usuarioDto.setUsuarioId(usuarioModel.getUsuarioId());
-        usuarioDto.setPerfilAcessoId(usuarioModel.getPerfilAcessoId());
-        usuarioDto.setFuncionarioId(usuarioModel.getFuncionarioId());
+        usuarioDto.setPerfilAcessoId(usuarioModel.getPerfilAcessoId().getPerfilAcessoId());
+        usuarioDto.setFuncionarioId(usuarioModel.getFuncionarioId().getFuncionarioId());
         usuarioDto.setLogin(usuarioModel.getLogin());
         usuarioDto.setSenha(usuarioModel.getSenha());
         usuarioDto.setAtivo(usuarioModel.getAtivo());

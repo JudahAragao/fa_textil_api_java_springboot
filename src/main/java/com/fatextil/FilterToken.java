@@ -1,5 +1,6 @@
 package com.fatextil;
 
+import com.fatextil.model.UsuarioModel;
 import com.fatextil.repository.AuthenticationRepository;
 import com.fatextil.service.TokenService;
 import org.jetbrains.annotations.NotNull;
@@ -30,23 +31,37 @@ public class FilterToken extends OncePerRequestFilter {
                                     @NotNull FilterChain filterChain)
             throws ServletException, IOException {
 
-        String token;
+        String token = extractToken(request);
 
-        var authorizationHeader = request.getHeader("Authorization");
+        if (token != null) {
+            try {
+                String subject = this.tokenService.getSubject(token);
+                UsuarioModel usuario = (UsuarioModel) this.authenticationRepository.findByLogin(subject);
 
-        if (authorizationHeader != null) {
-            token = authorizationHeader.replace("Bearer ", "");
-            var subject = this.tokenService.getSubject(token);
+                if (usuario != null) {
+                    UsernamePasswordAuthenticationToken authentication =
+                            new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
 
-            var usuario = this.authenticationRepository.findByLogin(subject);
-
-            var authentication = new UsernamePasswordAuthenticationToken(usuario,
-                    null, usuario.getAuthorities());
-
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                }
+            } catch (Exception e) {
+                // Lida com exceções durante o processo de autenticação
+                // Pode ser útil logar a exceção para fins de depuração
+                SecurityContextHolder.clearContext();
+            }
         }
 
         filterChain.doFilter(request, response);
+    }
+
+    private String extractToken(HttpServletRequest request) {
+        String authorizationHeader = request.getHeader("Authorization");
+
+        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+            return authorizationHeader.replace("Bearer ", "");
+        }
+
+        return null;
     }
 
 }

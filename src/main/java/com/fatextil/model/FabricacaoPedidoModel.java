@@ -1,5 +1,8 @@
 package com.fatextil.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -13,13 +16,29 @@ public class FabricacaoPedidoModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long fabricacaoPedidoId;
 
-    private Long etapasFabricacaoId;
+    @ManyToOne
+    @JoinColumn(name = "etapasFabricacaoId", nullable = false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    private EtapasFabricacaoModel etapasFabricacaoId;
 
-    private Long itensPedidoId;
+    @ManyToOne
+    @JoinColumn(name = "itensPedidoId", nullable = false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    private ItensPedidoModel itensPedidoId;
 
-    private Long funcionarioId;
+    @ManyToOne
+    @JoinColumn(name = "funcionarioId", nullable = false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    private FuncionarioModel funcionarioId;
 
-    private Long statusFabricacaoId;
+    @ManyToOne
+    @JoinColumn(name = "statusFabricacaoId", nullable = false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    private StatusFabricacaoModel statusFabricacaoId;
 
     @Column(name = "dataInicio", nullable = false)
     private LocalDate dataInicio;

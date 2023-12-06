@@ -1,5 +1,8 @@
 package com.fatextil.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -13,7 +16,11 @@ public class ClientePFisicaModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long clientePFisicaId;
 
-    private Long clienteId;
+    @ManyToOne
+    @JoinColumn(name = "clienteId", nullable = false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    private ClienteModel clienteId;
 
     @Column(name= "nome", nullable = false, length = 100)
     private String nome;

@@ -1,7 +1,7 @@
 package com.fatextil.service;
 
 import com.fatextil.model.*;
-import com.fatextil.repository.FabricacaoPedidoRepository;
+import com.fatextil.repository.*;
 import com.fatextil.rest.dto.FabricacaoPedidoDto;
 import com.fatextil.rest.form.FabricacaoPedidoForm;
 import com.fatextil.service.exceptions.DataIntegrityException;
@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -21,6 +20,14 @@ public class FabricacaoPedidoService {
 
     @Autowired
     private FabricacaoPedidoRepository fabricacaoPedidoRepository;
+    @Autowired
+    private EtapasFabricacaoRepository etapasFabricacaoRepository;
+    @Autowired
+    private ItensPedidoRepository itensPedidoRepository;
+    @Autowired
+    private FuncionarioRepository funcionarioRepository;
+    @Autowired
+    private StatusFabricacaoRepository statusFabricacaoRepository;
 
     // Busca completa no banco de dados
     public List<FabricacaoPedidoDto> findAll() {
@@ -88,10 +95,22 @@ public class FabricacaoPedidoService {
     public FabricacaoPedidoModel convertFormToModel(FabricacaoPedidoForm fabricacaoPedidoForm) {
         FabricacaoPedidoModel fabricacaoPedidoModel = new FabricacaoPedidoModel();
 
-        fabricacaoPedidoModel.setEtapasFabricacaoId(fabricacaoPedidoForm.getEtapasFabricacaoId());
-        fabricacaoPedidoModel.setItensPedidoId(fabricacaoPedidoForm.getItensPedidoId());
-        fabricacaoPedidoModel.setFuncionarioId(fabricacaoPedidoForm.getFuncionarioId());
-        fabricacaoPedidoModel.setStatusFabricacaoId(fabricacaoPedidoForm.getStatusFabricacaoId());
+        EtapasFabricacaoModel etapasFabricacao = etapasFabricacaoRepository.findById(fabricacaoPedidoForm.getEtapasFabricacaoId())
+                .orElseThrow(() -> new RuntimeException("Terceirizada não encontrada"));
+        fabricacaoPedidoModel.setEtapasFabricacaoId(etapasFabricacao);
+
+        ItensPedidoModel itensPedido = itensPedidoRepository.findById(fabricacaoPedidoForm.getItensPedidoId())
+                .orElseThrow(() -> new RuntimeException("Terceirizada não encontrada"));
+        fabricacaoPedidoModel.setItensPedidoId(itensPedido);
+
+        FuncionarioModel funcionario = funcionarioRepository.findById(fabricacaoPedidoForm.getFuncionarioId())
+                .orElseThrow(() -> new RuntimeException("Terceirizada não encontrada"));
+        fabricacaoPedidoModel.setFuncionarioId(funcionario);
+
+        StatusFabricacaoModel statusFabricacao = statusFabricacaoRepository.findById(fabricacaoPedidoForm.getFuncionarioId())
+                .orElseThrow(() -> new RuntimeException("Status Fabricacao não encontrada"));
+        fabricacaoPedidoModel.setStatusFabricacaoId(statusFabricacao);
+
         fabricacaoPedidoModel.setDataInicio(fabricacaoPedidoForm.getDataInicio());
         fabricacaoPedidoModel.setDataPrevisao(fabricacaoPedidoForm.getDataPrevisao());
         fabricacaoPedidoModel.setDataFim(fabricacaoPedidoForm.getDataFim());
@@ -104,10 +123,10 @@ public class FabricacaoPedidoService {
         FabricacaoPedidoDto fabricacaoPedidoDto = new FabricacaoPedidoDto();
 
         fabricacaoPedidoDto.setFabricacaoPedidoId(fabricacaoPedidoModel.getFabricacaoPedidoId());
-        fabricacaoPedidoDto.setEtapasFabricacaoId(fabricacaoPedidoModel.getEtapasFabricacaoId());
-        fabricacaoPedidoDto.setItensPedidoId(fabricacaoPedidoModel.getItensPedidoId());
-        fabricacaoPedidoDto.setFuncionarioId(fabricacaoPedidoModel.getFuncionarioId());
-        fabricacaoPedidoDto.setStatusFabricacaoId(fabricacaoPedidoModel.getStatusFabricacaoId());
+        fabricacaoPedidoDto.setEtapasFabricacaoId(fabricacaoPedidoModel.getEtapasFabricacaoId().getEtapasFabricacaoId());
+        fabricacaoPedidoDto.setItensPedidoId(fabricacaoPedidoModel.getItensPedidoId().getItensPedidoId());
+        fabricacaoPedidoDto.setFuncionarioId(fabricacaoPedidoModel.getFuncionarioId().getFuncionarioId());
+        fabricacaoPedidoDto.setStatusFabricacaoId(fabricacaoPedidoModel.getStatusFabricacaoId().getStatusFabricacaoId());
         fabricacaoPedidoDto.setDataInicio(fabricacaoPedidoModel.getDataInicio());
         fabricacaoPedidoDto.setDataPrevisao(fabricacaoPedidoModel.getDataPrevisao());
         fabricacaoPedidoDto.setDataFim(fabricacaoPedidoModel.getDataFim());

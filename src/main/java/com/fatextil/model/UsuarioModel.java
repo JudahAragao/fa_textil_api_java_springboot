@@ -1,5 +1,8 @@
 package com.fatextil.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,9 +22,17 @@ public class UsuarioModel implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long usuarioId;
 
-    private Long perfilAcessoId;
+    @ManyToOne
+    @JoinColumn(name = "perfilAcessoId", nullable = false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    private PerfilAcessoModel perfilAcessoId;
 
-    private Long funcionarioId;
+    @ManyToOne
+    @JoinColumn(name = "funcionarioId", nullable = false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    private FuncionarioModel funcionarioId;
 
     @Column(name = "login", nullable = false, length = 20)
     private String login;
@@ -39,7 +50,7 @@ public class UsuarioModel implements UserDetails {
         roles.add("VENDEDOR");
         roles.add("DESIGNER");
 
-        String roleDefined = "ROLE_"+ roles.get(perfilAcessoId.intValue() - 1);
+        String roleDefined = "ROLE_"+ roles.get((int) (perfilAcessoId.getPerfilAcessoId() - 1));
 
         return List.of(new SimpleGrantedAuthority(roleDefined));
     }

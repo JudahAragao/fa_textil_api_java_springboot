@@ -23,7 +23,7 @@ public class TokenService {
 
     public String gerarToken(UsuarioModel usuario) {
 
-        String nomePerfilAcesso = perfilAcessoRepository.findById(usuario.getPerfilAcessoId())
+        String nomePerfilAcesso = perfilAcessoRepository.findById(usuario.getPerfilAcessoId().getPerfilAcessoId())
                 .orElseThrow(() -> new RuntimeException("Perfil de acesso não encontrado"))
                 .getNomePerfilAcesso();
 

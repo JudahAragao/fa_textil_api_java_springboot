@@ -1,5 +1,8 @@
 package com.fatextil.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -14,9 +17,17 @@ public class TerceirizacaoModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long terceirizacaoId;
 
-    private Long terceirizadoId;
+    @ManyToOne
+    @JoinColumn(name = "terceirizadoId", nullable = false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    private TerceirizadoModel terceirizadoId;
 
-    private Long fabricacaoPedidoId;
+    @ManyToOne
+    @JoinColumn(name = "fabricacaoPedidoId", nullable = false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    private FabricacaoPedidoModel fabricacaoPedidoId;
 
     @Column(name = "dataEnvio", nullable = false)
     private LocalDate dataEnvio;

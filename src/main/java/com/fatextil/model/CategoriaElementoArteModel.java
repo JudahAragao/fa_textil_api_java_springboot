@@ -5,7 +5,7 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@Table(name="CategoriaElementoArte")
+@Table(name="\"CategoriaElementoArte\"")
 public class CategoriaElementoArteModel {
 
     @Id

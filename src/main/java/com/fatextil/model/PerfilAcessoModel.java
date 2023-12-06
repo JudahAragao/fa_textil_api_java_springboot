@@ -5,7 +5,7 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@Table(name="PerfilAcesso")
+@Table(name="perfilacesso")
 public class PerfilAcessoModel {
 
     @Id

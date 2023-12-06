@@ -1,7 +1,9 @@
 package com.fatextil.service;
 
+import com.fatextil.model.ClienteModel;
 import com.fatextil.model.ClientePFisicaModel;
 import com.fatextil.repository.ClientePFisicaRepository;
+import com.fatextil.repository.ClienteRepository;
 import com.fatextil.rest.dto.ClientePFisicaDto;
 import com.fatextil.rest.form.ClientePFisicaForm;
 import com.fatextil.rest.form.ClientePFisicaUpdateForm;
@@ -21,6 +23,8 @@ public class ClientePFisicaService {
 
     @Autowired
     private ClientePFisicaRepository clientePFisicaRepository;
+    @Autowired
+    private ClienteRepository clienteRepository;
 
     //Busca completa no banco de dados
     public List<ClientePFisicaDto> findAll(){
@@ -106,7 +110,11 @@ public class ClientePFisicaService {
     // Conversores de FORM para MODEL
     private ClientePFisicaModel convertFormToModel(ClientePFisicaForm clientePFisicaForm){
         ClientePFisicaModel clientePFisicaModel = new ClientePFisicaModel();
-        clientePFisicaModel.setClienteId(clientePFisicaForm.getClienteId());
+
+        ClienteModel cliente = clienteRepository.findById(clientePFisicaForm.getClienteId())
+                .orElseThrow(() -> new RuntimeException("Terceirizada não encontrada"));
+        clientePFisicaModel.setClienteId(cliente);
+
         clientePFisicaModel.setNome(clientePFisicaForm.getNome());
         clientePFisicaModel.setTelefone(clientePFisicaForm.getTelefone());
         clientePFisicaModel.setEmail(clientePFisicaForm.getEmail());
@@ -126,7 +134,7 @@ public class ClientePFisicaService {
     private ClientePFisicaDto convertModelToDto(ClientePFisicaModel clientePFisicaModel) {
         ClientePFisicaDto clientePFisicaDto = new ClientePFisicaDto();
         clientePFisicaDto.setClientePFisicaId(clientePFisicaModel.getClientePFisicaId());
-        clientePFisicaDto.setClienteId(clientePFisicaModel.getClienteId());
+        clientePFisicaDto.setClienteId(clientePFisicaModel.getClienteId().getClienteId());
         clientePFisicaDto.setNome(clientePFisicaModel.getNome());
         clientePFisicaDto.setTelefone(clientePFisicaModel.getTelefone());
         clientePFisicaDto.setEmail(clientePFisicaModel.getEmail());

@@ -1,5 +1,8 @@
 package com.fatextil.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import javax.persistence.*;
 
@@ -12,9 +15,17 @@ public class ItensPedidoModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long itensPedidoId;
 
-    private Long codPedido;
+    @ManyToOne
+    @JoinColumn(name = "codPedido", nullable = false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    private PedidoModel codPedido;
 
-    private Long codProduto;
+    @ManyToOne
+    @JoinColumn(name = "codProduto", nullable = false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    private ProdutoModel codProduto;
 
     @Column(name = "descricao", nullable = false, columnDefinition = "VARCHAR(255)")
     private String descricao;

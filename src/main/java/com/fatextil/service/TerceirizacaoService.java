@@ -3,7 +3,9 @@ package com.fatextil.service;
 import com.fatextil.model.FabricacaoPedidoModel;
 import com.fatextil.model.TerceirizacaoModel;
 import com.fatextil.model.TerceirizadoModel;
+import com.fatextil.repository.FabricacaoPedidoRepository;
 import com.fatextil.repository.TerceirizacaoRepository;
+import com.fatextil.repository.TerceirizadoRepository;
 import com.fatextil.rest.dto.TerceirizacaoDto;
 import com.fatextil.rest.form.TerceirizacaoForm;
 import com.fatextil.service.exceptions.DataIntegrityException;
@@ -22,6 +24,10 @@ public class TerceirizacaoService {
 
     @Autowired
     private TerceirizacaoRepository terceirizacaoRepository;
+    @Autowired
+    private TerceirizadoRepository terceirizadoRepository;
+    @Autowired
+    private FabricacaoPedidoRepository fabricacaoPedidoRepository;
 
     public List<TerceirizacaoDto> findAll() {
         List<TerceirizacaoModel> terceirizacaoList = terceirizacaoRepository.findAll();
@@ -56,8 +62,16 @@ public class TerceirizacaoService {
             if (terceirizacaoExistente.isPresent()) {
                 TerceirizacaoModel terceirizacaoAtualizado = terceirizacaoExistente.get();
 
-                terceirizacaoAtualizado.setTerceirizadoId(terceirizacaoForm.getTerceirizadoId());
-                terceirizacaoAtualizado.setFabricacaoPedidoId(terceirizacaoForm.getFabricacaoPedidoId());
+                // Obtém a instância de PerfilAcessoModel do repositório
+                TerceirizadoModel terceirizado = terceirizadoRepository.findById(terceirizacaoForm.getTerceirizadoId())
+                        .orElseThrow(() -> new RuntimeException("Terceirizada não encontrada"));
+                terceirizacaoAtualizado.setTerceirizadoId(terceirizado);
+
+                // Obtém a instância de PerfilAcessoModel do repositório
+                FabricacaoPedidoModel fabricacaoPedido = fabricacaoPedidoRepository.findById(terceirizacaoForm.getFabricacaoPedidoId())
+                        .orElseThrow(() -> new RuntimeException("Perfil de acesso não encontrado"));
+                terceirizacaoAtualizado.setFabricacaoPedidoId(fabricacaoPedido);
+
                 terceirizacaoAtualizado.setDataEnvio(terceirizacaoForm.getDataEnvio());
                 terceirizacaoAtualizado.setHoraEnvio(terceirizacaoForm.getHoraEnvio());
                 terceirizacaoAtualizado.setDataFinalizacao(terceirizacaoForm.getDataFinalizacao());
@@ -86,8 +100,16 @@ public class TerceirizacaoService {
     private TerceirizacaoModel convertFormToModel(TerceirizacaoForm terceirizacaoForm) {
         TerceirizacaoModel terceirizacaoModel = new TerceirizacaoModel();
 
-        terceirizacaoModel.setTerceirizadoId(terceirizacaoForm.getTerceirizadoId());
-        terceirizacaoModel.setFabricacaoPedidoId(terceirizacaoForm.getFabricacaoPedidoId());
+        // Obtém a instância de PerfilAcessoModel do repositório
+        TerceirizadoModel terceirizado = terceirizadoRepository.findById(terceirizacaoForm.getTerceirizadoId())
+                .orElseThrow(() -> new RuntimeException("Terceirizada não encontrada"));
+        terceirizacaoModel.setTerceirizadoId(terceirizado);
+
+        // Obtém a instância de PerfilAcessoModel do repositório
+        FabricacaoPedidoModel fabricacaoPedido = fabricacaoPedidoRepository.findById(terceirizacaoForm.getFabricacaoPedidoId())
+                .orElseThrow(() -> new RuntimeException("Perfil de acesso não encontrado"));
+        terceirizacaoModel.setFabricacaoPedidoId(fabricacaoPedido);
+
         terceirizacaoModel.setDataEnvio(terceirizacaoForm.getDataEnvio());
         terceirizacaoModel.setHoraEnvio(terceirizacaoForm.getHoraEnvio());
         terceirizacaoModel.setDataFinalizacao(terceirizacaoForm.getDataFinalizacao());
@@ -99,8 +121,8 @@ public class TerceirizacaoService {
     private TerceirizacaoDto convertModelToDto(TerceirizacaoModel terceirizacaoModel) {
         TerceirizacaoDto terceirizacaoDto = new TerceirizacaoDto();
         terceirizacaoDto.setTerceirizacaoId(terceirizacaoModel.getTerceirizacaoId());
-        terceirizacaoDto.setTerceirizadoId(terceirizacaoModel.getTerceirizadoId());
-        terceirizacaoDto.setFabricacaoPedidoId(terceirizacaoModel.getFabricacaoPedidoId());
+        terceirizacaoDto.setTerceirizadoId(terceirizacaoModel.getTerceirizadoId().getTerceirizadoId());
+        terceirizacaoDto.setFabricacaoPedidoId(terceirizacaoModel.getFabricacaoPedidoId().getFabricacaoPedidoId());
         terceirizacaoDto.setDataEnvio(terceirizacaoModel.getDataEnvio());
         terceirizacaoDto.setHoraEnvio(terceirizacaoModel.getHoraEnvio());
         terceirizacaoDto.setDataFinalizacao(terceirizacaoModel.getDataFinalizacao());

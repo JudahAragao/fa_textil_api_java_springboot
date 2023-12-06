@@ -2,6 +2,7 @@ package com.fatextil.service;
 
 import com.fatextil.model.ProdutoModel;
 import com.fatextil.model.TamanhoProdutoModel;
+import com.fatextil.repository.ProdutoRepository;
 import com.fatextil.repository.TamanhoProdutoRepository;
 import com.fatextil.rest.dto.TamanhoProdutoDto;
 import com.fatextil.rest.form.TamanhoProdutoForm;
@@ -21,6 +22,8 @@ public class TamanhoProdutoService {
 
     @Autowired
     private TamanhoProdutoRepository tamanhoProdutoRepository;
+    @Autowired
+    private ProdutoRepository produtoRepository;
 
     public List<TamanhoProdutoDto> findAll() {
         List<TamanhoProdutoModel> tamanhoProdutoList = tamanhoProdutoRepository.findAll();
@@ -56,7 +59,9 @@ public class TamanhoProdutoService {
                 TamanhoProdutoModel tamanhoProdutoAtualizado = tamanhoProdutoExistente.get();
 
                 // Defina o relacionamento para ProdutoModel
-                tamanhoProdutoAtualizado.setCodProduto(tamanhoProdutoForm.getCodProduto());
+                ProdutoModel produto = produtoRepository.findById(tamanhoProdutoForm.getCodProduto())
+                        .orElseThrow(() -> new RuntimeException("produto não encontrado"));
+                tamanhoProdutoAtualizado.setCodProduto(produto);
 
                 tamanhoProdutoAtualizado.setTamanho(tamanhoProdutoForm.getTamanho());
 
@@ -84,7 +89,10 @@ public class TamanhoProdutoService {
         TamanhoProdutoModel tamanhoProdutoModel = new TamanhoProdutoModel();
 
         // Definir o relacionamento para ProdutoModel
-        tamanhoProdutoModel.setCodProduto(tamanhoProdutoForm.getCodProduto());
+        ProdutoModel produto = produtoRepository.findById(tamanhoProdutoForm.getCodProduto())
+                .orElseThrow(() -> new RuntimeException("produto não encontrado"));
+        tamanhoProdutoModel.setCodProduto(produto);
+
         tamanhoProdutoModel.setTamanho(tamanhoProdutoForm.getTamanho());
         return tamanhoProdutoModel;
     }
@@ -92,7 +100,7 @@ public class TamanhoProdutoService {
     private TamanhoProdutoDto convertModelToDto(TamanhoProdutoModel tamanhoProdutoModel) {
         TamanhoProdutoDto tamanhoProdutoDto = new TamanhoProdutoDto();
         tamanhoProdutoDto.setTamanhoProdutoId(tamanhoProdutoModel.getTamanhoProdutoId());
-        tamanhoProdutoDto.setCodProduto(tamanhoProdutoModel.getCodProduto());
+        tamanhoProdutoDto.setCodProduto(tamanhoProdutoModel.getCodProduto().getCodProduto());
         tamanhoProdutoDto.setTamanho(tamanhoProdutoModel.getTamanho());
         return tamanhoProdutoDto;
     }
