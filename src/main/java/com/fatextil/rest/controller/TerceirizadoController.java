@@ -7,6 +7,7 @@ import com.fatextil.service.TerceirizadoService;
 import com.fatextil.service.exceptions.ConstraintException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,18 +22,21 @@ public class TerceirizadoController {
     private TerceirizadoService terceirizadoService;
 
     @GetMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<TerceirizadoDto>> findAll() {
         List<TerceirizadoDto> terceirizadoDtoList = terceirizadoService.findAll();
         return ResponseEntity.ok().body(terceirizadoDtoList);
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<TerceirizadoDto> find(@PathVariable("id") long terceirizadoId) {
         TerceirizadoDto terceirizadoDto = terceirizadoService.findById(terceirizadoId);
         return ResponseEntity.ok().body(terceirizadoDto);
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<TerceirizadoDto> insert(@Valid @RequestBody TerceirizadoForm terceirizadoForm, BindingResult br) {
         if (br.hasErrors())
             throw new ConstraintException(br.getAllErrors().get(0).getDefaultMessage());
@@ -42,6 +46,7 @@ public class TerceirizadoController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<TerceirizadoDto> update(@Valid @RequestBody TerceirizadoUpdateForm terceirizadoUpdateForm, @PathVariable("id") long terceirizadoId, BindingResult br) {
         if (br.hasErrors())
             throw new ConstraintException(br.getAllErrors().get(0).getDefaultMessage());
@@ -51,6 +56,7 @@ public class TerceirizadoController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Void> delete(@PathVariable("id") long terceirizadoId) {
         terceirizadoService.delete(terceirizadoId);
         return ResponseEntity.noContent().build();

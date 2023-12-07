@@ -1,5 +1,8 @@
 package com.fatextil.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -14,27 +17,35 @@ public class FabricacaoPedidoModel {
     private Long fabricacaoPedidoId;
 
     @ManyToOne
-    @JoinColumn(name = "etapasFabricacaoId", referencedColumnName = "etapasFabricacaoId")
+    @JoinColumn(name = "etapasFabricacaoId", nullable = false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     private EtapasFabricacaoModel etapasFabricacaoId;
 
     @ManyToOne
-    @JoinColumn(name = "itensPedidoId", referencedColumnName = "itensPedidoId")
+    @JoinColumn(name = "itensPedidoId", nullable = false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     private ItensPedidoModel itensPedidoId;
 
     @ManyToOne
-    @JoinColumn(name = "funcionarioId", referencedColumnName = "funcionarioId")
+    @JoinColumn(name = "funcionarioId", nullable = false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     private FuncionarioModel funcionarioId;
 
     @ManyToOne
-    @JoinColumn(name = "statusFabricacaoId", referencedColumnName = "statusFabricacaoId")
+    @JoinColumn(name = "statusFabricacaoId", nullable = false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     private StatusFabricacaoModel statusFabricacaoId;
 
-    @Column(nullable = false)
+    @Column(name = "dataInicio", nullable = false)
     private LocalDate dataInicio;
 
-    @Column(nullable = false)
+    @Column(name = "dataPrevisao", nullable = false)
     private LocalDate dataPrevisao;
 
-    @Column
+    @Column(name = "dataFim")
     private LocalDate dataFim;
 }

@@ -13,36 +13,36 @@ public class TerceirizadoModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long terceirizadoId;
 
-    @Column(nullable = false, length = 100)
+    @Column(name = "nome", nullable = false, length = 100)
     private String nome;
 
-    @Column(nullable = false, length = 11)
+    @Column(name = "telefone", nullable = false, length = 11)
     private String telefone;
 
-    @Column(nullable = false, length = 60)
+    @Column(name = "email", nullable = false, length = 60)
     private String email;
 
-    @Column(nullable = false, length = 60)
+    @Column(name = "logradouro", nullable = false, length = 60)
     private String logradouro;
 
-    @Column(nullable = false, length = 10)
+    @Column(name = "numeroImovel", nullable = false, length = 10)
     private String numeroImovel;
 
-    @Column(nullable = false, length = 20)
+    @Column(name = "bairro", nullable = false, length = 20)
     private String bairro;
 
-    @Column(length = 50)
+    @Column(name = "complemento", length = 50)
     private String complemento;
 
-    @Column(nullable = false, length = 9)
+    @Column(name = "cep", nullable = false, length = 9)
     private String cep;
 
-    @Column(nullable = false, length = 14)
+    @Column(name = "cnpj", nullable = false, length = 14)
     private String cnpj;
 
-    @Column(nullable = false, columnDefinition = "bit")
-    private Boolean ativo;
+    @Column(name = "ativo", nullable = false, columnDefinition = "bit")
+    private Byte ativo;
 
-    @Column(nullable = false)
+    @Column(name = "dataCadastro", nullable = false)
     private LocalDate dataCadastro;
 }

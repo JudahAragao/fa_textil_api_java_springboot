@@ -21,7 +21,7 @@ public class FuncionarioDto {
     private String complemento;
     private String cep;
     private String cpf;
-    private Boolean ativo;
+    private Byte ativo;
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataCadastro;
 

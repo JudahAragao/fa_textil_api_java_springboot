@@ -1,5 +1,8 @@
 package com.fatextil.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -13,40 +16,42 @@ public class ClientePFisicaModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long clientePFisicaId;
 
-    @OneToOne
-    @JoinColumn(name = "clienteId", referencedColumnName = "clienteId")
+    @ManyToOne
+    @JoinColumn(name = "clienteId", nullable = false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     private ClienteModel clienteId;
 
-    @Column(nullable = false, length = 100)
+    @Column(name= "nome", nullable = false, length = 100)
     private String nome;
 
-    @Column(nullable = false, length = 11)
+    @Column(name= "telefone", nullable = false, length = 11)
     private String telefone;
 
-    @Column(nullable = false, length = 60)
+    @Column(name= "email", nullable = false, length = 60)
     private String email;
 
-    @Column(nullable = false, length = 60)
+    @Column(name= "logradouro", nullable = false, length = 60)
     private String logradouro;
 
-    @Column(nullable = false, length = 10)
+    @Column(name= "numeroImovel", nullable = false, length = 10)
     private String numeroImovel;
 
-    @Column(nullable = false, length = 20)
+    @Column(name= "bairro", nullable = false, length = 20)
     private String bairro;
 
-    @Column(length = 50)
+    @Column(name= "complemento", length = 50)
     private String complemento;
 
-    @Column(nullable = false, length = 9)
+    @Column(name= "cep", nullable = false, length = 9)
     private String cep;
 
-    @Column(nullable = false, length = 11)
+    @Column(name= "cpf", nullable = false, length = 11)
     private String cpf;
 
-    @Column(nullable = false, columnDefinition = "bit")
-    private Boolean ativo;
+    @Column(name= "ativo", nullable = false)
+    private Byte ativo;
 
-    @Column(nullable = false)
+    @Column(name= "dataCadastro", nullable = false)
     private LocalDate dataCadastro;
 }

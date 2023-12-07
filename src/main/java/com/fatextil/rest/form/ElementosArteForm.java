@@ -1,6 +1,7 @@
 package com.fatextil.rest.form;
 
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.*;
 
@@ -16,11 +17,8 @@ public class ElementosArteForm {
     @NotEmpty
     @NotBlank(message = "O Nome do arquivo não pode estar em branco.")
     @Size(max = 50)
-    private String filename;
+    private String fileName;
 
-    @NotEmpty
-    @NotBlank(message = "O caminho do arquivo não pode estar em branco.")
-    @Size(max = 100)
-    private String path;
+    private MultipartFile data;
 
 }

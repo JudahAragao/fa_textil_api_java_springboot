@@ -14,6 +14,6 @@ public class UsuarioDto {
     private Long funcionarioId;
     private String login;
     private String senha;
-    private Boolean ativo;
+    private Byte ativo;
 
 }

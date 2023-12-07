@@ -4,6 +4,8 @@ import com.fatextil.model.ItensPedidoModel;
 import com.fatextil.model.PedidoModel;
 import com.fatextil.model.ProdutoModel;
 import com.fatextil.repository.ItensPedidoRepository;
+import com.fatextil.repository.PedidoRepository;
+import com.fatextil.repository.ProdutoRepository;
 import com.fatextil.rest.dto.ItensPedidoDto;
 import com.fatextil.rest.form.ItensPedidoForm;
 import com.fatextil.rest.form.ItensPedidoUpdateForm;
@@ -23,6 +25,10 @@ public class ItensPedidoService {
 
     @Autowired
     private ItensPedidoRepository itensPedidoRepository;
+    @Autowired
+    private PedidoRepository pedidoRepository;
+    @Autowired
+    private ProdutoRepository produtoRepository;
 
     // Busca completa no banco de dados
     public List<ItensPedidoDto> findAll() {
@@ -86,15 +92,13 @@ public class ItensPedidoService {
     private ItensPedidoModel convertFormToModel(ItensPedidoForm itensPedidoForm) {
         ItensPedidoModel itensPedidoModel = new ItensPedidoModel();
 
-        // Mapeie os campos do formulário para os atributos do modelo
-
         // Defina os relacionamentos para CodPedido e CodProduto
-        PedidoModel pedido = new PedidoModel();
-        pedido.setCodPedido(itensPedidoForm.getCodPedido());
+        PedidoModel pedido = pedidoRepository.findById(itensPedidoForm.getCodPedido())
+                .orElseThrow(() -> new RuntimeException("Perfil de acesso não encontrado"));
         itensPedidoModel.setCodPedido(pedido);
 
-        ProdutoModel produto = new ProdutoModel();
-        produto.setCodProduto(itensPedidoForm.getCodProduto());
+        ProdutoModel produto = produtoRepository.findById(itensPedidoForm.getCodProduto())
+                .orElseThrow(() -> new RuntimeException("Perfil de acesso não encontrado"));
         itensPedidoModel.setCodProduto(produto);
 
         itensPedidoModel.setDescricao(itensPedidoForm.getDescricao());
@@ -109,8 +113,8 @@ public class ItensPedidoService {
         ItensPedidoDto itensPedidoDto = new ItensPedidoDto();
 
         itensPedidoDto.setItensPedidoId(itensPedidoModel.getItensPedidoId());
-        itensPedidoDto.setCodPedido(itensPedidoModel.getCodPedido().getCodPedido()); // para nn precisar instanciar de PedidoModel
-        itensPedidoDto.setCodProduto(itensPedidoModel.getCodProduto().getCodProduto()); // para nn precisar instanciar de ProdutoModel
+        itensPedidoDto.setCodPedido(itensPedidoModel.getCodPedido().getCodPedido());
+        itensPedidoDto.setCodProduto(itensPedidoModel.getCodProduto().getCodProduto());
         itensPedidoDto.setDescricao(itensPedidoModel.getDescricao());
         itensPedidoDto.setQtde(itensPedidoModel.getQtde());
         itensPedidoDto.setObservacao(itensPedidoModel.getObservacao());

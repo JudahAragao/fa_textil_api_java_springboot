@@ -3,7 +3,9 @@ package com.fatextil.service;
 import com.fatextil.model.ClienteModel;
 import com.fatextil.model.PedidoModel;
 import com.fatextil.model.StatusPedidoModel;
+import com.fatextil.repository.ClienteRepository;
 import com.fatextil.repository.PedidoRepository;
+import com.fatextil.repository.StatusPedidoRepository;
 import com.fatextil.rest.dto.PedidoDto;
 import com.fatextil.rest.form.PedidoForm;
 import com.fatextil.rest.form.PedidoUpdateForm;
@@ -23,6 +25,10 @@ public class PedidoService {
 
     @Autowired
     private PedidoRepository pedidoRepository;
+    @Autowired
+    private ClienteRepository clienteRepository;
+    @Autowired
+    private StatusPedidoRepository statusPedidoRepository;
 
     // Busca completa no banco de dados
     public List<PedidoDto> findAll() {
@@ -85,15 +91,13 @@ public class PedidoService {
     private PedidoModel convertFormToModel(PedidoForm pedidoForm) {
         PedidoModel pedidoModel = new PedidoModel();
 
-        // Mapeie os campos do formulário para os atributos do modelo
-
         // Defina os relacionamentos para ClienteModel e StatusPedidoModel
-        ClienteModel cliente = new ClienteModel();
-        cliente.setClienteId(pedidoForm.getClienteId());
+        ClienteModel cliente = clienteRepository.findById(pedidoForm.getClienteId())
+                .orElseThrow(() -> new RuntimeException("Perfil de acesso não encontrado"));
         pedidoModel.setClienteId(cliente);
 
-        StatusPedidoModel statusPedido = new StatusPedidoModel();
-        statusPedido.setStatusPedidoId(pedidoForm.getStatusPedidoId());
+        StatusPedidoModel statusPedido = statusPedidoRepository.findById(pedidoForm.getClienteId())
+                .orElseThrow(() -> new RuntimeException("Perfil de acesso não encontrado"));
         pedidoModel.setStatusPedidoId(statusPedido);
 
         pedidoModel.setDescricao(pedidoForm.getDescricao());
@@ -109,8 +113,8 @@ public class PedidoService {
         PedidoDto pedidoDto = new PedidoDto();
 
         pedidoDto.setPedidoId(pedidoModel.getCodPedido());
-        pedidoDto.setClienteId(pedidoModel.getClienteId().getClienteId()); // para não precisar instanciar um objeto ClienteModel
-        pedidoDto.setStatusPedidoId(pedidoModel.getStatusPedidoId().getStatusPedidoId()); // para não precisar instanciar um objeto StatusPedidoModel
+        pedidoDto.setClienteId(pedidoModel.getClienteId().getClienteId());
+        pedidoDto.setStatusPedidoId(pedidoModel.getStatusPedidoId().getStatusPedidoId());
         pedidoDto.setDescricao(pedidoModel.getDescricao());
         pedidoDto.setDataPedido(pedidoModel.getDataPedido());
         pedidoDto.setHoraPedido(pedidoModel.getHoraPedido());

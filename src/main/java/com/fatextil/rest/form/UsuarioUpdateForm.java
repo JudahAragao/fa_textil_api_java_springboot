@@ -24,5 +24,5 @@ public class UsuarioUpdateForm {
     private String senha;
 
     @NotNull(message = "Valor de atividade não pode ser nula.")
-    private Boolean ativo;
+    private Byte ativo;
 }

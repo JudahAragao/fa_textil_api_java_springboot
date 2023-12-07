@@ -1,148 +1,56 @@
 package com.fatextil.service;
 
-import com.fatextil.model.CategoriaElementoArteModel;
-import com.fatextil.model.ClienteModel;
 import com.fatextil.model.ElementosArteModel;
-import com.fatextil.model.ItensPedidoModel;
 import com.fatextil.repository.ElementosArteRepository;
-import com.fatextil.rest.dto.ElementosArteDto;
 import com.fatextil.rest.form.ElementosArteForm;
-import com.fatextil.service.exceptions.DataIntegrityException;
-import com.fatextil.service.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import javax.persistence.EntityNotFoundException;
+import java.io.IOException;
+import java.util.*;
 
 @Service
 public class ElementosArteService {
 
     @Autowired
-    private ElementosArteRepository elementosArteRepository;
+    private final ElementosArteRepository elementosArteRepository;
 
-    // Busca completa no banco de dados
-    public List<ElementosArteDto> findAll() {
-        List<ElementosArteModel> elementosArteList = elementosArteRepository.findAll();
-        return convertListToDto(elementosArteList);
+    public ElementosArteService(ElementosArteRepository elementosArteRepository) {
+        this.elementosArteRepository = elementosArteRepository;
     }
 
-    // Busca no banco de dados
-    public ElementosArteDto findById(Long elementosArteId) {
-        try {
-            ElementosArteModel elementosArteModel = elementosArteRepository.findById(elementosArteId)
-                    .orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + elementosArteId + " Tipo: " + ElementosArteModel.class.getName()));
-
-            return convertModelToDto(elementosArteModel);
-        } catch (NoSuchElementException e) {
-            throw new ObjectNotFoundException("Objeto não encontrado! Id: " + elementosArteId + " Tipo: " + ElementosArteModel.class.getName());
-        }
-    }
-
-    // Inserção no banco de dados
-    public ElementosArteDto insert(ElementosArteForm elementosArteForm) {
-        try {
-            ElementosArteModel elementosArteNovo = convertFormToModel(elementosArteForm);
-            Optional<ElementosArteModel> byFileName = elementosArteRepository.findByFilename(elementosArteNovo.getFilename());
-
-            if (byFileName.isPresent())
-                throw new IllegalStateException("Arquivo já existe, por favor mude o nome do arquivo que esta tentando enviar!");
-
-            elementosArteNovo = elementosArteRepository.save(elementosArteNovo);
-            return convertModelToDto(elementosArteNovo);
-        } catch (DataIntegrityViolationException e) {
-            throw new DataIntegrityException("Campo(s) obrigatório(s) não foi(foram) preenchido(s).");
-        }
-    }
-
-    // Alteração no banco de dados
-    public ElementosArteDto update(ElementosArteForm elementosArteForm, Long elementosArteId) {
-        try {
-            Optional<ElementosArteModel> elementosArteExistente = elementosArteRepository.findById(elementosArteId);
-            if (elementosArteExistente.isPresent()) {
-                ElementosArteModel elementosArteAtualizado = elementosArteExistente.get();
-
-                // Para criar uma instância do ItensPedidoModel
-                ItensPedidoModel itensPedidoModel = new ItensPedidoModel();
-                itensPedidoModel.setItensPedidoId(elementosArteForm.getItensPedidoId());
-                elementosArteAtualizado.setItensPedidoId(itensPedidoModel);
-
-                // Para criar uma instância do CategoriaElementoArteModel
-                CategoriaElementoArteModel categoriaElementoArteModel = new CategoriaElementoArteModel();
-                categoriaElementoArteModel.setCategoriaElementoId(elementosArteForm.getCategoriaElementoId());
-                elementosArteAtualizado.setCategoriaElementoId(categoriaElementoArteModel);
-
-                elementosArteAtualizado.setFilename(elementosArteForm.getFilename());
-                elementosArteAtualizado.setPath(elementosArteForm.getPath());
-
-                elementosArteRepository.save(elementosArteAtualizado);
-                return convertModelToDto(elementosArteAtualizado);
-            } else {
-                throw new DataIntegrityException("O ID do elementosArte não existe na base de dados!");
-            }
-        } catch (DataIntegrityViolationException e) {
-            throw new DataIntegrityException("Campo(s) obrigatório(s) de ElementosArte não foi(foram) preenchido(s).");
-        }
-    }
-
-    // Exclusão no banco de dados
-    public void delete(Long elementosArteId) {
-        try {
-            if (elementosArteRepository.existsById(elementosArteId)) {
-                elementosArteRepository.deleteById(elementosArteId);
-            }
-        } catch (DataIntegrityViolationException e) {
-            throw new DataIntegrityException("Não é possível excluir um ElementosArte!");
-        }
-    }
-
-    // Conversores de FORM para MODEL
-    public ElementosArteModel convertFormToModel(ElementosArteForm elementosArteForm) {
+    public ElementosArteModel uploadFile(ElementosArteForm elementosArteForm) throws IOException {
+        MultipartFile file = elementosArteForm.getData();
         ElementosArteModel elementosArteModel = new ElementosArteModel();
+        elementosArteModel.setFileName(elementosArteForm.getFileName());
+        elementosArteModel.setContentType(file.getContentType());
+        elementosArteModel.setData(file.getBytes());
 
-        // Verifique se os campos não são nulos antes de acessá-los
-        if (elementosArteForm.getItensPedidoId() != null) {
-            ItensPedidoModel itensPedidoModel = new ItensPedidoModel();
-            itensPedidoModel.setItensPedidoId(elementosArteForm.getItensPedidoId());
-            elementosArteModel.setItensPedidoId(itensPedidoModel);
-        }
-
-        if (elementosArteForm.getCategoriaElementoId() != null) {
-            CategoriaElementoArteModel categoriaElementoArteModel = new CategoriaElementoArteModel();
-            categoriaElementoArteModel.setCategoriaElementoId(elementosArteForm.getCategoriaElementoId());
-            elementosArteModel.setCategoriaElementoId(categoriaElementoArteModel);
-        }
-
-        elementosArteModel.setFilename(elementosArteForm.getFilename());
-        elementosArteModel.setPath(elementosArteForm.getPath());
-
-        return elementosArteModel;
+        return elementosArteRepository.save(elementosArteModel);
     }
 
-    // Conversores de MODEL para DTO
-    public ElementosArteDto convertModelToDto(ElementosArteModel elementosArteModel) {
-        ElementosArteDto elementosArteDto = new ElementosArteDto();
+    public ElementosArteModel updateFile(Long id, ElementosArteForm elementosArteForm) throws IOException {
+        ElementosArteModel existingFile = elementosArteRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("File not found with id: " + id));
+        existingFile.setFileName(elementosArteForm.getFileName());
+        existingFile.setContentType(elementosArteForm.getData().getContentType());
+        existingFile.setData(elementosArteForm.getData().getBytes());
 
-        elementosArteDto.setElementosArteId(elementosArteModel.getElementosArteId());
-        elementosArteDto.setItensPedidoId(elementosArteModel.getItensPedidoId().getItensPedidoId());
-        elementosArteDto.setCategoriaElementoId(elementosArteModel.getCategoriaElementoId().getCategoriaElementoId());
-        elementosArteDto.setFilename(elementosArteModel.getFilename());
-        elementosArteDto.setPath(elementosArteModel.getPath());
-
-        return elementosArteDto;
+        return elementosArteRepository.save(existingFile);
     }
 
-    // Conversor de LIST para DTO
-    public List<ElementosArteDto> convertListToDto(List<ElementosArteModel> elementosArteList) {
-        List<ElementosArteDto> elementosArteDtoList = new ArrayList<>();
-        for (ElementosArteModel elementosArteModel : elementosArteList) {
-            ElementosArteDto elementosArteDto = convertModelToDto(elementosArteModel);
-            elementosArteDtoList.add(elementosArteDto);
-        }
-        return elementosArteDtoList;
+    public ElementosArteModel getFile(Long id) {
+        return elementosArteRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("File not found with id: " + id));
     }
 
+    public List<ElementosArteModel> getAllFiles() {
+        return elementosArteRepository.findAll();
+    }
+
+    public void deleteFile(Long id) {
+        elementosArteRepository.deleteById(id);
+    }
 }

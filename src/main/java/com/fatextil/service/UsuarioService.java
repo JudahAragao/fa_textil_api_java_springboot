@@ -3,6 +3,8 @@ package com.fatextil.service;
 import com.fatextil.model.FuncionarioModel;
 import com.fatextil.model.PerfilAcessoModel;
 import com.fatextil.model.UsuarioModel;
+import com.fatextil.repository.FuncionarioRepository;
+import com.fatextil.repository.PerfilAcessoRepository;
 import com.fatextil.repository.UsuarioRepository;
 import com.fatextil.rest.dto.UsuarioDto;
 import com.fatextil.rest.form.UsuarioForm;
@@ -11,6 +13,7 @@ import com.fatextil.service.exceptions.DataIntegrityException;
 import com.fatextil.service.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,6 +26,12 @@ public class UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private PerfilAcessoRepository perfilAcessoRepository;
+
+    @Autowired
+    private FuncionarioRepository funcionarioRepository;
 
     public List<UsuarioDto> findAll() {
         List<UsuarioModel> usuarioList = usuarioRepository.findAll();
@@ -41,6 +50,11 @@ public class UsuarioService {
     public UsuarioDto insert(UsuarioForm usuarioForm) {
         try {
             UsuarioModel usuarioNovo = convertFormToModel(usuarioForm);
+
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            String senhaCodificada = passwordEncoder.encode(usuarioForm.getSenha());
+            usuarioNovo.setSenha(senhaCodificada);
+
             Optional<UsuarioModel> byLogin = usuarioRepository.findByLogin(usuarioNovo.getLogin());
 
             if (byLogin.isPresent())
@@ -86,14 +100,18 @@ public class UsuarioService {
 
     private UsuarioModel convertFormToModel(UsuarioForm usuarioForm) {
         UsuarioModel usuarioModel = new UsuarioModel();
-        usuarioModel.setLogin(usuarioForm.getLogin());
-        // Suponha que o perfilAcessoId e funcionarioId sejam buscados de alguma forma
-        PerfilAcessoModel perfilAcesso = new PerfilAcessoModel();
-        perfilAcesso.setPerfilAcessoId(usuarioForm.getPerfilAcessoId());
-        FuncionarioModel funcionario = new FuncionarioModel();
-        funcionario.setFuncionarioId(usuarioForm.getFuncionarioId());
+
+        // Obtém a instância de PerfilAcessoModel do repositório
+        PerfilAcessoModel perfilAcesso = perfilAcessoRepository.findById(usuarioForm.getPerfilAcessoId())
+                .orElseThrow(() -> new RuntimeException("Perfil de acesso não encontrado"));
         usuarioModel.setPerfilAcessoId(perfilAcesso);
+
+        // Obtém a instância de FuncionarioModel do repositório
+        FuncionarioModel funcionario = funcionarioRepository.findById(usuarioForm.getFuncionarioId())
+                .orElseThrow(() -> new RuntimeException("Funcionário não encontrado"));
         usuarioModel.setFuncionarioId(funcionario);
+
+        usuarioModel.setLogin(usuarioForm.getLogin());
         usuarioModel.setSenha(usuarioForm.getSenha());
         usuarioModel.setAtivo(usuarioForm.getAtivo());
         return usuarioModel;
@@ -102,7 +120,6 @@ public class UsuarioService {
     private UsuarioDto convertModelToDto(UsuarioModel usuarioModel) {
         UsuarioDto usuarioDto = new UsuarioDto();
         usuarioDto.setUsuarioId(usuarioModel.getUsuarioId());
-        // Obter os IDs de perfilAcesso e funcionario conforme necessário
         usuarioDto.setPerfilAcessoId(usuarioModel.getPerfilAcessoId().getPerfilAcessoId());
         usuarioDto.setFuncionarioId(usuarioModel.getFuncionarioId().getFuncionarioId());
         usuarioDto.setLogin(usuarioModel.getLogin());

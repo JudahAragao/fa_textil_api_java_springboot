@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Data
@@ -28,7 +27,7 @@ public class ClientePJuridicaDto {
     private String inscricaoEstatual;
     private String inscricaoMunicipal;
     private String cnpj;
-    private Boolean ativo;
+    private Byte ativo;
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataCadastro;
 

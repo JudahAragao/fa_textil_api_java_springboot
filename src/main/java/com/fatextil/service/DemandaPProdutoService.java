@@ -3,6 +3,7 @@ package com.fatextil.service;
 import com.fatextil.model.DemandaPProdutoModel;
 import com.fatextil.model.TamanhoProdutoModel;
 import com.fatextil.repository.DemandaPProdutoRepository;
+import com.fatextil.repository.TamanhoProdutoRepository;
 import com.fatextil.rest.dto.DemandaPProdutoDto;
 import com.fatextil.rest.form.DemandaPProdutoForm;
 import com.fatextil.service.exceptions.DataIntegrityException;
@@ -11,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -22,6 +22,8 @@ public class DemandaPProdutoService {
 
     @Autowired
     private DemandaPProdutoRepository demandaPProdutoRepository;
+    @Autowired
+    private TamanhoProdutoRepository tamanhoProdutoRepository;
 
     // Busca completa no banco de dados
     public List<DemandaPProdutoDto> findAll() {
@@ -90,9 +92,10 @@ public class DemandaPProdutoService {
     public DemandaPProdutoModel convertFormToModel(DemandaPProdutoForm demandaPProdutoForm) {
         DemandaPProdutoModel demandaPProdutoModel = new DemandaPProdutoModel();
 
-        TamanhoProdutoModel tamanhoProdutoModel = new TamanhoProdutoModel();
-        tamanhoProdutoModel.setTamanhoProdutoId(demandaPProdutoForm.getTamanhoProdutoId());
-        demandaPProdutoModel.setTamanhoProdutoId(tamanhoProdutoModel);
+        TamanhoProdutoModel tamanhoProduto = tamanhoProdutoRepository.findById(demandaPProdutoForm.getTamanhoProdutoId())
+                .orElseThrow(() -> new RuntimeException("Tamanho Produto não encontrada"));
+        demandaPProdutoModel.setTamanhoProdutoId(tamanhoProduto);
+
         demandaPProdutoModel.setDescricao(demandaPProdutoForm.getDescricao());
         demandaPProdutoModel.setUnidadeMedida(demandaPProdutoForm.getUnidadeMedida());
         demandaPProdutoModel.setQtdeDemandada(demandaPProdutoForm.getQtdeDemandada());

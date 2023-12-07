@@ -1,7 +1,9 @@
 package com.fatextil.service;
 
+import com.fatextil.model.ClienteModel;
 import com.fatextil.model.ClientePJuridicaModel;
 import com.fatextil.repository.ClientePJuridicaRepository;
+import com.fatextil.repository.ClienteRepository;
 import com.fatextil.rest.dto.ClientePJuridicaDto;
 import com.fatextil.rest.form.ClientePJuridicaForm;
 import com.fatextil.rest.form.ClientePJuridicaUpdateForm;
@@ -21,6 +23,8 @@ public class ClientePJuridicaService {
 
     @Autowired
     private ClientePJuridicaRepository clientePJuridicaRepository;
+    @Autowired
+    private ClienteRepository clienteRepository;
 
     //Busca completa no banco de dados
     public List<ClientePJuridicaDto> findAll() {
@@ -114,6 +118,10 @@ public class ClientePJuridicaService {
     // Conversores de FORM para MODEL
     public ClientePJuridicaModel convertFormToModel(ClientePJuridicaForm clientePJuridicaForm) {
         ClientePJuridicaModel clientePJuridicaModel = new ClientePJuridicaModel();
+
+        ClienteModel cliente = clienteRepository.findById(clientePJuridicaForm.getClienteId())
+                .orElseThrow(() -> new RuntimeException("Terceirizada não encontrada"));
+        clientePJuridicaModel.setClienteId(cliente);
 
         clientePJuridicaModel.setRazaoSocial(clientePJuridicaForm.getRazaoSocial());
         clientePJuridicaModel.setRepresentante(clientePJuridicaForm.getRepresentante());

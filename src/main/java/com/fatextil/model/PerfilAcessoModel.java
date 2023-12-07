@@ -5,13 +5,13 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@Table(name="PerfilAcesso")
+@Table(name="perfilacesso")
 public class PerfilAcessoModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long perfilAcessoId;
 
-    @Column(nullable = false, length = 20)
+    @Column(name = "nomePerfilAcesso", nullable = false, length = 20)
     private String nomePerfilAcesso;
 }

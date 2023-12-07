@@ -1,5 +1,8 @@
 package com.fatextil.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import javax.persistence.*;
 
@@ -13,19 +16,23 @@ public class ItensPedidoModel {
     private Long itensPedidoId;
 
     @ManyToOne
-    @JoinColumn(name = "codPedido", referencedColumnName = "codPedido")
+    @JoinColumn(name = "codPedido", nullable = false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     private PedidoModel codPedido;
 
     @ManyToOne
-    @JoinColumn(name = "codProduto", referencedColumnName = "codProduto")
+    @JoinColumn(name = "codProduto", nullable = false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     private ProdutoModel codProduto;
 
-    @Column(nullable = false, columnDefinition = "VARCHAR(255)")
+    @Column(name = "descricao", nullable = false, columnDefinition = "VARCHAR(255)")
     private String descricao;
 
-    @Column(nullable = false)
+    @Column(name = "qtde", nullable = false)
     private Integer qtde;
 
-    @Column(nullable = false, columnDefinition = "VARCHAR(255)")
+    @Column(name = "observacao", nullable = false, columnDefinition = "VARCHAR(255)")
     private String observacao;
 }

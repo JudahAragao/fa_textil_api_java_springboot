@@ -1,17 +1,18 @@
 package com.fatextil.rest.controller;
 
-import com.fatextil.rest.dto.ElementosArteDto;
+import com.fatextil.model.ElementosArteModel;
 import com.fatextil.rest.form.ElementosArteForm;
 import com.fatextil.service.ElementosArteService;
-import com.fatextil.service.exceptions.ConstraintException;
-import com.fatextil.storage.Disco;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -19,49 +20,50 @@ import java.util.List;
 public class ElementosArteController {
 
     @Autowired
-    private ElementosArteService elementoArteService;
+    private final ElementosArteService elementosArteService;
 
-    @GetMapping
-    public ResponseEntity<List<ElementosArteDto>> findAll() {
-        List<ElementosArteDto> elementoArteDtoList = elementoArteService.findAll();
-        return ResponseEntity.ok().body(elementoArteDtoList);
+    public ElementosArteController(ElementosArteService elementoArteService){
+        this.elementosArteService = elementoArteService;
+    }
+
+    @PostMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_VENDEDOR') or hasRole('ROLE_DESIGNER')")
+    public ResponseEntity<ElementosArteModel> uploadFile(@RequestParam("file") MultipartFile file, @ModelAttribute ElementosArteForm elementosArteForm) throws IOException {
+        elementosArteForm.setData(file);
+        ElementosArteModel uploadedFile = elementosArteService.uploadFile(elementosArteForm);
+        return ResponseEntity.ok(uploadedFile);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ElementosArteDto> find(@PathVariable("id") long elementoArteId) {
-        ElementosArteDto elementoArteDto = elementoArteService.findById(elementoArteId);
-        return ResponseEntity.ok().body(elementoArteDto);
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_VENDEDOR') or hasRole('ROLE_DESIGNER')")
+    public ResponseEntity<byte[]> downloadFile(@PathVariable Long id) {
+        ElementosArteModel file = elementosArteService.getFile(id);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.parseMediaType(file.getContentType()));
+        headers.setContentDispositionFormData("attachment", file.getFileName());
+
+        return new ResponseEntity<>(file.getData(), headers, HttpStatus.OK);
     }
 
-    private Disco disco;
-
-    @PostMapping
-    public void upload (@Valid @RequestParam MultipartFile elemento) {
-        disco.salvarFoto(elemento);
-    }
-
-    @PostMapping("/upload")
-    public ResponseEntity<ElementosArteDto> insert(@Valid @RequestBody ElementosArteForm elementosArteForm, BindingResult br) {
-        if (br.hasErrors())
-            throw new ConstraintException(br.getAllErrors().get(0).getDefaultMessage());
-
-        ElementosArteDto elementosArteDto = elementoArteService.insert(elementosArteForm);
-        return ResponseEntity.ok().body(elementosArteDto);
+    @GetMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_VENDEDOR') or hasRole('ROLE_DESIGNER')")
+    public ResponseEntity<List<ElementosArteModel>> getAllFiles() {
+        List<ElementosArteModel> files = elementosArteService.getAllFiles();
+        return ResponseEntity.ok(files);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ElementosArteDto> update(@Valid @RequestBody ElementosArteForm elementosArteUpdateForm, @PathVariable("id") long elementoArteId, BindingResult br) {
-        if (br.hasErrors())
-            throw new ConstraintException(br.getAllErrors().get(0).getDefaultMessage());
-
-        ElementosArteDto elementoArteDto = elementoArteService.update(elementosArteUpdateForm, elementoArteId);
-        return ResponseEntity.ok().body(elementoArteDto);
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_VENDEDOR') or hasRole('ROLE_DESIGNER')")
+    public ResponseEntity<ElementosArteModel> updateFile(@RequestParam("file") MultipartFile file, @PathVariable Long id, @ModelAttribute ElementosArteForm elementosArteForm) throws IOException {
+        elementosArteForm.setData(file);
+        ElementosArteModel updatedFile = elementosArteService.updateFile(id, elementosArteForm);
+        return ResponseEntity.ok(updatedFile);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable("id") long elementoArteId) {
-        elementoArteService.delete(elementoArteId);
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_VENDEDOR') or hasRole('ROLE_DESIGNER')")
+    public ResponseEntity<Void> deleteFile(@PathVariable Long id) {
+        elementosArteService.deleteFile(id);
         return ResponseEntity.noContent().build();
     }
-
 }

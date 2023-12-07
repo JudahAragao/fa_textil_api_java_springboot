@@ -1,5 +1,8 @@
 package com.fatextil.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -15,22 +18,26 @@ public class TerceirizacaoModel {
     private Long terceirizacaoId;
 
     @ManyToOne
-    @JoinColumn(name = "terceirizadoId", referencedColumnName = "terceirizadoId")
+    @JoinColumn(name = "terceirizadoId", nullable = false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     private TerceirizadoModel terceirizadoId;
 
     @ManyToOne
-    @JoinColumn(name = "fabricacaoPedidoId", referencedColumnName = "fabricacaoPedidoId")
+    @JoinColumn(name = "fabricacaoPedidoId", nullable = false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     private FabricacaoPedidoModel fabricacaoPedidoId;
 
-    @Column(nullable = false)
+    @Column(name = "dataEnvio", nullable = false)
     private LocalDate dataEnvio;
 
-    @Column(nullable = false)
+    @Column(name = "horaEnvio", nullable = false)
     private LocalTime horaEnvio;
 
-    @Column
+    @Column(name = "dataFinalizacao")
     private LocalDate dataFinalizacao;
 
-    @Column
+    @Column(name = "horaFinalizacao")
     private LocalTime horaFinalizacao;
 }

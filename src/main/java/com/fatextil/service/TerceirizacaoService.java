@@ -3,7 +3,9 @@ package com.fatextil.service;
 import com.fatextil.model.FabricacaoPedidoModel;
 import com.fatextil.model.TerceirizacaoModel;
 import com.fatextil.model.TerceirizadoModel;
+import com.fatextil.repository.FabricacaoPedidoRepository;
 import com.fatextil.repository.TerceirizacaoRepository;
+import com.fatextil.repository.TerceirizadoRepository;
 import com.fatextil.rest.dto.TerceirizacaoDto;
 import com.fatextil.rest.form.TerceirizacaoForm;
 import com.fatextil.service.exceptions.DataIntegrityException;
@@ -22,6 +24,10 @@ public class TerceirizacaoService {
 
     @Autowired
     private TerceirizacaoRepository terceirizacaoRepository;
+    @Autowired
+    private TerceirizadoRepository terceirizadoRepository;
+    @Autowired
+    private FabricacaoPedidoRepository fabricacaoPedidoRepository;
 
     public List<TerceirizacaoDto> findAll() {
         List<TerceirizacaoModel> terceirizacaoList = terceirizacaoRepository.findAll();
@@ -56,14 +62,14 @@ public class TerceirizacaoService {
             if (terceirizacaoExistente.isPresent()) {
                 TerceirizacaoModel terceirizacaoAtualizado = terceirizacaoExistente.get();
 
-                // Defina o relacionamento para TerceirizadoModel
-                TerceirizadoModel terceirizado = new TerceirizadoModel();
-                terceirizado.setTerceirizadoId(terceirizacaoForm.getTerceirizadoId());
+                // Obtém a instância de PerfilAcessoModel do repositório
+                TerceirizadoModel terceirizado = terceirizadoRepository.findById(terceirizacaoForm.getTerceirizadoId())
+                        .orElseThrow(() -> new RuntimeException("Terceirizada não encontrada"));
                 terceirizacaoAtualizado.setTerceirizadoId(terceirizado);
 
-                // Defina o relacionamento para FabricacaoPedidoModel
-                FabricacaoPedidoModel fabricacaoPedido = new FabricacaoPedidoModel();
-                fabricacaoPedido.setFabricacaoPedidoId(terceirizacaoForm.getFabricacaoPedidoId());
+                // Obtém a instância de PerfilAcessoModel do repositório
+                FabricacaoPedidoModel fabricacaoPedido = fabricacaoPedidoRepository.findById(terceirizacaoForm.getFabricacaoPedidoId())
+                        .orElseThrow(() -> new RuntimeException("Perfil de acesso não encontrado"));
                 terceirizacaoAtualizado.setFabricacaoPedidoId(fabricacaoPedido);
 
                 terceirizacaoAtualizado.setDataEnvio(terceirizacaoForm.getDataEnvio());
@@ -94,14 +100,14 @@ public class TerceirizacaoService {
     private TerceirizacaoModel convertFormToModel(TerceirizacaoForm terceirizacaoForm) {
         TerceirizacaoModel terceirizacaoModel = new TerceirizacaoModel();
 
-        // Defina o relacionamento para TerceirizadoModel
-        TerceirizadoModel terceirizado = new TerceirizadoModel();
-        terceirizado.setTerceirizadoId(terceirizacaoForm.getTerceirizadoId());
+        // Obtém a instância de PerfilAcessoModel do repositório
+        TerceirizadoModel terceirizado = terceirizadoRepository.findById(terceirizacaoForm.getTerceirizadoId())
+                .orElseThrow(() -> new RuntimeException("Terceirizada não encontrada"));
         terceirizacaoModel.setTerceirizadoId(terceirizado);
 
-        // Defina o relacionamento para FabricacaoPedidoModel
-        FabricacaoPedidoModel fabricacaoPedido = new FabricacaoPedidoModel();
-        fabricacaoPedido.setFabricacaoPedidoId(terceirizacaoForm.getFabricacaoPedidoId());
+        // Obtém a instância de PerfilAcessoModel do repositório
+        FabricacaoPedidoModel fabricacaoPedido = fabricacaoPedidoRepository.findById(terceirizacaoForm.getFabricacaoPedidoId())
+                .orElseThrow(() -> new RuntimeException("Perfil de acesso não encontrado"));
         terceirizacaoModel.setFabricacaoPedidoId(fabricacaoPedido);
 
         terceirizacaoModel.setDataEnvio(terceirizacaoForm.getDataEnvio());

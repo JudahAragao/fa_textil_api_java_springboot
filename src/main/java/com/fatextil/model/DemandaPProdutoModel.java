@@ -1,5 +1,8 @@
 package com.fatextil.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -13,19 +16,22 @@ public class DemandaPProdutoModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long demandaPProdutoId;
 
-    @OneToOne
-    @JoinColumn(name = "tamanhoProdutoId", referencedColumnName = "tamanhoProdutoId")
+    @ManyToOne
+    @JoinColumn(name = "tamanhoProdutoId", nullable = false)
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     private TamanhoProdutoModel tamanhoProdutoId;
 
-    @Column(nullable = false, length = 60)
+    @Column(name= "descricao", nullable = false, length = 60)
     private String descricao;
 
-    @Column(nullable = false, length = 2)
+    @Column(name= "unidadeMedida", nullable = false, length = 2)
     private String unidadeMedida;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(name= "qtdeDemandada", nullable = false, precision = 10, scale = 2)
     private BigDecimal qtdeDemandada;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(name= "custoUnitarioDemanda", nullable = false, precision = 10, scale = 2)
     private BigDecimal custoUnitarioDemanda;
+
 }

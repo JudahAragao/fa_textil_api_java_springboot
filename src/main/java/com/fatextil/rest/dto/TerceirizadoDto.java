@@ -22,7 +22,7 @@ public class TerceirizadoDto {
     private String complemento;
     private String cep;
     private String cnpj;
-    private Boolean ativo;
+    private Byte ativo;
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataCadastro;
 
