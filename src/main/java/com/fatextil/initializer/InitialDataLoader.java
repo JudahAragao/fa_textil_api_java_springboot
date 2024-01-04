@@ -1,12 +1,8 @@
 
 package com.fatextil.initializer;
 
-import com.fatextil.model.FuncionarioModel;
-import com.fatextil.model.PerfilAcessoModel;
-import com.fatextil.model.UsuarioModel;
-import com.fatextil.repository.FuncionarioRepository;
-import com.fatextil.repository.PerfilAcessoRepository;
-import com.fatextil.repository.UsuarioRepository;
+import com.fatextil.model.*;
+import com.fatextil.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -22,12 +18,22 @@ public class InitialDataLoader implements ApplicationRunner {
     private final PerfilAcessoRepository perfilAcessoRepository;
     private final UsuarioRepository usuarioRepository;
     private final FuncionarioRepository funcionarioRepository;
+    private final StatusPedidoRepository statusPedidoRepository;
+    private final ClienteRepository clienteRepository;
 
     @Autowired
-    public InitialDataLoader(PerfilAcessoRepository perfilAcessoRepository, UsuarioRepository usuarioRepository, FuncionarioRepository funcionarioRepository) {
+    public InitialDataLoader(PerfilAcessoRepository perfilAcessoRepository,
+                             UsuarioRepository usuarioRepository,
+                             FuncionarioRepository funcionarioRepository,
+                             StatusPedidoRepository statusPedidoRepository,
+                             ClienteRepository clienteRepository) {
+
         this.perfilAcessoRepository = perfilAcessoRepository;
         this.usuarioRepository = usuarioRepository;
         this.funcionarioRepository = funcionarioRepository;
+        this.statusPedidoRepository = statusPedidoRepository;
+        this.clienteRepository = clienteRepository;
+
     }
 
     @Override
@@ -49,6 +55,40 @@ public class InitialDataLoader implements ApplicationRunner {
             PerfilAcessoModel perfilDesigner = new PerfilAcessoModel();
             perfilDesigner.setNomePerfilAcesso("ROLE_DESIGNER");
             perfilAcessoRepository.save(perfilDesigner);
+        }
+
+        // Inserir status de pedidos padrão caso não existam
+        if (statusPedidoRepository.findByNomeStatusPedido("Fechado").isEmpty()) {
+            StatusPedidoModel statusPedidoModel = new StatusPedidoModel();
+            statusPedidoModel.setNomeStatusPedido("Fechado");
+            statusPedidoRepository.save(statusPedidoModel);
+        }
+        if (statusPedidoRepository.findByNomeStatusPedido("Em Aberto").isEmpty()) {
+            StatusPedidoModel statusPedidoModel = new StatusPedidoModel();
+            statusPedidoModel.setNomeStatusPedido("Em Aberto");
+            statusPedidoRepository.save(statusPedidoModel);
+        }
+        if (statusPedidoRepository.findByNomeStatusPedido("Vencido").isEmpty()) {
+            StatusPedidoModel statusPedidoModel = new StatusPedidoModel();
+            statusPedidoModel.setNomeStatusPedido("Vencido");
+            statusPedidoRepository.save(statusPedidoModel);
+        }
+        if (statusPedidoRepository.findByNomeStatusPedido("Suspenso").isEmpty()) {
+            StatusPedidoModel statusPedidoModel = new StatusPedidoModel();
+            statusPedidoModel.setNomeStatusPedido("Suspenso");
+            statusPedidoRepository.save(statusPedidoModel);
+        }
+
+        // Inserir tipo de cliente caso não exista
+        if (clienteRepository.findByTipoCliente("Física").isEmpty()) {
+            ClienteModel clienteModel = new ClienteModel();
+            clienteModel.setTipoCliente("Física");
+            clienteRepository.save(clienteModel);
+        }
+        if (clienteRepository.findByTipoCliente("Jurídica").isEmpty()) {
+            ClienteModel clienteModel = new ClienteModel();
+            clienteModel.setTipoCliente("Jurídica");
+            clienteRepository.save(clienteModel);
         }
 
         //Inserir funcionario fantasma (para admin) caso não exista

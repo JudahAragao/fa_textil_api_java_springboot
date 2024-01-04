@@ -36,7 +36,7 @@ public class ClientePFisicaService {
     public ClientePFisicaDto findById(Long clientPFisicaId) {
         try {
             ClientePFisicaModel clientePFisicaModel = clientePFisicaRepository.findById(clientPFisicaId).get();
-            return convertModelToDto (clientePFisicaModel);
+            return convertModelToDto(clientePFisicaModel);
         } catch (NoSuchElementException e) {
             throw new ObjectNotFoundException("Objeto não encontrado! Id: " + clientPFisicaId + "Tipo: " + ClientePFisicaModel.class.getName());
         }
@@ -143,6 +143,7 @@ public class ClientePFisicaService {
         clientePFisicaDto.setBairro(clientePFisicaModel.getBairro());
         clientePFisicaDto.setComplemento(clientePFisicaModel.getComplemento());
         clientePFisicaDto.setCep(clientePFisicaModel.getCep());
+        clientePFisicaDto.setCpf(clientePFisicaModel.getCpf());
         clientePFisicaDto.setAtivo(clientePFisicaModel.getAtivo());
         clientePFisicaDto.setDataCadastro(clientePFisicaModel.getDataCadastro());
 
