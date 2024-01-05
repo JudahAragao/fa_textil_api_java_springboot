@@ -42,8 +42,6 @@ public class FuncionarioForm {
     @Size(max = 20)
     private String bairro;
 
-    @NotEmpty
-    @NotBlank(message = "O complemento não pode estar em branco.")
     @Size(max = 50)
     private String complemento;
 
