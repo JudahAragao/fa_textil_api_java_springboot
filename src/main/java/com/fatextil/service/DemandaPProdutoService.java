@@ -62,7 +62,7 @@ public class DemandaPProdutoService {
             if (demandaPProdutoExistente.isPresent()) {
                 DemandaPProdutoModel demandaPProdutoAtualizado = demandaPProdutoExistente.get();
 
-                demandaPProdutoAtualizado.setDescricao(demandaPProdutoForm.getDescricao());
+                demandaPProdutoAtualizado.setDescricao(demandaPProdutoForm.getDescricaoDemanda());
                 demandaPProdutoAtualizado.setUnidadeMedida(demandaPProdutoForm.getUnidadeMedida());
                 demandaPProdutoAtualizado.setQtdeDemandada(demandaPProdutoForm.getQtdeDemandada());
                 demandaPProdutoAtualizado.setCustoUnitarioDemanda(demandaPProdutoForm.getCustoUnitarioDemandado());
@@ -96,7 +96,7 @@ public class DemandaPProdutoService {
                 .orElseThrow(() -> new RuntimeException("Tamanho Produto não encontrada"));
         demandaPProdutoModel.setTamanhoProdutoId(tamanhoProduto);
 
-        demandaPProdutoModel.setDescricao(demandaPProdutoForm.getDescricao());
+        demandaPProdutoModel.setDescricao(demandaPProdutoForm.getDescricaoDemanda());
         demandaPProdutoModel.setUnidadeMedida(demandaPProdutoForm.getUnidadeMedida());
         demandaPProdutoModel.setQtdeDemandada(demandaPProdutoForm.getQtdeDemandada());
         demandaPProdutoModel.setCustoUnitarioDemanda(demandaPProdutoForm.getCustoUnitarioDemandado());

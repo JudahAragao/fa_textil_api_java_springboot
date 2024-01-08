@@ -14,7 +14,7 @@ public class DemandaPProdutoForm {
     @NotEmpty
     @NotBlank(message = "A descricao não pode estar em branco.")
     @Size(max = 60)
-    private String descricao;
+    private String descricaoDemanda;
 
     @NotEmpty
     @NotBlank(message = "A unidade de medida não pode estar em branco.")
