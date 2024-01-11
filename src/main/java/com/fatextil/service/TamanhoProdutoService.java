@@ -30,14 +30,14 @@ public class TamanhoProdutoService {
         return convertListToDto(tamanhoProdutoList);
     }
 
-    public TamanhoProdutoDto findById(Long tamanhoProdutoId) {
+    public TamanhoProdutoDto findById(Long produtoId) {
         try {
-            TamanhoProdutoModel tamanhoProdutoModel = tamanhoProdutoRepository.findById(tamanhoProdutoId)
-                    .orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + tamanhoProdutoId + " Tipo: " + TamanhoProdutoModel.class.getName()));
+            TamanhoProdutoModel tamanhoProdutoModel = tamanhoProdutoRepository.findById(produtoId)
+                    .orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + produtoId + " Tipo: " + TamanhoProdutoModel.class.getName()));
 
             return convertModelToDto(tamanhoProdutoModel);
         } catch (NoSuchElementException e) {
-            throw new ObjectNotFoundException("Objeto não encontrado! Id: " + tamanhoProdutoId + " Tipo: " + TamanhoProdutoModel.class.getName());
+            throw new ObjectNotFoundException("Objeto não encontrado! Id: " + produtoId + " Tipo: " + TamanhoProdutoModel.class.getName());
         }
     }
 

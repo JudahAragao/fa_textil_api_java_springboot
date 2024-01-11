@@ -2,6 +2,7 @@ package com.fatextil.repository;
 
 import com.fatextil.model.DemandaPProdutoModel;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,7 +15,8 @@ public interface DemandaPProdutoRepository extends JpaRepository<DemandaPProduto
     List<DemandaPProdutoModel> findAll();
 
     // Exibir dados apartir do ID
-    Optional<DemandaPProdutoModel> findById(Long id);
+    @Query("SELECT d FROM DemandaPProdutoModel d WHERE d.tamanhoProdutoId.tamanhoProdutoId IN :ids")
+    List<DemandaPProdutoModel> findAllByTamanhoProdutoId(List<Long> ids);
 
 
 }

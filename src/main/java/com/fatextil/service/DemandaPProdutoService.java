@@ -32,15 +32,14 @@ public class DemandaPProdutoService {
     }
 
     // Busca no banco de dados
-    public DemandaPProdutoDto findById(Long demandaPProdutoId) {
-        try {
-            DemandaPProdutoModel demandaPProdutoModel = demandaPProdutoRepository.findById(demandaPProdutoId)
-                    .orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + demandaPProdutoId + " Tipo: " + DemandaPProdutoModel.class.getName()));
+    public List<DemandaPProdutoDto> findAllByTamanhoProdutoId(Long tamanhoProdutoId) {
+        List<DemandaPProdutoModel> demandaPProdutoModelList = demandaPProdutoRepository.findAllByTamanhoProdutoId(List.of(tamanhoProdutoId));
 
-            return convertModelToDto(demandaPProdutoModel);
-        } catch (NoSuchElementException e) {
-            throw new ObjectNotFoundException("Objeto não encontrado! Id: " + demandaPProdutoId + " Tipo: " + DemandaPProdutoModel.class.getName());
+        if (demandaPProdutoModelList.isEmpty()) {
+            throw new ObjectNotFoundException("Nenhum objeto encontrado para o ID: " + tamanhoProdutoId + " Tipo: " + DemandaPProdutoModel.class.getName());
         }
+
+        return convertListToDto(demandaPProdutoModelList);
     }
 
     // Inserção no banco de dados
@@ -100,6 +99,7 @@ public class DemandaPProdutoService {
         demandaPProdutoModel.setUnidadeMedida(demandaPProdutoForm.getUnidadeMedida());
         demandaPProdutoModel.setQtdeDemandada(demandaPProdutoForm.getQtdeDemandada());
         demandaPProdutoModel.setCustoUnitarioDemanda(demandaPProdutoForm.getCustoUnitarioDemandado());
+        demandaPProdutoModel.setTipoDemanda(demandaPProdutoForm.getTipoDemanda());
 
         return demandaPProdutoModel;
     }
@@ -110,10 +110,11 @@ public class DemandaPProdutoService {
 
         demandaPProdutoDto.setDemandaPProdutoId(demandaPProdutoModel.getDemandaPProdutoId());
         demandaPProdutoDto.setTamanhoProdutoId(demandaPProdutoModel.getTamanhoProdutoId().getTamanhoProdutoId());
-        demandaPProdutoDto.setDescricao(demandaPProdutoModel.getDescricao());
+        demandaPProdutoDto.setDescricaoDemanda(demandaPProdutoModel.getDescricao());
         demandaPProdutoDto.setUnidadeMedida(demandaPProdutoModel.getUnidadeMedida());
         demandaPProdutoDto.setQtdeDemandada(demandaPProdutoModel.getQtdeDemandada());
         demandaPProdutoDto.setCustoUnitarioDemandado(demandaPProdutoModel.getCustoUnitarioDemanda());
+        demandaPProdutoDto.setTipoDemanda(demandaPProdutoModel.getTipoDemanda());
 
         return demandaPProdutoDto;
     }

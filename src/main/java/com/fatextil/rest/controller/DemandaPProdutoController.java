@@ -29,8 +29,8 @@ public class DemandaPProdutoController {
 
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<DemandaPProdutoDto> find(@PathVariable("id") long demandaId) {
-        DemandaPProdutoDto demandaPProdutoDto = demandaPProdutoService.findById(demandaId);
+    public ResponseEntity<List<DemandaPProdutoDto>> find(@PathVariable("id") long tamanhoProdutoId) {
+        List<DemandaPProdutoDto> demandaPProdutoDto = demandaPProdutoService.findAllByTamanhoProdutoId(tamanhoProdutoId);
         return ResponseEntity.ok().body(demandaPProdutoDto);
     }
 

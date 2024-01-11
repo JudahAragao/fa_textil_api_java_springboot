@@ -13,7 +13,7 @@ public class DemandaPProdutoDto {
 
     private Long demandaPProdutoId;
     private Long tamanhoProdutoId;
-    private String descricao;
+    private String descricaoDemanda;
     private String unidadeMedida;
     private BigDecimal qtdeDemandada;
     private BigDecimal custoUnitarioDemandado;
