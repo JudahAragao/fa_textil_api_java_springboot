@@ -1,0 +1,4 @@
+# Configuração do perfil ativo
+spring:
+    profiles:
+        active: postgres

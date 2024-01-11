@@ -21,6 +21,6 @@ public interface ClientePFisicaRepository extends JpaRepository<ClientePFisicaMo
     Optional<ClientePFisicaModel> findByComplemento(String complemento);
     Optional<ClientePFisicaModel> findByCep(String cep);
     Optional<ClientePFisicaModel> findByCpf(String cpf);
-    Optional<ClientePFisicaModel> findByAtivo(Boolean ativo);
+//    Optional<ClientePFisicaModel> findByAtivo(Byte ativo);
     Optional<ClientePFisicaModel> findByDataCadastro(LocalDate dataCadastro);
 }

@@ -29,4 +29,8 @@ public class DemandaPProdutoForm {
     @DecimalMax(value = "9999999999.99", message = "O valor deve ter no máximo 10 dígitos inteiros e 2 casas decimais.")
     private BigDecimal custoUnitarioDemandado;
 
+    @NotEmpty
+    @NotBlank(message = "O tipo de demanda não pode estar em branco.")
+    private String tipoDemanda;
+
 }

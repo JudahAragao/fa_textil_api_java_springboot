@@ -40,7 +40,7 @@ public class TerceirizadoModel {
     @Column(name = "cnpj", nullable = false, length = 14)
     private String cnpj;
 
-    @Column(name = "ativo", nullable = false, columnDefinition = "bit")
+    @Column(name = "ativo", nullable = false)
     private Byte ativo;
 
     @Column(name = "dataCadastro", nullable = false)

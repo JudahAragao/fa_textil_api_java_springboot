@@ -39,7 +39,7 @@ public class Configurations {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().cors().and().authorizeHttpRequests()
                 .antMatchers("/h2/**").permitAll()
-                .antMatchers("/swagger-ui/index.html").permitAll()
+//                .antMatchers("/swagger-ui/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
                 .antMatchers(HttpMethod.GET, "/perfilacesso/{id}").permitAll()
                 .anyRequest().authenticated()

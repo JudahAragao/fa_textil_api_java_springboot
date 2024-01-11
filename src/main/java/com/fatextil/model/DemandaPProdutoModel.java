@@ -34,4 +34,7 @@ public class DemandaPProdutoModel {
     @Column(name= "custoUnitarioDemanda", nullable = false, precision = 10, scale = 2)
     private BigDecimal custoUnitarioDemanda;
 
+    @Column(name= "tipoDemanda", nullable = false, length = 10)
+    private String tipoDemanda;
+
 }

@@ -40,7 +40,7 @@ public class FuncionarioModel {
     @Column(name = "cpf", nullable = false, length = 11)
     private String cpf;
 
-    @Column(name = "ativo", nullable = false, columnDefinition = "bit")
+    @Column(name = "ativo", nullable = false)
     private Byte ativo;
 
     @Column(name = "dataCadastro", nullable = false)

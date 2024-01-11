@@ -17,5 +17,6 @@ public class DemandaPProdutoDto {
     private String unidadeMedida;
     private BigDecimal qtdeDemandada;
     private BigDecimal custoUnitarioDemandado;
+    private String tipoDemanda;
 
 }
