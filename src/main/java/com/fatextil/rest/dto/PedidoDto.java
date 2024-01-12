@@ -23,4 +23,5 @@ public class PedidoDto {
     @JsonFormat(pattern = "HH:mm")
     private LocalTime horaPedido;
     private BigDecimal valor;
+
 }

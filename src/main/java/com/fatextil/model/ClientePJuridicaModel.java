@@ -52,10 +52,10 @@ public class ClientePJuridicaModel {
     @Column(name= "cep", nullable = false, length = 9)
     private String cep;
 
-    @Column(name= "inscricaoEstadual", length = 14)
+    @Column(name= "inscricaoEstadual", nullable = false, length = 14)
     private String inscricaoEstadual;
 
-    @Column(name= "inscricaoMunicipal", length = 14)
+    @Column(name= "inscricaoMunicipal", nullable = false, length = 14)
     private String inscricaoMunicipal;
 
     @Column(name= "cnpj", nullable = false, length = 14)
