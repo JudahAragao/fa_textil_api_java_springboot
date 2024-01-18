@@ -47,18 +47,18 @@ public class ClientePJuridicaController {
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_VENDEDOR')")
-    public ResponseEntity<ClientePJuridicaDto> update(@Valid @RequestBody ClientePJuridicaUpdateForm clientePJuridicaUpdateForm, @PathVariable("id") long clienteId, BindingResult br) {
+    public ResponseEntity<ClientePJuridicaDto> update(@Valid @RequestBody ClientePJuridicaUpdateForm clientePJuridicaUpdateForm, @PathVariable("id") long id, BindingResult br) {
         if (br.hasErrors())
             throw new ConstraintException(br.getAllErrors().get(0).getDefaultMessage());
 
-        ClientePJuridicaDto clientePJuridicaDto = clientePJuridicaService.update(clientePJuridicaUpdateForm, clienteId);
+        ClientePJuridicaDto clientePJuridicaDto = clientePJuridicaService.update(clientePJuridicaUpdateForm, id);
         return ResponseEntity.ok().body(clientePJuridicaDto);
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<Void> delete(@PathVariable("id") long clienteId) {
-        clientePJuridicaService.delete(clienteId);
+    public ResponseEntity<Void> delete(@PathVariable("id") long id) {
+        clientePJuridicaService.delete(id);
         return ResponseEntity.noContent().build();
     }
 

@@ -77,9 +77,9 @@ public class ClientePJuridicaService {
     }
 
     // Alteração no banco de dados
-    public ClientePJuridicaDto update(ClientePJuridicaUpdateForm clientePJuridicaUpdateForm, Long clientePJuridicaId) {
+    public ClientePJuridicaDto update(ClientePJuridicaUpdateForm clientePJuridicaUpdateForm, Long id) {
         try {
-            Optional<ClientePJuridicaModel> clientePJuridicaExistente = clientePJuridicaRepository.findById(clientePJuridicaId);
+            Optional<ClientePJuridicaModel> clientePJuridicaExistente = clientePJuridicaRepository.findById(id);
             if (clientePJuridicaExistente.isPresent()) {
                 ClientePJuridicaModel clientePJuridicaAtualizado = clientePJuridicaExistente.get();
 
@@ -133,7 +133,7 @@ public class ClientePJuridicaService {
         clientePJuridicaModel.setBairro(clientePJuridicaForm.getBairro());
         clientePJuridicaModel.setComplemento(clientePJuridicaForm.getComplemento());
         clientePJuridicaModel.setCep(clientePJuridicaForm.getCep());
-        clientePJuridicaModel.setInscricaoEstadual(clientePJuridicaForm.getInscricaoEstatual());
+        clientePJuridicaModel.setInscricaoEstadual(clientePJuridicaForm.getInscricaoEstadual());
         clientePJuridicaModel.setInscricaoMunicipal(clientePJuridicaForm.getInscricaoMunicipal());
         clientePJuridicaModel.setCnpj(clientePJuridicaForm.getCnpj());
         clientePJuridicaModel.setAtivo(clientePJuridicaForm.getAtivo());
@@ -157,7 +157,7 @@ public class ClientePJuridicaService {
         clientePJuridicaDto.setBairro(clientePJuridicaModel.getBairro());
         clientePJuridicaDto.setComplemento(clientePJuridicaModel.getComplemento());
         clientePJuridicaDto.setCep(clientePJuridicaModel.getCep());
-        clientePJuridicaDto.setInscricaoEstatual(clientePJuridicaModel.getInscricaoEstadual());
+        clientePJuridicaDto.setInscricaoEstadual(clientePJuridicaModel.getInscricaoEstadual());
         clientePJuridicaDto.setInscricaoMunicipal(clientePJuridicaModel.getInscricaoMunicipal());
         clientePJuridicaDto.setCnpj(clientePJuridicaModel.getCnpj());
         clientePJuridicaDto.setAtivo(clientePJuridicaModel.getAtivo());

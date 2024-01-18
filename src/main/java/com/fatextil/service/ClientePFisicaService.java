@@ -70,9 +70,9 @@ public class ClientePFisicaService {
     }
 
     // Alteração no banco de dados
-    public ClientePFisicaDto update(ClientePFisicaUpdateForm clientePFisicaUpdateForm, long clienteId) {
+    public ClientePFisicaDto update(ClientePFisicaUpdateForm clientePFisicaUpdateForm, long id) {
         try {
-            Optional<ClientePFisicaModel> clientePfisicaExistente = clientePFisicaRepository.findById(clienteId);
+            Optional<ClientePFisicaModel> clientePfisicaExistente = clientePFisicaRepository.findById(id);
             if (clientePfisicaExistente.isPresent()) {
                 ClientePFisicaModel clientePFisicaAtualizado = clientePfisicaExistente.get();
 

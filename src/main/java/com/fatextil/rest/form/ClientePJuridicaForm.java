@@ -63,7 +63,7 @@ public class ClientePJuridicaForm {
     private String cep;
 
     @Size(max = 14)
-    private String inscricaoEstatual;
+    private String inscricaoEstadual;
 
     @Size(max = 14)
     private String inscricaoMunicipal;

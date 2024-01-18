@@ -13,6 +13,11 @@ public class ClientePJuridicaUpdateForm {
 
     @NotEmpty
     @NotBlank(message = "A razão social não pode estar em branco.")
+    @Size(max = 100)
+    private String razaoSocial;
+
+    @NotEmpty
+    @NotBlank(message = "A razão social não pode estar em branco.")
     @Size(max = 80)
     private String representante;
 

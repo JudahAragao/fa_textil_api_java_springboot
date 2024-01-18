@@ -24,7 +24,7 @@ public class ClientePJuridicaDto {
     private String bairro;
     private String complemento;
     private String cep;
-    private String inscricaoEstatual;
+    private String inscricaoEstadual;
     private String inscricaoMunicipal;
     private String cnpj;
     private Byte ativo;
