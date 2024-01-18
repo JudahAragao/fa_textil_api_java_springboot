@@ -14,7 +14,7 @@ import java.time.LocalTime;
 @NoArgsConstructor
 public class PedidoDto {
 
-    private Long pedidoId;
+    private Long id;
     private Long clienteId;
     private Long statusPedidoId;
     private String descricao;

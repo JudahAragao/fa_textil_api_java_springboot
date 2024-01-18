@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -123,7 +122,7 @@ public class FuncionarioService {
     // Conversores de MODEL para DTO
     private FuncionarioDto convertModelToDto(FuncionarioModel funcionarioModel) {
         FuncionarioDto funcionarioDto = new FuncionarioDto();
-        funcionarioDto.setFuncionarioId(funcionarioModel.getFuncionarioId());
+        funcionarioDto.setId(funcionarioModel.getFuncionarioId());
         funcionarioDto.setNome(funcionarioModel.getNome());
         funcionarioDto.setTelefone(funcionarioModel.getTelefone());
         funcionarioDto.setEmail(funcionarioModel.getEmail());

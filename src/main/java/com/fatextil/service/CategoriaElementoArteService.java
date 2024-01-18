@@ -2,10 +2,8 @@ package com.fatextil.service;
 
 import com.fatextil.model.CategoriaElementoArteModel;
 import com.fatextil.model.ClientePFisicaModel;
-import com.fatextil.model.DemandaPProdutoModel;
 import com.fatextil.repository.CategoriaElementoArteRepository;
 import com.fatextil.rest.dto.CategoriaElementoArteDto;
-import com.fatextil.rest.dto.ClientePFisicaDto;
 import com.fatextil.rest.form.CategoriaElementoArteForm;
 import com.fatextil.service.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,7 +75,7 @@ public class CategoriaElementoArteService {
     // Conversores de MODEL para DTO
     public CategoriaElementoArteDto convertCategoriaModelToDto(CategoriaElementoArteModel categoriaElementoArteModel) {
         CategoriaElementoArteDto categoriaElementoArteDto = new CategoriaElementoArteDto();
-        categoriaElementoArteDto.setCategoriaElementoId(categoriaElementoArteModel.getCategoriaElementoId());
+        categoriaElementoArteDto.setId(categoriaElementoArteModel.getCategoriaElementoId());
         categoriaElementoArteDto.setNomeCategoria(categoriaElementoArteModel.getNomeCategoria());
         return categoriaElementoArteDto;
     }

@@ -102,7 +102,7 @@ public class TerceirizadoService {
 
     private TerceirizadoDto convertModelToDto(TerceirizadoModel terceirizadoModel) {
         TerceirizadoDto terceirizadoDto = new TerceirizadoDto();
-        terceirizadoDto.setTerceirizadoId(terceirizadoModel.getTerceirizadoId());
+        terceirizadoDto.setId(terceirizadoModel.getTerceirizadoId());
         terceirizadoDto.setNome(terceirizadoModel.getNome());
         terceirizadoDto.setTelefone(terceirizadoModel.getTelefone());
         terceirizadoDto.setEmail(terceirizadoModel.getEmail());

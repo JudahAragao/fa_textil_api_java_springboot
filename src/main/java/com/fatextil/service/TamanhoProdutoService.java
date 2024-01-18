@@ -99,7 +99,7 @@ public class TamanhoProdutoService {
 
     private TamanhoProdutoDto convertModelToDto(TamanhoProdutoModel tamanhoProdutoModel) {
         TamanhoProdutoDto tamanhoProdutoDto = new TamanhoProdutoDto();
-        tamanhoProdutoDto.setTamanhoProdutoId(tamanhoProdutoModel.getTamanhoProdutoId());
+        tamanhoProdutoDto.setId(tamanhoProdutoModel.getTamanhoProdutoId());
         tamanhoProdutoDto.setCodProduto(tamanhoProdutoModel.getCodProduto().getCodProduto());
         tamanhoProdutoDto.setTamanho(tamanhoProdutoModel.getTamanho());
         return tamanhoProdutoDto;

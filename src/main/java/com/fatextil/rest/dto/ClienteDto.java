@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ClienteDto {
 
-    private Long clienteId;
+    private Long id;
     private String tipoCliente;
 
 }

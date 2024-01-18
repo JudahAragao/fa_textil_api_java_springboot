@@ -145,7 +145,7 @@ public class ClientePJuridicaService {
     // Conversores de MODEL para DTO
     public ClientePJuridicaDto convertModelToDto(ClientePJuridicaModel clientePJuridicaModel) {
         ClientePJuridicaDto clientePJuridicaDto = new ClientePJuridicaDto();
-        clientePJuridicaDto.setClientePJuridicaId(clientePJuridicaModel.getClientePJuridicaId());
+        clientePJuridicaDto.setId(clientePJuridicaModel.getClientePJuridicaId());
         clientePJuridicaDto.setClienteId(clientePJuridicaModel.getClienteId().getClienteId());
         clientePJuridicaDto.setRazaoSocial(clientePJuridicaModel.getRazaoSocial());
         clientePJuridicaDto.setRepresentante(clientePJuridicaModel.getRepresentante());

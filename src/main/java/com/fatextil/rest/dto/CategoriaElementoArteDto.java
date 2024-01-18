@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CategoriaElementoArteDto {
 
-    private Long categoriaElementoId;
+    private Long id;
     private String nomeCategoria;
 
 }

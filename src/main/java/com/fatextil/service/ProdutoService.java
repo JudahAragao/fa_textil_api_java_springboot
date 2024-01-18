@@ -85,7 +85,7 @@ public class ProdutoService {
 
     private ProdutoDto convertModelToDto(ProdutoModel produtoModel) {
         ProdutoDto produtoDto = new ProdutoDto();
-        produtoDto.setProdutoId(produtoModel.getCodProduto());
+        produtoDto.setId(produtoModel.getCodProduto());
         produtoDto.setDescricaoProduto(produtoModel.getDescricao());
         produtoDto.setValorProduto(produtoModel.getValorProduto());
         return produtoDto;

@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -108,7 +107,7 @@ public class DemandaPProdutoService {
     public DemandaPProdutoDto convertModelToDto(DemandaPProdutoModel demandaPProdutoModel) {
         DemandaPProdutoDto demandaPProdutoDto = new DemandaPProdutoDto();
 
-        demandaPProdutoDto.setDemandaPProdutoId(demandaPProdutoModel.getDemandaPProdutoId());
+        demandaPProdutoDto.setId(demandaPProdutoModel.getDemandaPProdutoId());
         demandaPProdutoDto.setTamanhoProdutoId(demandaPProdutoModel.getTamanhoProdutoId().getTamanhoProdutoId());
         demandaPProdutoDto.setDescricaoDemanda(demandaPProdutoModel.getDescricao());
         demandaPProdutoDto.setUnidadeMedida(demandaPProdutoModel.getUnidadeMedida());

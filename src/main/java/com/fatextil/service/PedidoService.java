@@ -112,7 +112,7 @@ public class PedidoService {
     private PedidoDto convertModelToDto(PedidoModel pedidoModel) {
         PedidoDto pedidoDto = new PedidoDto();
 
-        pedidoDto.setPedidoId(pedidoModel.getCodPedido());
+        pedidoDto.setId(pedidoModel.getCodPedido());
         pedidoDto.setClienteId(pedidoModel.getClienteId().getClienteId());
         pedidoDto.setStatusPedidoId(pedidoModel.getStatusPedidoId().getStatusPedidoId());
         pedidoDto.setDescricao(pedidoModel.getDescricao());

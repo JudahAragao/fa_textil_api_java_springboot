@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class ClientePFisicaDto {
 
-    private Long clientePFisicaId;
+    private Long id;
     private Long clienteId;
     private String nome;
     private String telefone;

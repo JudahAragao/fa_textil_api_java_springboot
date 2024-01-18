@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class DemandaPProdutoDto {
 
-    private Long demandaPProdutoId;
+    private Long id;
     private Long tamanhoProdutoId;
     private String descricaoDemanda;
     private String unidadeMedida;

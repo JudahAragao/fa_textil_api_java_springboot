@@ -133,7 +133,7 @@ public class ClientePFisicaService {
     // Conversores de MODEL para DTO
     private ClientePFisicaDto convertModelToDto(ClientePFisicaModel clientePFisicaModel) {
         ClientePFisicaDto clientePFisicaDto = new ClientePFisicaDto();
-        clientePFisicaDto.setClientePFisicaId(clientePFisicaModel.getClientePFisicaId());
+        clientePFisicaDto.setId(clientePFisicaModel.getClientePFisicaId());
         clientePFisicaDto.setClienteId(clientePFisicaModel.getClienteId().getClienteId());
         clientePFisicaDto.setNome(clientePFisicaModel.getNome());
         clientePFisicaDto.setTelefone(clientePFisicaModel.getTelefone());

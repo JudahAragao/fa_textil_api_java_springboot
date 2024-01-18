@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class FabricacaoPedidoDto {
 
-    private Long fabricacaoPedidoId;
+    private Long id;
     private Long etapasFabricacaoId;
     private Long itensPedidoId;
     private Long funcionarioId;

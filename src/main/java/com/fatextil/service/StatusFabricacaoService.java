@@ -88,7 +88,7 @@ public class StatusFabricacaoService {
 
     private StatusFabricacaoDto convertModelToDto(StatusFabricacaoModel statusFabricacaoModel) {
         StatusFabricacaoDto statusFabricacaoDto = new StatusFabricacaoDto();
-        statusFabricacaoDto.setStatusFabricacaoId(statusFabricacaoModel.getStatusFabricacaoId());
+        statusFabricacaoDto.setId(statusFabricacaoModel.getStatusFabricacaoId());
         statusFabricacaoDto.setNomeStatusFabricacao(statusFabricacaoModel.getNomeStatusFabricacao());
         return statusFabricacaoDto;
     }

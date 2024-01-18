@@ -95,7 +95,7 @@ public class EtapasFabricacaoService {
     // Conversores de MODEL para DTO
     public EtapasFabricacaoDto convertModelToDto(EtapasFabricacaoModel etapasFabricacaoModel) {
         EtapasFabricacaoDto etapasFabricacaoDto = new EtapasFabricacaoDto();
-        etapasFabricacaoDto.setEtapaFabricacaoId(etapasFabricacaoModel.getEtapasFabricacaoId());
+        etapasFabricacaoDto.setId(etapasFabricacaoModel.getEtapasFabricacaoId());
         etapasFabricacaoDto.setNomeEtapa(etapasFabricacaoModel.getNomeEtapa());
         return etapasFabricacaoDto;
     }

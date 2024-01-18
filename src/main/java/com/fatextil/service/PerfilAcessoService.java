@@ -1,6 +1,5 @@
 package com.fatextil.service;
 
-import com.fatextil.model.ClientePJuridicaModel;
 import com.fatextil.model.PerfilAcessoModel;
 import com.fatextil.repository.PerfilAcessoRepository;
 import com.fatextil.rest.dto.PerfilAcessoDto;
@@ -94,7 +93,7 @@ public class PerfilAcessoService {
     // Conversores de MODEL para DTO
     private PerfilAcessoDto convertModelToDto(PerfilAcessoModel perfilAcessoModel) {
         PerfilAcessoDto perfilAcessoDto = new PerfilAcessoDto();
-        perfilAcessoDto.setPerfilAcessoId(perfilAcessoModel.getPerfilAcessoId());
+        perfilAcessoDto.setId(perfilAcessoModel.getPerfilAcessoId());
         perfilAcessoDto.setNomePerfilAcesso(perfilAcessoModel.getNomePerfilAcesso());
         return perfilAcessoDto;
     }

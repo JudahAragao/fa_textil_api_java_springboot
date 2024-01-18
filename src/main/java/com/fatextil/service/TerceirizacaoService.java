@@ -120,7 +120,7 @@ public class TerceirizacaoService {
 
     private TerceirizacaoDto convertModelToDto(TerceirizacaoModel terceirizacaoModel) {
         TerceirizacaoDto terceirizacaoDto = new TerceirizacaoDto();
-        terceirizacaoDto.setTerceirizacaoId(terceirizacaoModel.getTerceirizacaoId());
+        terceirizacaoDto.setId(terceirizacaoModel.getTerceirizacaoId());
         terceirizacaoDto.setTerceirizadoId(terceirizacaoModel.getTerceirizadoId().getTerceirizadoId());
         terceirizacaoDto.setFabricacaoPedidoId(terceirizacaoModel.getFabricacaoPedidoId().getFabricacaoPedidoId());
         terceirizacaoDto.setDataEnvio(terceirizacaoModel.getDataEnvio());

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PerfilAcessoDto {
 
-    private Long perfilAcessoId;
+    private Long id;
     private String nomePerfilAcesso;
 
 }

@@ -97,7 +97,7 @@ public class ClienteService {
     // Conversores de MODEL para DTO
     private ClienteDto convertClienteModelToClienteDto(ClienteModel clienteModel) {
         ClienteDto clienteDto = new ClienteDto();
-        clienteDto.setClienteId(clienteModel.getClienteId());
+        clienteDto.setId(clienteModel.getClienteId());
         clienteDto.setTipoCliente(clienteModel.getTipoCliente());
 
         return clienteDto;

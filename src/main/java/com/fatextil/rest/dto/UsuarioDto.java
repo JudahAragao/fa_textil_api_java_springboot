@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UsuarioDto {
 
-    private Long usuarioId;
+    private Long id;
     private Long perfilAcessoId;
     private Long funcionarioId;
     private String login;

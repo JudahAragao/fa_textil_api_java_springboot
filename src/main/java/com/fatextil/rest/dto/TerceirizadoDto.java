@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class TerceirizadoDto {
 
-    private Long terceirizadoId;
+    private Long id;
     private String nome;
     private String telefone;
     private String email;

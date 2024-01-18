@@ -88,7 +88,7 @@ public class StatusPedidoService {
 
     private StatusPedidoDto convertModelToDto(StatusPedidoModel statusPedidoModel) {
         StatusPedidoDto statusPedidoDto = new StatusPedidoDto();
-        statusPedidoDto.setStatusPedidoId(statusPedidoModel.getStatusPedidoId());
+        statusPedidoDto.setId(statusPedidoModel.getStatusPedidoId());
         statusPedidoDto.setNomeStatusPedido(statusPedidoModel.getNomeStatusPedido());
         return statusPedidoDto;
     }

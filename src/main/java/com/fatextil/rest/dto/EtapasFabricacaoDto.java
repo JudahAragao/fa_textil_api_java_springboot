@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class EtapasFabricacaoDto {
 
-    private Long etapaFabricacaoId;
+    private Long id;
     private String nomeEtapa;
 
 }

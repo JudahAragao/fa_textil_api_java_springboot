@@ -13,7 +13,7 @@ import java.time.LocalTime;
 @NoArgsConstructor
 public class TerceirizacaoDto {
 
-    private Long terceirizacaoId;
+    private Long id;
     private Long fabricacaoPedidoId;
     private Long terceirizadoId;
     @JsonFormat(pattern = "dd/MM/yyyy")

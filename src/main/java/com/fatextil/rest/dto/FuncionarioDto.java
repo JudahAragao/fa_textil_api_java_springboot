@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class FuncionarioDto {
 
-    private Long funcionarioId;
+    private Long id;
     private String nome;
     private String telefone;
     private String email;

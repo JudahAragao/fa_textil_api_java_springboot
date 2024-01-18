@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class StatusPedidoDto {
 
-    private Long statusPedidoId;
+    private Long id;
     private String nomeStatusPedido;
 
 }

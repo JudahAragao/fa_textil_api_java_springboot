@@ -119,7 +119,7 @@ public class UsuarioService {
 
     private UsuarioDto convertModelToDto(UsuarioModel usuarioModel) {
         UsuarioDto usuarioDto = new UsuarioDto();
-        usuarioDto.setUsuarioId(usuarioModel.getUsuarioId());
+        usuarioDto.setId(usuarioModel.getUsuarioId());
         usuarioDto.setPerfilAcessoId(usuarioModel.getPerfilAcessoId().getPerfilAcessoId());
         usuarioDto.setFuncionarioId(usuarioModel.getFuncionarioId().getFuncionarioId());
         usuarioDto.setLogin(usuarioModel.getLogin());

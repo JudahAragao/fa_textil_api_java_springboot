@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class ClientePJuridicaDto {
 
-    private Long clientePJuridicaId;
+    private Long id;
     private Long clienteId;
     private String razaoSocial;
     private String representante;

@@ -122,7 +122,7 @@ public class FabricacaoPedidoService {
     public FabricacaoPedidoDto convertModelToDto(FabricacaoPedidoModel fabricacaoPedidoModel) {
         FabricacaoPedidoDto fabricacaoPedidoDto = new FabricacaoPedidoDto();
 
-        fabricacaoPedidoDto.setFabricacaoPedidoId(fabricacaoPedidoModel.getFabricacaoPedidoId());
+        fabricacaoPedidoDto.setId(fabricacaoPedidoModel.getFabricacaoPedidoId());
         fabricacaoPedidoDto.setEtapasFabricacaoId(fabricacaoPedidoModel.getEtapasFabricacaoId().getEtapasFabricacaoId());
         fabricacaoPedidoDto.setItensPedidoId(fabricacaoPedidoModel.getItensPedidoId().getItensPedidoId());
         fabricacaoPedidoDto.setFuncionarioId(fabricacaoPedidoModel.getFuncionarioId().getFuncionarioId());

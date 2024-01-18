@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TamanhoProdutoDto {
 
-    private Long tamanhoProdutoId;
+    private Long id;
     private Long codProduto;
     private String tamanho;
 

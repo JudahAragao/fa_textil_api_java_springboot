@@ -112,7 +112,7 @@ public class ItensPedidoService {
     private ItensPedidoDto convertModelToDto(ItensPedidoModel itensPedidoModel) {
         ItensPedidoDto itensPedidoDto = new ItensPedidoDto();
 
-        itensPedidoDto.setItensPedidoId(itensPedidoModel.getItensPedidoId());
+        itensPedidoDto.setId(itensPedidoModel.getItensPedidoId());
         itensPedidoDto.setCodPedido(itensPedidoModel.getCodPedido().getCodPedido());
         itensPedidoDto.setCodProduto(itensPedidoModel.getCodProduto().getCodProduto());
         itensPedidoDto.setDescricao(itensPedidoModel.getDescricao());
