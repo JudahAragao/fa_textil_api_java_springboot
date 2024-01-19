@@ -1,6 +1,7 @@
 package com.fatextil.rest.controller;
 
 import com.fatextil.rest.dto.ProdutoDto;
+import com.fatextil.rest.dto.ProdutoTamanhoDemandaDto;
 import com.fatextil.rest.form.ProdutoForm;
 import com.fatextil.service.ProdutoService;
 import com.fatextil.service.exceptions.ConstraintException;
@@ -32,6 +33,12 @@ public class ProdutoController {
     public ResponseEntity<ProdutoDto> find(@PathVariable("id") long produtoId) {
         ProdutoDto produtoDto = produtoService.findById(produtoId);
         return ResponseEntity.ok().body(produtoDto);
+    }
+
+    @GetMapping("/comtamanho")
+    public ResponseEntity<List<ProdutoTamanhoDemandaDto>> findAllProdutosWithTamanho() {
+        List<ProdutoTamanhoDemandaDto> produtoTamanhoDemandaDto = produtoService.findAllProdutosWithTamanho();
+        return ResponseEntity.ok().body(produtoTamanhoDemandaDto);
     }
 
     @PostMapping

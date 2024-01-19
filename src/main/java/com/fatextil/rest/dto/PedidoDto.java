@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -15,13 +14,13 @@ import java.time.LocalTime;
 public class PedidoDto {
 
     private Long id;
-    private Long clienteId;
+    private Long clientePJuridicaId;
+    private Long clientePFisicaId;
     private Long statusPedidoId;
     private String descricao;
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataPedido;
     @JsonFormat(pattern = "HH:mm")
     private LocalTime horaPedido;
-    private BigDecimal valor;
 
 }

@@ -22,7 +22,6 @@ public class ItensPedidoForm {
     @NotNull(message = "A quantidade não pode estar em branco.")
     private Integer qtde;
 
-    @NotEmpty
     @Size(max = 255)
     private String observacao;
 }

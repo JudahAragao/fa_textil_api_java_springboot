@@ -41,6 +41,7 @@ public class Configurations {
                 .antMatchers("/h2/**").permitAll()
 //                .antMatchers("/swagger-ui/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
+                .antMatchers(HttpMethod.GET, "/token/{token}").permitAll()
                 .antMatchers(HttpMethod.GET, "/perfilacesso/{id}").permitAll()
                 .anyRequest().authenticated()
                 .and()

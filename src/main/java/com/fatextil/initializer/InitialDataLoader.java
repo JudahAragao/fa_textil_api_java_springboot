@@ -19,21 +19,29 @@ public class InitialDataLoader implements ApplicationRunner {
     private final UsuarioRepository usuarioRepository;
     private final FuncionarioRepository funcionarioRepository;
     private final StatusPedidoRepository statusPedidoRepository;
+    private final StatusFabricacaoRepository statusFabricacaoRepository;
+    private final EtapasFabricacaoRepository etapasFabricacaoRepository;
+    private final CategoriaElementoArteRepository categoriaElementoArteRepository;
     private final ClienteRepository clienteRepository;
 
     @Autowired
-    public InitialDataLoader(PerfilAcessoRepository perfilAcessoRepository,
-                             UsuarioRepository usuarioRepository,
-                             FuncionarioRepository funcionarioRepository,
-                             StatusPedidoRepository statusPedidoRepository,
-                             ClienteRepository clienteRepository) {
-
+    public InitialDataLoader(
+            PerfilAcessoRepository perfilAcessoRepository,
+            UsuarioRepository usuarioRepository,
+            FuncionarioRepository funcionarioRepository,
+            StatusPedidoRepository statusPedidoRepository,
+            StatusFabricacaoRepository statusFabricacaoRepository,
+            EtapasFabricacaoRepository etapasFabricacaoRepository,
+            CategoriaElementoArteRepository categoriaElementoArteRepository,
+            ClienteRepository clienteRepository) {
         this.perfilAcessoRepository = perfilAcessoRepository;
         this.usuarioRepository = usuarioRepository;
         this.funcionarioRepository = funcionarioRepository;
         this.statusPedidoRepository = statusPedidoRepository;
+        this.statusFabricacaoRepository = statusFabricacaoRepository;
+        this.etapasFabricacaoRepository = etapasFabricacaoRepository;
+        this.categoriaElementoArteRepository = categoriaElementoArteRepository;
         this.clienteRepository = clienteRepository;
-
     }
 
     @Override
@@ -77,6 +85,72 @@ public class InitialDataLoader implements ApplicationRunner {
             StatusPedidoModel statusPedidoModel = new StatusPedidoModel();
             statusPedidoModel.setNomeStatusPedido("Suspenso");
             statusPedidoRepository.save(statusPedidoModel);
+        }
+
+        // Inserir status de etapa fabricacao padrão caso não existam
+        if (statusFabricacaoRepository.findByNomeStatusFabricacao("Concluído").isEmpty()) {
+            StatusFabricacaoModel statusFabricacaoModel = new StatusFabricacaoModel();
+            statusFabricacaoModel.setNomeStatusFabricacao("Concluído");
+            statusFabricacaoRepository.save(statusFabricacaoModel);
+        }
+        if (statusFabricacaoRepository.findByNomeStatusFabricacao("Andamento").isEmpty()) {
+            StatusFabricacaoModel statusFabricacaoModel = new StatusFabricacaoModel();
+            statusFabricacaoModel.setNomeStatusFabricacao("Andamento");
+            statusFabricacaoRepository.save(statusFabricacaoModel);
+        }
+        if (statusFabricacaoRepository.findByNomeStatusFabricacao("Pendentes").isEmpty()) {
+            StatusFabricacaoModel statusFabricacaoModel = new StatusFabricacaoModel();
+            statusFabricacaoModel.setNomeStatusFabricacao("Pendentes");
+            statusFabricacaoRepository.save(statusFabricacaoModel);
+        }
+        if (statusFabricacaoRepository.findByNomeStatusFabricacao("Suspenso").isEmpty()) {
+            StatusFabricacaoModel statusFabricacaoModel = new StatusFabricacaoModel();
+            statusFabricacaoModel.setNomeStatusFabricacao("Suspenso");
+            statusFabricacaoRepository.save(statusFabricacaoModel);
+        }
+
+        // Inserir etapa fabricacao padrão caso não existam
+        if (etapasFabricacaoRepository.findByNomeEtapa("Corte").isEmpty()) {
+            EtapasFabricacaoModel etapasFabricacaoModel = new EtapasFabricacaoModel();
+            etapasFabricacaoModel.setNomeEtapa("Corte");
+            etapasFabricacaoRepository.save(etapasFabricacaoModel);
+        }
+        if (etapasFabricacaoRepository.findByNomeEtapa("Costura").isEmpty()) {
+            EtapasFabricacaoModel etapasFabricacaoModel = new EtapasFabricacaoModel();
+            etapasFabricacaoModel.setNomeEtapa("Costura");
+            etapasFabricacaoRepository.save(etapasFabricacaoModel);
+        }
+        if (etapasFabricacaoRepository.findByNomeEtapa("Modelagem").isEmpty()) {
+            EtapasFabricacaoModel etapasFabricacaoModel = new EtapasFabricacaoModel();
+            etapasFabricacaoModel.setNomeEtapa("Modelagem");
+            etapasFabricacaoRepository.save(etapasFabricacaoModel);
+        }
+        if (etapasFabricacaoRepository.findByNomeEtapa("Terceirizado").isEmpty()) {
+            EtapasFabricacaoModel etapasFabricacaoModel = new EtapasFabricacaoModel();
+            etapasFabricacaoModel.setNomeEtapa("Terceirizado");
+            etapasFabricacaoRepository.save(etapasFabricacaoModel);
+        }
+        if (etapasFabricacaoRepository.findByNomeEtapa("Embalagem").isEmpty()) {
+            EtapasFabricacaoModel etapasFabricacaoModel = new EtapasFabricacaoModel();
+            etapasFabricacaoModel.setNomeEtapa("Embalagem");
+            etapasFabricacaoRepository.save(etapasFabricacaoModel);
+        }
+
+        // Inserir categorias de elementos de arte padrão caso não existam
+        if (categoriaElementoArteRepository.findByNomeCategoria("Exemplo").isEmpty()) {
+            CategoriaElementoArteModel categoriaElementoArteModel = new CategoriaElementoArteModel();
+            categoriaElementoArteModel.setNomeCategoria("Exemplo");
+            categoriaElementoArteRepository.save(categoriaElementoArteModel);
+        }
+        if (categoriaElementoArteRepository.findByNomeCategoria("Para Arte").isEmpty()) {
+            CategoriaElementoArteModel categoriaElementoArteModel = new CategoriaElementoArteModel();
+            categoriaElementoArteModel.setNomeCategoria("Para Arte");
+            categoriaElementoArteRepository.save(categoriaElementoArteModel);
+        }
+        if (categoriaElementoArteRepository.findByNomeCategoria("Retor. Arte").isEmpty()) {
+            CategoriaElementoArteModel categoriaElementoArteModel = new CategoriaElementoArteModel();
+            categoriaElementoArteModel.setNomeCategoria("Retor. Arte");
+            categoriaElementoArteRepository.save(categoriaElementoArteModel);
         }
 
         // Inserir tipo de cliente caso não exista

@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
+
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -18,11 +18,11 @@ public class PedidoModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long codPedido;
 
-    @ManyToOne
-    @JoinColumn(name = "clienteId", nullable = false)
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-    @JsonIdentityReference(alwaysAsId = true)
-    private ClienteModel clienteId;
+    @Column(name = "clientePJuridicaId")
+    private Long clientePJuridicaId;
+
+    @Column(name = "clientePFisicaId")
+    private Long clientePFisicaId;
 
     @ManyToOne
     @JoinColumn(name = "statusPedidoId", nullable = false)
@@ -39,6 +39,4 @@ public class PedidoModel {
     @Column(name = "horaPedido", nullable = false)
     private LocalTime horaPedido;
 
-    @Column(name = "valorPedido", nullable = false, precision = 20, scale = 2)
-    private BigDecimal valorPedido;
 }

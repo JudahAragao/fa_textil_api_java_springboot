@@ -1,12 +1,9 @@
 package com.fatextil.service;
 
-import com.fatextil.model.ClienteModel;
-import com.fatextil.model.PedidoModel;
-import com.fatextil.model.StatusPedidoModel;
-import com.fatextil.repository.ClienteRepository;
-import com.fatextil.repository.PedidoRepository;
-import com.fatextil.repository.StatusPedidoRepository;
+import com.fatextil.model.*;
+import com.fatextil.repository.*;
 import com.fatextil.rest.dto.PedidoDto;
+import com.fatextil.rest.dto.PedidoStatusClienteDto;
 import com.fatextil.rest.form.PedidoForm;
 import com.fatextil.rest.form.PedidoUpdateForm;
 import com.fatextil.service.exceptions.DataIntegrityException;
@@ -26,7 +23,9 @@ public class PedidoService {
     @Autowired
     private PedidoRepository pedidoRepository;
     @Autowired
-    private ClienteRepository clienteRepository;
+    private ClientePJuridicaRepository clientePJuridicaRepository;
+    @Autowired
+    private ClientePFisicaRepository clientePFisicaRepository;
     @Autowired
     private StatusPedidoRepository statusPedidoRepository;
 
@@ -34,6 +33,10 @@ public class PedidoService {
     public List<PedidoDto> findAll() {
         List<PedidoModel> pedidoList = pedidoRepository.findAll();
         return convertListToDto(pedidoList);
+    }
+
+    public List<PedidoStatusClienteDto> getAllPedidosDTO() {
+        return pedidoRepository.findAllPedidosStatusTamanho();
     }
 
     // Busca no banco de dados
@@ -65,7 +68,6 @@ public class PedidoService {
             if (pedidoExistente.isPresent()) {
                 PedidoModel pedidoAtualizado = pedidoExistente.get();
                 pedidoAtualizado.setDescricao(pedidoUpdateForm.getDescricao());
-                pedidoAtualizado.setValorPedido(pedidoUpdateForm.getValor());
                 pedidoRepository.save(pedidoAtualizado);
                 return convertModelToDto(pedidoAtualizado);
             } else {
@@ -91,19 +93,16 @@ public class PedidoService {
     private PedidoModel convertFormToModel(PedidoForm pedidoForm) {
         PedidoModel pedidoModel = new PedidoModel();
 
-        // Defina os relacionamentos para ClienteModel e StatusPedidoModel
-        ClienteModel cliente = clienteRepository.findById(pedidoForm.getClienteId())
-                .orElseThrow(() -> new RuntimeException("Perfil de acesso não encontrado"));
-        pedidoModel.setClienteId(cliente);
+        pedidoModel.setClientePJuridicaId(pedidoForm.getClientePJuridicaId());
+        pedidoModel.setClientePFisicaId(pedidoForm.getClientePFisicaId());
 
-        StatusPedidoModel statusPedido = statusPedidoRepository.findById(pedidoForm.getClienteId())
+        StatusPedidoModel statusPedido = statusPedidoRepository.findById(pedidoForm.getStatusPedidoId())
                 .orElseThrow(() -> new RuntimeException("Perfil de acesso não encontrado"));
         pedidoModel.setStatusPedidoId(statusPedido);
 
         pedidoModel.setDescricao(pedidoForm.getDescricao());
         pedidoModel.setDataPedido(pedidoForm.getDataPedido());
         pedidoModel.setHoraPedido(pedidoForm.getHoraPedido());
-        pedidoModel.setValorPedido(pedidoForm.getValor());
 
         return pedidoModel;
     }
@@ -113,12 +112,12 @@ public class PedidoService {
         PedidoDto pedidoDto = new PedidoDto();
 
         pedidoDto.setId(pedidoModel.getCodPedido());
-        pedidoDto.setClienteId(pedidoModel.getClienteId().getClienteId());
+        pedidoDto.setClientePJuridicaId(pedidoModel.getClientePJuridicaId());
+        pedidoDto.setClientePFisicaId(pedidoModel.getClientePFisicaId());
         pedidoDto.setStatusPedidoId(pedidoModel.getStatusPedidoId().getStatusPedidoId());
         pedidoDto.setDescricao(pedidoModel.getDescricao());
         pedidoDto.setDataPedido(pedidoModel.getDataPedido());
         pedidoDto.setHoraPedido(pedidoModel.getHoraPedido());
-        pedidoDto.setValor(pedidoModel.getValorPedido());
 
         return pedidoDto;
     }

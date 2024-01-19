@@ -3,6 +3,7 @@ package com.fatextil.service;
 import com.fatextil.model.ProdutoModel;
 import com.fatextil.repository.ProdutoRepository;
 import com.fatextil.rest.dto.ProdutoDto;
+import com.fatextil.rest.dto.ProdutoTamanhoDemandaDto;
 import com.fatextil.rest.form.ProdutoForm;
 import com.fatextil.service.exceptions.DataIntegrityException;
 import com.fatextil.service.exceptions.ObjectNotFoundException;
@@ -24,6 +25,10 @@ public class ProdutoService {
     public List<ProdutoDto> findAll() {
         List<ProdutoModel> produtoList = produtoRepository.findAll();
         return convertListToDto(produtoList);
+    }
+
+    public List<ProdutoTamanhoDemandaDto> findAllProdutosWithTamanho() {
+        return produtoRepository.findAllProdutosWithTamanho();
     }
 
     public ProdutoDto findById(Long produtoId) {

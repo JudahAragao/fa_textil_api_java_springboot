@@ -1,6 +1,7 @@
 package com.fatextil.rest.controller;
 
 import com.fatextil.rest.dto.PedidoDto;
+import com.fatextil.rest.dto.PedidoStatusClienteDto;
 import com.fatextil.rest.form.PedidoForm;
 import com.fatextil.rest.form.PedidoUpdateForm;
 import com.fatextil.service.PedidoService;
@@ -33,6 +34,11 @@ public class PedidoController {
     public ResponseEntity<PedidoDto> find(@PathVariable("id") long pedidoId) {
         PedidoDto pedidoDto = pedidoService.findById(pedidoId);
         return ResponseEntity.ok().body(pedidoDto);
+    }
+
+    @GetMapping("/pedidostatuscliente")
+    public List<PedidoStatusClienteDto> getAllPedidosDTO() {
+        return pedidoService.getAllPedidosDTO();
     }
 
     @PostMapping

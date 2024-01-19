@@ -33,6 +33,6 @@ public class ItensPedidoModel {
     @Column(name = "qtde", nullable = false)
     private Integer qtde;
 
-    @Column(name = "observacao", nullable = false, columnDefinition = "VARCHAR(255)")
+    @Column(name = "observacao", columnDefinition = "VARCHAR(255)")
     private String observacao;
 }

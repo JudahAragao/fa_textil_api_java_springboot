@@ -16,4 +16,5 @@ public interface CategoriaElementoArteRepository extends JpaRepository<Categoria
     // Exibir dados apartir do ID
     Optional<CategoriaElementoArteModel> findById(Long id);
 
+    Optional<CategoriaElementoArteModel> findByNomeCategoria(String nomeCategoria);
 }
